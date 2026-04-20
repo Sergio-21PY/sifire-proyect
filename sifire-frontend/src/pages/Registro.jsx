@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import '../assets/Registro.css'
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { registrarUsuario } from '../services/usuario.service'; // Importamos el servicio
+import '../assets/Registro.css';
 
 export default function Registro() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     nombre: '',
@@ -11,47 +12,63 @@ export default function Registro() {
     telefono: '',
     password: '',
     confirmar_password: '',
-  })
+  });
 
-  const [errors, setErrors]   = useState({})
-  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [registroError, setRegistroError] = useState(''); // Estado para errores del backend
 
   const validate = () => {
-    const e = {}
-    if (!form.nombre.trim())
-      e.nombre = 'El nombre es requerido.'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      e.email = 'Ingresa un correo válido.'
-    if (form.telefono && !/^\+?56?[\s-]?9[\s-]?\d{4}[\s-]?\d{4}$/.test(form.telefono))
-      e.telefono = 'Formato inválido. Ej: +56 9 1234 5678'
-    if (form.password.length < 8)
-      e.password = 'Mínimo 8 caracteres.'
-    if (form.password !== form.confirmar_password)
-      e.confirmar_password = 'Las contraseñas no coinciden.'
-    return e
-  }
+    const e = {};
+    if (!form.nombre.trim()) e.nombre = 'El nombre es requerido.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Ingresa un correo válido.';
+    if (form.telefono && !/^\+?56?[\s-]?9[\s-]?\d{4}[\s-]?\d{4}$/.test(form.telefono)) e.telefono = 'Formato inválido. Ej: +56 9 1234 5678';
+    if (form.password.length < 8) e.password = 'Mínimo 8 caracteres.';
+    if (form.password !== form.confirmar_password) e.confirmar_password = 'Las contraseñas no coinciden.';
+    return e;
+  };
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm(prev => ({ ...prev, [name]: value }))
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }))
-  }
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+    if (registroError) setRegistroError('');
+  };
 
-  // TODO: conectar con POST /bff/usuarios/crear  → rol CIUDADANO fijo desde el backend
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const validationErrors = validate()
+    const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
-      return
+      setErrors(validationErrors);
+      return;
     }
 
-    setLoading(true)
-    await new Promise(r => setTimeout(r, 800))
-    setLoading(false)
-    navigate('/login', { state: { registrado: true } })
-  }
+    setLoading(true);
+    setRegistroError('');
+
+    try {
+      // Creamos el objeto de usuario para enviar al backend
+      const nuevoUsuario = {
+        nombre: form.nombre,
+        email: form.email,
+        password: form.password,
+        // El backend debería asignar el rol 'CIUDADANO' por defecto
+      };
+
+      await registrarUsuario(nuevoUsuario);
+
+      // Si el registro es exitoso, redirigimos al login con un mensaje
+      navigate('/login', { state: { registrado: true } });
+
+    } catch (error) {
+      // Si el servicio lanza un error, lo mostramos
+      setRegistroError(error.message || 'No se pudo completar el registro. Inténtelo de nuevo.');
+      console.error("Error en el registro:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="sifire-registro-page">
@@ -64,11 +81,15 @@ export default function Registro() {
               <p className="text-muted small">
                 Sistema de Gestión de Emergencias — Municipalidad Valle del Sol
               </p>
-              {/* rol asignado automáticamente como CIUDADANO */}
             </div>
 
-            <form onSubmit={handleSubmit} noValidate>
+            {registroError && (
+              <div className="alert alert-danger py-2 small text-center" role="alert">
+                {registroError}
+              </div>
+            )}
 
+            <form onSubmit={handleSubmit} noValidate>
               <div className="mb-3">
                 <label htmlFor="nombre" className="form-label small fw-semibold">
                   Nombre completo
@@ -152,7 +173,6 @@ export default function Registro() {
                   : 'Crear cuenta'
                 }
               </button>
-
             </form>
 
             <p className="text-center text-muted small mt-4">
@@ -166,5 +186,5 @@ export default function Registro() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,73 +1,67 @@
-import { useState } from 'react'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-
-const USUARIOS_DEMO = [
-  { email: 'ciudadano@demo.cl',   password: '12345678', tipo: 'CIUDADANO',   nombre: 'María González' },
-  { email: 'brigadista@demo.cl',  password: '12345678', tipo: 'BRIGADISTA',  nombre: 'Carlos Rojas'   },
-  { email: 'funcionario@demo.cl', password: '12345678', tipo: 'FUNCIONARIO', nombre: 'Ana Martínez'   },
-]
+import { useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const RUTA_POR_ROL = {
   CIUDADANO:   '/reportes',
   BRIGADISTA:  '/mis-asignaciones',
   FUNCIONARIO: '/dashboard',
-}
+  // Añade un rol por defecto por si el usuario no tiene un rol esperado
+  DEFAULT: '/dashboard' 
+};
 
 export default function Login() {
-  const { login } = useAuth()
-  const navigate   = useNavigate()
-  const location   = useLocation()
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [form, setForm]             = useState({ email: '', password: '' })
-  const [errors, setErrors]         = useState({})
-  const [loading, setLoading]       = useState(false)
-  const [loginError, setLoginError] = useState('')
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
-  const registradoOk = location.state?.registrado
+  const registradoOk = location.state?.registrado;
 
   const validate = () => {
-    const e = {}
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      e.email = 'Ingresa un correo válido.'
-    if (!form.password)
-      e.password = 'La contraseña es requerida.'
-    return e
-  }
+    const e = {};
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Ingresa un correo válido.';
+    if (!form.password) e.password = 'La contraseña es requerida.';
+    return e;
+  };
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm(prev => ({ ...prev, [name]: value }))
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }))
-    if (loginError)   setLoginError('')
-  }
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+    if (loginError) setLoginError('');
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const validationErrors = validate()
+    const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
-      return
+      setErrors(validationErrors);
+      return;
     }
 
-    setLoading(true)
-    await new Promise(r => setTimeout(r, 700))
+    setLoading(true);
+    setLoginError('');
 
-    const resultado = login(form.email, form.password)
+    try {
+      const usuarioLogueado = await login(form.email, form.password);
+      
+      // Determinar la ruta de redirección
+      const ruta = RUTA_POR_ROL[usuarioLogueado.rol] || RUTA_POR_ROL.DEFAULT;
+      navigate(ruta);
 
-    setLoading(false)
-
-    if (!resultado.ok) {
-      setLoginError(resultado.mensaje)
-      return
+    } catch (error) {
+      // El error lanzado desde el contexto es atrapado aquí
+      setLoginError(error.message || 'Error al iniciar sesión. Revisa tus credenciales.');
+    } finally {
+      setLoading(false);
     }
-
-   
-    const usuario = resultado.usuario
-    sessionStorage.setItem('usuario', JSON.stringify(usuario))
-    navigate(RUTA_POR_ROL[usuario.rol])  
-  } 
+  };
 
   return (
     <div className="sifire-login-page min-vh-100 d-flex align-items-center bg-light">
@@ -98,7 +92,6 @@ export default function Login() {
             <div className="card border-0 shadow-sm">
               <div className="card-body p-4">
                 <form onSubmit={handleSubmit} noValidate>
-
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label small fw-semibold">
                       Correo electrónico
@@ -137,29 +130,7 @@ export default function Login() {
                       : 'Ingresar'
                     }
                   </button>
-
                 </form>
-              </div>
-            </div>
-
-            <div className="mt-3 p-3 bg-white rounded-3 border border-secondary-subtle">
-              <p className="text-muted small text-center mb-2 fw-semibold">
-                Accesos rápidos (demo)
-              </p>
-              <div className="d-flex flex-column gap-1">
-                {USUARIOS_DEMO.map(u => (
-                  <button
-                    key={u.tipo}
-                    type="button"
-                    className="btn btn-outline-secondary btn-sm text-start py-1"
-                    onClick={() => setForm({ email: u.email, password: u.password })}
-                  >
-                    {u.tipo === 'CIUDADANO'   && '👤'}
-                    {u.tipo === 'BRIGADISTA'  && '🧯'}
-                    {u.tipo === 'FUNCIONARIO' && '🏛️'}
-                    {' '}{u.nombre} — <span className="text-muted">{u.email}</span>
-                  </button>
-                ))}
               </div>
             </div>
 
@@ -174,5 +145,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}
