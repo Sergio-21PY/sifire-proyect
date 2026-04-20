@@ -13,6 +13,7 @@ import java.util.List;
 @SpringBootApplication
 public class SifireBackendApplication {
 
+    // TEMPORAL HASTA QUE TENGAMOS LA BD, ES SOLO DE PRUEBA!
     public static void main(String[] args) {
         SpringApplication.run(SifireBackendApplication.class, args);
     }
