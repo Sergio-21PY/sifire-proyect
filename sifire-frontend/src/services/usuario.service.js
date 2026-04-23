@@ -1,5 +1,6 @@
-/*URL de la API = USUARIOS*/
-const API_URL = "http://localhost:8080/api/usuarios";
+/* URL base de la API (configurable por variable de entorno de Vite) */
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
+const API_URL = `${API_BASE_URL}/api/usuarios`;
 
 /**
  * Obtiene la lista de todos los usuarios.

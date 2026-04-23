@@ -18,14 +18,14 @@ function Footer() {
           </span>
         </div>
 
-        <nav className="sifire-footer__links" aria-label="Links del footer">
+        {/* <nav className="sifire-footer__links" aria-label="Links del footer">
           <Link to="/reportes">Reportes</Link>
           <Link to="/monitoreo">Monitoreo</Link>
           <Link to="/alertas">Alertas</Link>
-        </nav>
+        </nav> */}
 
         <p className="sifire-footer__copy">
-          © {year} SIFIRE · Chile. Todos los derechos reservados.
+          © {year} SIFIRE · Chile. Todos los derechos reservados 🔥.
         </p>
 
       </div>

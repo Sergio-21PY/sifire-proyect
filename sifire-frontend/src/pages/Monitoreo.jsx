@@ -95,7 +95,7 @@ export default function MapaIncendios() {
           </React.Fragment>
         ))}
 
-        {/* Brigadas activas — ícono 🚒 */}
+        {/* Brigadas activas — ícono */}
         {brigadasMock.map(b => (
           <Marker key={`brigada-${b.id}`} position={[b.lat, b.lng]} icon={styles.iconoBrigada}>
             <Popup><strong>{b.nombre}</strong><br />Tipo: {b.tipo}<br />Estado: {b.disponible ? '✅ Disponible' : '🔴 En operación'}</Popup>

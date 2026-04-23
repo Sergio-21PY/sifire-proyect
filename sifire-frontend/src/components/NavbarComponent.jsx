@@ -30,20 +30,20 @@ function NavbarComponent() {
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                        </li>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav ms-auto">
+                        {MAIN_ROUTES.map((route) => (
+                            <li className="nav-item" key={route.to}>
+                                <NavLink
+                                    className={({ isActive }) =>
+                                        `nav-link${isActive ? ' active fw-semibold' : ''}`
+                                    }
+                                    to={route.to}
+                                >
+                                    {route.label}
+                                </NavLink>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
