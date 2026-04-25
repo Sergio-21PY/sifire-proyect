@@ -54,11 +54,11 @@ const leyendaItems = [
 ];
 
 export default function MapaIncendios() {
-  // ✅ Fix 1: useState importado
+  //  Fix 1: useState importado
   const [centro, setCentro] = useState([-33.4944, -70.6170]);
 
   useEffect(() => {
-    // ✅ Fix 2: navigator (no navigation)
+    //  Fix 2: navigator (no navigation)
     navigator.geolocation.getCurrentPosition(
       (pos) => setCentro([pos.coords.latitude, pos.coords.longitude]),
       (err) => console.warn('No se pudo obtener ubicación, usando centro por defecto', err),
@@ -87,7 +87,7 @@ export default function MapaIncendios() {
         </div>
       </div>
 
-      {/* ✅ Fix 3: center={centro} sin doble array */}
+      {/* Fix 3: center={centro} sin doble array */}
       <MapContainer center={centro} zoom={15} style={styles.map}>
         <TileLayer
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"

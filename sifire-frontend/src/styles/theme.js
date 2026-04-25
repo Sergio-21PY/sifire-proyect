@@ -1,0 +1,17 @@
+export const C = {
+  bg:         '#0f172a',
+  surface:    '#1e293b',
+  surfaceAlt: '#263349',
+  border:     '#334155',
+  textPrimary:'#f1f5f9',
+  textMuted:  '#94a3b8',
+  red:        '#ef4444',
+  orange:     '#f97316',
+  yellow:     '#eab308',
+  green:      '#22c55e',
+  blue:       '#3b82f6',
+  shadow:     '0 4px 24px rgba(0,0,0,0.4)',
+  shadowSm:   '0 1px 8px rgba(0,0,0,0.3)',
+  radius:     '12px',
+  radiusSm:   '8px',
+};
