@@ -138,10 +138,10 @@ export const mapContainer = {
   borderRadius: '8px',
   overflow: 'hidden',
   border: '1px solid #e2e8f0',
-  height: '280px'
+  height: '450px'
 };
 export const map = {
-  height: '100%',
+  height: '450px',
   width: '100%'
 };
 
