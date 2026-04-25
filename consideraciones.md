@@ -1,3 +1,5 @@
+"dockerizar" las apis para que sea más facil su levantamiento. 
+
 que el front, pida la ubicación del usuario y asi cargue con la info. del la ubicacion.
 y que se muestre en sn joaquin.
 
