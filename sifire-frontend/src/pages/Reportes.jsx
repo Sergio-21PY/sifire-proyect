@@ -142,8 +142,11 @@ export default function Reportes() {
                 <label style={styles.label}>Ubicación del foco<span style={styles.labelSpan}>— haz click en el mapa para marcar el lugar</span></label>
                 <div style={styles.mapContainer}>
                   <MapContainer center={[-33.4897, -70.6408]} zoom={15} style={styles.map}>
-                    <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" attribution='&copy; <a href="https://carto.com/">CARTO</a>' />
-
+                    {/* <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" attribution='&copy; <a href="https://carto.com/">CARTO</a>' /> */}
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+                    />
                     <SelectorUbicacion onSeleccionar={handleUbicacion} />
                     {form.latitud && form.longitud && <Marker position={[parseFloat(form.latitud), parseFloat(form.longitud)]} icon={iconDefault} />}
                   </MapContainer>
