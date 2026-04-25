@@ -88,6 +88,20 @@ export default function Reportes() {
 
   const esFuncionario = usuario?.rol === 'FUNCIONARIO';
 
+  const [centroMapa, setCentroMapa] = useState([-33.4944, -70.6170]);
+
+  const usarMiUbicacion = () => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude.toFixed(6);
+        const lng = pos.coords.longitude.toFixed(6);
+        setCentroMapa([pos.coords.latitude, pos.coords.longitude]);
+        setForm(prev => ({ ...prev, latitud: lat, longitud: lng }));
+      },
+      () => alert('No se pudo obtener tu ubicación')
+    );
+  };
+
   return (
     <div style={styles.mainContainer}>
       {/* Header */}
@@ -140,12 +154,24 @@ export default function Reportes() {
               </div>
               <div style={styles.formGridFull}>
                 <label style={styles.label}>Ubicación del foco<span style={styles.labelSpan}>— haz click en el mapa para marcar el lugar</span></label>
+                <button type="button" onClick={usarMiUbicacion} style={{
+                  marginBottom: '0.5rem',
+                  padding: '0.5rem 1rem',
+                  background: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  fontSize: '0.9rem'
+                }}>
+                  📍 Usar mi ubicación actual
+                </button>
                 <div style={styles.mapContainer}>
-                  <MapContainer center={[-33.4897, -70.6408]} zoom={15} style={styles.map}>
-                    {/* <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" attribution='&copy; <a href="https://carto.com/">CARTO</a>' /> */}
+                  <MapContainer center={centroMapa} zoom={17} style={styles.map}>
                     <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+                      url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                      attribution="&copy; Esri"
                     />
                     <SelectorUbicacion onSeleccionar={handleUbicacion} />
                     {form.latitud && form.longitud && <Marker position={[parseFloat(form.latitud), parseFloat(form.longitud)]} icon={iconDefault} />}
@@ -187,7 +213,7 @@ export default function Reportes() {
         <table style={styles.table}>
           <thead>
             <tr style={styles.tableHeadRow}>
-              {['#', 'Título', 'Nivel', 'Estado', 'Origen', 'Descripción', 'Fecha', ...(esFuncionario ? ['Acción'] : [])].map(h => (
+              {['#', 'Título', 'Nivel', 'Estado', 'Origen', 'Descripción', 'Fecha', 'Sync', ...(esFuncionario ? ['Acción'] : [])].map(h => (
                 <th key={h} style={styles.tableHeadCell}>{h}</th>
               ))}
             </tr>
@@ -207,6 +233,18 @@ export default function Reportes() {
                     {r.estado === 'EN_CURSO' && <button onClick={() => { setModalReporte(r); setBrigadistaId(''); }} style={styles.assignButton}>Asignar</button>}
                   </td>
                 )}
+                <td style={styles.tableCell}>
+                  <span style={{
+                    fontSize: '0.75rem',
+                    padding: '2px 8px',
+                    borderRadius: '999px',
+                    background: r.sincronizado === false ? '#fef3c7' : '#dcfce7',
+                    color: r.sincronizado === false ? '#92400e' : '#166534',
+                    fontWeight: '600'
+                  }}>
+                    {r.sincronizado === false ? '⏳ Pendiente' : '✅ Sync'}
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon, Polyline } from 'react-leaflet';
 import FooterComponent from '../components/FooterComponent';
 import 'leaflet/dist/leaflet.css';
@@ -19,10 +19,6 @@ const puntosReferencia = {
   duocSanJoaquin: { lat: -33.4969, lng: -70.6168 },
   inacapAgricola: { lat: -33.4918, lng: -70.6172 },
 };
-
-navigator.geolocation.getCurrentPosition((pos) => {
-  setCenter([pos.coords.latitude, pos.coords.longitude])
-});
 
 const centroMapa = [
   (puntosReferencia.duocSanJoaquin.lat + puntosReferencia.inacapAgricola.lat) / 2,
@@ -73,6 +69,14 @@ const leyendaItems = [
 ];
 
 export default function MapaIncendios() {
+  const [centro, setCentro] = useState([-33.4944, -70.6170]);
+  useEffect(() => {
+    navigation.geolocation.getCurrentPosition(
+      (pos) => setCentro([pos.coords.latitude, pos.coords.longitude]),
+      (err) => console.warn('No se pudo obtener ubicación, usando centro por defecto', err),
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+    )
+  }, []);
   return (
     <div style={styles.mainContainer}>
       {/* Leyenda */}
@@ -93,16 +97,12 @@ export default function MapaIncendios() {
         </div>
       </div>
 
-      <MapContainer center={[-33.4897, -70.6408]} zoom={15} style={styles.map}>
+      <MapContainer center={[centro]} zoom={15} style={styles.map}>
 
-        {/* <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-        /> */}
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
-        />
+       <TileLayer
+  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+  attribution="&copy; Esri"
+/>
 
         {/* Zonas de riesgo — polígonos */}
         {zonasMock.map(zona => (

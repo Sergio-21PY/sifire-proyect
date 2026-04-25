@@ -2,16 +2,16 @@ import { useState } from 'react';
 import * as styles from '../styles/Dashboard.styles';
 
 const kpisMock = [
-  { label: 'Reportes Activos',   valor: 12, color: '#ef4444', icono: '🔥' },
-  { label: 'En Proceso',         valor: 5,  color: '#f97316', icono: '🔄' },
-  { label: 'Brigadas Activas',   valor: 3,  color: '#3b82f6', icono: '🚒' },
-  { label: 'Controlados Hoy',    valor: 8,  color: '#22c55e', icono: '✔️' },
+  { label: 'Reportes Activos', valor: 12, color: '#ef4444', icono: '🔥' },
+  { label: 'En Proceso', valor: 5, color: '#f97316', icono: '🔄' },
+  { label: 'Brigadas Activas', valor: 3, color: '#3b82f6', icono: '🚒' },
+  { label: 'Controlados Hoy', valor: 8, color: '#22c55e', icono: '✔️' },
 ];
 
 const reportesRecientesMock = [
   { id: 1, titulo: 'Incendio en Duoc San Joaquin', nivel: 'ALTO', estado: 'EN_CURSO', hora: '15-04-2026 14:30' },
   { id: 2, titulo: 'Foco intermedio en Camino Agricola', nivel: 'MEDIO', estado: 'PENDIENTE', hora: '15-04-2026 13:45' },
-  { id: 3, titulo: 'Incendio en Inacap de Agricola', nivel: 'BAJO', estado: 'PENDIENTE', hora: '15-04-2026 12:20' },  
+  { id: 3, titulo: 'Incendio en Inacap de Agricola', nivel: 'BAJO', estado: 'PENDIENTE', hora: '15-04-2026 12:20' },
 ];
 
 export default function Dashboard() {
@@ -23,7 +23,7 @@ export default function Dashboard() {
       <div style={styles.headerContainer}>
         <h1 style={styles.headerTitle}>🏛️ Panel de Control SIFIRE</h1>
         <p style={styles.headerSubtitle}>
-          Municipalidad Valle del Sol — Subdirección de Emergencias
+          Sistema de Monitoreo de Incendios - SIFIRE
         </p>
       </div>
 
