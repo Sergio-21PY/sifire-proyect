@@ -85,8 +85,13 @@ export const rutaPathOptions = {
   dashArray: '8 4'
 };
 
-export const focoCirclePathOptions = (nivel) => ({
-  color: coloresPorNivel[nivel],
-  fillColor: coloresPorNivel[nivel],
-  fillOpacity: 0.25,
-});
+export const focoCirclePathOptions = (nivel) => {
+  const nivelNormalizado = String(nivel || '').toLowerCase();
+  const color = coloresPorNivel[nivelNormalizado] || coloresPorNivel.medio;
+
+  return {
+    color,
+    fillColor: color,
+    fillOpacity: 0.25,
+  };
+};
