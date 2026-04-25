@@ -65,6 +65,11 @@ export default function Reportes() {
       origen: 'CIUDADANO',
       descripcion: form.descripcion,
     };
+
+    const reportesPendientes = JSON.parse(localStorage.getItem('reportes_pendientes') || '[]');
+    reportesPendientes.push({ ...nuevo, latitud: form.latitud, longitud: form.longitud, sincronizado: false });
+    localStorage.setItem('reportes_pendientes', JSON.stringify(reportesPendientes));
+
     setReportes([nuevo, ...reportes]);
     setForm(initialForm);
     setShowForm(false);
@@ -136,8 +141,9 @@ export default function Reportes() {
               <div style={styles.formGridFull}>
                 <label style={styles.label}>Ubicación del foco<span style={styles.labelSpan}>— haz click en el mapa para marcar el lugar</span></label>
                 <div style={styles.mapContainer}>
-                  <MapContainer center={[-30.695, -70.958]} zoom={12} style={styles.map}>
+                  <MapContainer center={[-33.4897, -70.6408]} zoom={15} style={styles.map}>
                     <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" attribution='&copy; <a href="https://carto.com/">CARTO</a>' />
+
                     <SelectorUbicacion onSeleccionar={handleUbicacion} />
                     {form.latitud && form.longitud && <Marker position={[parseFloat(form.latitud), parseFloat(form.longitud)]} icon={iconDefault} />}
                   </MapContainer>

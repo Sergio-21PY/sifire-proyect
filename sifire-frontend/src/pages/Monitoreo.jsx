@@ -20,6 +20,10 @@ const puntosReferencia = {
   inacapAgricola: { lat: -33.4918, lng: -70.6172 },
 };
 
+navigator.geolocation.getCurrentPosition((pos) => {
+  setCenter([pos.coords.latitude, pos.coords.longitude])
+});
+
 const centroMapa = [
   (puntosReferencia.duocSanJoaquin.lat + puntosReferencia.inacapAgricola.lat) / 2,
   (puntosReferencia.duocSanJoaquin.lng + puntosReferencia.inacapAgricola.lng) / 2,
@@ -89,7 +93,8 @@ export default function MapaIncendios() {
         </div>
       </div>
 
-      <MapContainer center={centroMapa} zoom={16} style={styles.map}>
+      <MapContainer center={[-33.4897, -70.6408]} zoom={15} style={styles.map}>
+        
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://carto.com/">CARTO</a>'

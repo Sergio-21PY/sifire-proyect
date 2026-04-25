@@ -9,11 +9,9 @@ const kpisMock = [
 ];
 
 const reportesRecientesMock = [
-  { id: 1, titulo: 'Incendio Sector Carén',         nivel: 'ALTO',  estado: 'EN_CURSO',  hora: '21:10' },
-  { id: 2, titulo: 'Foco Cerro Las Ramadas',        nivel: 'MEDIO', estado: 'PENDIENTE', hora: '20:45' },
-  { id: 3, titulo: 'Humo sector El Maitén',         nivel: 'BAJO',  estado: 'PENDIENTE', hora: '20:30' },
-  { id: 4, titulo: 'Incendio Sector Ponio resuelto',nivel: 'ALTO',  estado: 'CONTROLADO',hora: '19:55' },
-  { id: 5, titulo: 'Alerta Quebrada El Durazno',    nivel: 'MEDIO', estado: 'CONTROLADO',hora: '19:20' },
+  { id: 1, titulo: 'Incendio en Duoc San Joaquin', nivel: 'ALTO', estado: 'EN_CURSO', hora: '15-04-2026 14:30' },
+  { id: 2, titulo: 'Foco intermedio en Camino Agricola', nivel: 'MEDIO', estado: 'PENDIENTE', hora: '15-04-2026 13:45' },
+  { id: 3, titulo: 'Incendio en Inacap de Agricola', nivel: 'BAJO', estado: 'PENDIENTE', hora: '15-04-2026 12:20' },  
 ];
 
 export default function Dashboard() {
