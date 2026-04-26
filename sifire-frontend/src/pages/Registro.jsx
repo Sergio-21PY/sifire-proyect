@@ -9,8 +9,8 @@ export default function Registro() {
   const [form, setForm] = useState({
     nombre: '', email: '', telefono: '', password: '', confirmar_password: '',
   });
-  const [errors, setErrors]           = useState({});
-  const [loading, setLoading]         = useState(false);
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const [registroError, setRegistroError] = useState('');
 
   const validate = () => {
@@ -26,7 +26,7 @@ export default function Registro() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
-    if (errors[name])  setErrors(prev => ({ ...prev, [name]: '' }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
     if (registroError) setRegistroError('');
   };
 
@@ -56,7 +56,7 @@ export default function Registro() {
           <h1 style={s.title}>Crear cuenta</h1>
           <p style={s.subtitle}>
             Sistema de Gestión de Emergencias<br />
-            
+
           </p>
         </div>
 
@@ -66,7 +66,6 @@ export default function Registro() {
           <form onSubmit={handleSubmit} noValidate>
             <div style={s.formGrid}>
 
-              {/* Nombre — ocupa las 2 columnas */}
               <div style={{ ...s.mb, ...s.formGridFull }}>
                 <label htmlFor="nombre" style={s.label}>Nombre completo</label>
                 <input id="nombre" name="nombre" type="text" autoComplete="name"
@@ -75,7 +74,7 @@ export default function Registro() {
                 {errors.nombre && <span style={s.error}>{errors.nombre}</span>}
               </div>
 
-              {/* Email */}
+
               <div style={{ ...s.mb, ...s.formGridFull }}>
                 <label htmlFor="email" style={s.label}>Correo electrónico</label>
                 <input id="email" name="email" type="email" autoComplete="email"
@@ -84,7 +83,7 @@ export default function Registro() {
                 {errors.email && <span style={s.error}>{errors.email}</span>}
               </div>
 
-              {/* Teléfono */}
+
               <div style={{ ...s.mb, ...s.formGridFull }}>
                 <label htmlFor="telefono" style={s.label}>
                   Teléfono <span style={s.labelOpt}>(opcional)</span>
@@ -95,7 +94,6 @@ export default function Registro() {
                 {errors.telefono && <span style={s.error}>{errors.telefono}</span>}
               </div>
 
-              {/* Contraseña — 2 columnas lado a lado */}
               <div style={s.mb}>
                 <label htmlFor="password" style={s.label}>Contraseña</label>
                 <input id="password" name="password" type="password" autoComplete="new-password"

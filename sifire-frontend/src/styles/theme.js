@@ -1,17 +1,17 @@
 export const C = {
-  bg:         '#0f172a',
-  surface:    '#1e293b',
-  surfaceAlt: '#263349',
-  border:     '#334155',
-  textPrimary:'#f1f5f9',
-  textMuted:  '#94a3b8',
-  red:        '#ef4444',
-  orange:     '#f97316',
-  yellow:     '#eab308',
-  green:      '#22c55e',
-  blue:       '#3b82f6',
-  shadow:     '0 4px 24px rgba(0,0,0,0.4)',
-  shadowSm:   '0 1px 8px rgba(0,0,0,0.3)',
-  radius:     '12px',
-  radiusSm:   '8px',
+  bg:          '#f8fafc',  // fondo principal (gris muy claro)
+  surface:     '#ffffff',  // fondo de cards
+  surfaceAlt:  '#f1f5f9',  // fondo alternativo (inputs deshabilitados, hover)
+  border:      '#e2e8f0',  // bordes suaves
+  textPrimary: '#1e293b',  // texto principal (casi negro)
+  textMuted:   '#64748b',  // texto secundario (gris medio)
+  red:         '#ef4444',  // rojo — acento principal de emergencia
+  orange:      '#f97316',  // naranja
+  yellow:      '#eab308',  // amarillo
+  green:       '#22c55e',  // verde
+  blue:        '#3b82f6',  // azul
+  shadow:      '0 4px 24px rgba(0,0,0,0.08)',
+  shadowSm:    '0 1px 6px rgba(0,0,0,0.06)',
+  radius:      '12px',
+  radiusSm:    '8px',
 };
