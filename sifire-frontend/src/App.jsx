@@ -27,9 +27,12 @@ function App() {
           <Route path="/registro" element={<Registro />} />
           <Route path="/no-autorizado" element={<NoAutorizado />} />
 
-          {/* Ciudadano */}
+          {/* Todos los roles autenticados */}
           <Route path="/reportes" element={
             <RutaProtegida rolesPermitidos={['CIUDADANO', 'FUNCIONARIO', 'BRIGADISTA']} element={<Reportes />} />
+          } />
+          <Route path="/monitoreo" element={
+            <RutaProtegida rolesPermitidos={['CIUDADANO', 'FUNCIONARIO', 'BRIGADISTA']} element={<Monitoreo />} />
           } />
 
           {/* Brigadista */}
@@ -43,9 +46,6 @@ function App() {
           } />
           <Route path="/brigadistas" element={
             <RutaProtegida rolesPermitidos={['FUNCIONARIO']} element={<GestionBrigadistas />} />
-          } />
-          <Route path="/monitoreo" element={
-            <RutaProtegida rolesPermitidos={['FUNCIONARIO']} element={<Monitoreo />} />
           } />
           <Route path="/alertas" element={
             <RutaProtegida rolesPermitidos={['FUNCIONARIO']} element={<Alertas />} />

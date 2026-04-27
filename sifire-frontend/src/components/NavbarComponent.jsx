@@ -7,15 +7,18 @@ const RUTAS_POR_ROL = {
   FUNCIONARIO: [
     { to: '/dashboard',   label: 'Dashboard' },
     { to: '/reportes',    label: 'Reportes' },
-    { to: '/monitoreo',   label: 'Monitoreo' },
+    { to: '/monitoreo',   label: 'Mapa' },
     { to: '/alertas',     label: 'Alertas' },
     { to: '/brigadistas', label: 'Brigadistas' },
   ],
   BRIGADISTA: [
     { to: '/mis-asignaciones', label: 'Mis Asignaciones' },
+    { to: '/reportes',         label: 'Reportes' },
+    { to: '/monitoreo',        label: 'Mapa' },
   ],
   CIUDADANO: [
-    { to: '/reportes', label: 'Reportes' },
+    { to: '/reportes',  label: 'Reportes' },
+    { to: '/monitoreo', label: 'Mapa' },
   ],
 };
 

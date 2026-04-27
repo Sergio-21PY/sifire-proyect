@@ -18,9 +18,9 @@ const puntosReferencia = {
 };
 
 const reportesMock = [
-  { id: 1, lat: -33.4969, lng: -70.6168, titulo: 'Incendio en Duoc San Joaquin',          nivel: 'ALTO'  },
-  { id: 2, lat: -33.4945, lng: -70.6170, titulo: 'Incendio intermedio en Camino Agricola', nivel: 'MEDIO' },
-  { id: 3, lat: -33.4918, lng: -70.6172, titulo: 'Incendio en Inacap de Agricola',         nivel: 'BAJO'  },
+  { id: 1, lat: -33.4969, lng: -70.6168, titulo: 'Incendio en Duoc San Joaquin',          nivel: 'ALTO',  brigadaAsignada: 'Brigada A', ciudadano: 'Juan Pérez'   },
+  { id: 2, lat: -33.4945, lng: -70.6170, titulo: 'Incendio intermedio en Camino Agricola', nivel: 'MEDIO', brigadaAsignada: 'Brigada B', ciudadano: 'María Sáez'   },
+  { id: 3, lat: -33.4918, lng: -70.6172, titulo: 'Incendio en Inacap de Agricola',         nivel: 'BAJO',  brigadaAsignada: null,        ciudadano: 'Carlos Rojas' },
 ];
 
 const brigadasMock = [
@@ -47,16 +47,12 @@ const rutasMock = [
   },
 ];
 
-const leyendaItems = [
-  { color: styles.coloresPorNivel.alto,     label: 'Foco Alto / Zona Alto'   },
-  { color: styles.coloresPorNivel.medio,    label: 'Foco Medio / Zona Medio' },
-  { color: styles.coloresPorNivel.bajo,     label: 'Foco Bajo / Zona Bajo'   },
-  { color: styles.coloresPorNivel.resuelto, label: 'Resuelto'                },
-];
-
 export default function MapaIncendios() {
   const { usuario } = useAuth();
   const [centro, setCentro] = useState([-33.4944, -70.6170]);
+
+  const esFuncionario = usuario?.rol === 'FUNCIONARIO';
+  const esBrigadista  = usuario?.rol === 'BRIGADISTA';
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -66,25 +62,44 @@ export default function MapaIncendios() {
     );
   }, []);
 
+  const leyendaItems = [
+    { color: styles.coloresPorNivel.alto,     label: 'Foco Alto'   },
+    { color: styles.coloresPorNivel.medio,    label: 'Foco Medio'  },
+    { color: styles.coloresPorNivel.bajo,     label: 'Foco Bajo'   },
+    { color: styles.coloresPorNivel.resuelto, label: 'Resuelto'    },
+  ];
+
   return (
     <div style={styles.mainContainer}>
 
+      {/* Leyenda — todos la ven, funcionario ve más */}
       <div style={styles.leyendaContainer}>
-        <p style={styles.leyendaTitle}>Leyenda — {usuario?.username || usuario?.nombre}</p>
+        <p style={styles.leyendaTitle}>
+          Mapa en vivo — <span style={{ fontWeight: 400 }}>{usuario?.username || usuario?.nombre}</span>
+        </p>
+
         {leyendaItems.map(item => (
           <div key={item.label} style={styles.leyendaItem}>
             <span style={styles.leyendaColorBox(item.color)} />
             <span style={styles.leyendaLabel}>{item.label}</span>
           </div>
         ))}
-        <div style={styles.leyendaItem}>
-          <span>🚒</span>
-          <span style={styles.leyendaLabel}>Brigada activa</span>
-        </div>
-        <div style={styles.leyendaItem}>
-          <span style={styles.leyendaRuta} />
-          <span style={styles.leyendaLabel}>Ruta evacuación</span>
-        </div>
+
+        {/* Brigadas — visible para funcionario y brigadista */}
+        {(esFuncionario || esBrigadista) && (
+          <div style={styles.leyendaItem}>
+            <span>🚒</span>
+            <span style={styles.leyendaLabel}>Brigada activa</span>
+          </div>
+        )}
+
+        {/* Rutas evacuación — solo funcionario */}
+        {esFuncionario && (
+          <div style={styles.leyendaItem}>
+            <span style={styles.leyendaRuta} />
+            <span style={styles.leyendaLabel}>Ruta evacuación</span>
+          </div>
+        )}
       </div>
 
       <MapContainer center={centro} zoom={15} style={styles.map}>
@@ -97,28 +112,44 @@ export default function MapaIncendios() {
           attribution="&copy; Esri"
         />
 
-        {zonasMock.map(zona => (
+        {/* Zonas de riesgo — solo funcionario */}
+        {esFuncionario && zonasMock.map(zona => (
           <Polygon key={`zona-${zona.id}`} positions={zona.coords} pathOptions={styles.zonaPathOptions(zona.nivel)}>
             <Popup><strong>{zona.nombre}</strong><br />Zona de riesgo: {zona.nivel}</Popup>
           </Polygon>
         ))}
 
-        {rutasMock.map(ruta => (
+        {/* Rutas de evacuación — solo funcionario */}
+        {esFuncionario && rutasMock.map(ruta => (
           <Polyline key={`ruta-${ruta.id}`} positions={ruta.puntos} pathOptions={styles.rutaPathOptions}>
             <Popup><strong>{ruta.nombre}</strong></Popup>
           </Polyline>
         ))}
 
+        {/* Focos de incendio — todos los ven */}
         {reportesMock.map((reporte) => (
           <React.Fragment key={reporte.id}>
-            <Circle center={[reporte.lat, reporte.lng]} radius={300} pathOptions={styles.focoCirclePathOptions(reporte.nivel)} />
+            <Circle
+              center={[reporte.lat, reporte.lng]}
+              radius={300}
+              pathOptions={styles.focoCirclePathOptions(reporte.nivel)}
+            />
             <Marker position={[reporte.lat, reporte.lng]}>
-              <Popup><strong>{reporte.titulo}</strong><br />Nivel: {reporte.nivel}</Popup>
+              <Popup>
+                <strong>{reporte.titulo}</strong><br />
+                Nivel: {reporte.nivel}<br />
+                Reportado por: {reporte.ciudadano}<br />
+                Brigada: {reporte.brigadaAsignada
+                  ? <span style={{ color: 'green' }}>✅ {reporte.brigadaAsignada}</span>
+                  : <span style={{ color: 'orange' }}>⏳ Sin asignar</span>
+                }
+              </Popup>
             </Marker>
           </React.Fragment>
         ))}
 
-        {brigadasMock.map(b => (
+        {/* Marcadores de brigadas — funcionario y brigadista */}
+        {(esFuncionario || esBrigadista) && brigadasMock.map(b => (
           <Marker key={`brigada-${b.id}`} position={[b.lat, b.lng]} icon={styles.iconoBrigada}>
             <Popup>
               <strong>{b.nombre}</strong><br />
