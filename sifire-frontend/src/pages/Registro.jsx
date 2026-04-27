@@ -37,7 +37,7 @@ export default function Registro() {
     setLoading(true);
     setRegistroError('');
     try {
-      await registrarUsuario({ nombre: form.nombre, email: form.email, password: form.password });
+      await registrarUsuario({ username: form.nombre, email: form.email, password: form.password, rol: 'CIUDADANO' });
       navigate('/login', { state: { registrado: true } });
     } catch (error) {
       setRegistroError(error.message || 'No se pudo completar el registro. Inténtelo de nuevo.');

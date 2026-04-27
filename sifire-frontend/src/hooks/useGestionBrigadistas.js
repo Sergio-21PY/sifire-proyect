@@ -47,7 +47,7 @@ export function useGestionBrigadistas() {
     if (Object.keys(validationErrors).length > 0) return setErrors(validationErrors);
     setLoading(true);
     try {
-      const nuevo = await registrarUsuario({ nombre: form.nombre, email: form.email, password: form.password });
+      const nuevo = await registrarUsuario({ username: form.nombre, email: form.email, password: form.password, rol: 'BRIGADISTA' });
       setBrigadistas(prev => [{ ...nuevo, telefono: form.telefono || '—', asignaciones: 0, estado: 'ACTIVO' }, ...prev]);
       setForm(initialForm);
       setShowForm(false);

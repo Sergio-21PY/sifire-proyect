@@ -1,54 +1,86 @@
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-const NO_NAVBAR = ['/', '/login', '/registro']
+const NO_NAVBAR = ['/', '/login', '/registro'];
 
-const MAIN_ROUTES = [
-    { to: '/dashboard', label: 'Dashboard' },
+const RUTAS_POR_ROL = {
+  FUNCIONARIO: [
+    { to: '/dashboard',   label: 'Dashboard' },
+    { to: '/reportes',    label: 'Reportes' },
+    { to: '/monitoreo',   label: 'Monitoreo' },
+    { to: '/alertas',     label: 'Alertas' },
+    { to: '/brigadistas', label: 'Brigadistas' },
+  ],
+  BRIGADISTA: [
+    { to: '/mis-asignaciones', label: 'Mis Asignaciones' },
+  ],
+  CIUDADANO: [
     { to: '/reportes', label: 'Reportes' },
-    { to: '/monitoreo', label: 'Monitoreo' },
-    { to: '/alertas', label: 'Alertas' },
-]
+  ],
+};
 
 function NavbarComponent() {
-    const { pathname } = useLocation()
-    if (NO_NAVBAR.includes(pathname)) return null
+  const { pathname }            = useLocation();
+  const { usuario, logout, estaAutenticado } = useAuth();
+  const navigate                = useNavigate();
 
-    return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary border-bottom">
-            <div className="container-fluid">
-                <NavLink className="navbar-brand fw-semibold" to="/dashboard">
-                    SIFIRE
-                </NavLink>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+  if (NO_NAVBAR.includes(pathname)) return null;
+
+  const rutas = RUTAS_POR_ROL[usuario?.rol] || [];
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  return (
+    <nav className="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+      <div className="container-fluid">
+
+        <NavLink className="navbar-brand fw-semibold" to={rutas[0]?.to || '/login'}>
+          🔥 SIFIRE
+        </NavLink>
+
+        <button
+          className="navbar-toggler" type="button"
+          data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav me-auto">
+            {rutas.map((route) => (
+              <li className="nav-item" key={route.to}>
+                <NavLink
+                  className={({ isActive }) => `nav-link${isActive ? ' active fw-semibold' : ''}`}
+                  to={route.to}
                 >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
-                        {MAIN_ROUTES.map((route) => (
-                            <li className="nav-item" key={route.to}>
-                                <NavLink
-                                    className={({ isActive }) =>
-                                        `nav-link${isActive ? ' active fw-semibold' : ''}`
-                                    }
-                                    to={route.to}
-                                >
-                                    {route.label}
-                                </NavLink>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                  {route.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          {estaAutenticado && (
+            <div className="d-flex align-items-center gap-3">
+              <span className="text-muted small">
+                {usuario?.nombre || usuario?.username} — <strong>{usuario?.rol}</strong>
+              </span>
+              <button
+                onClick={handleLogout}
+                className="btn btn-outline-danger btn-sm"
+              >
+                Cerrar sesión
+              </button>
             </div>
-        </nav>
-    )
+          )}
+        </div>
+
+      </div>
+    </nav>
+  );
 }
 
-export default NavbarComponent
+export default NavbarComponent;
