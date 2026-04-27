@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon, Polyline } from 'react-leaflet';
 import FooterComponent from '../components/FooterComponent';
+import { useAuth } from '../context/AuthContext';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
@@ -54,11 +55,10 @@ const leyendaItems = [
 ];
 
 export default function MapaIncendios() {
-  //  Fix 1: useState importado
+  const { usuario } = useAuth();
   const [centro, setCentro] = useState([-33.4944, -70.6170]);
 
   useEffect(() => {
-    //  Fix 2: navigator (no navigation)
     navigator.geolocation.getCurrentPosition(
       (pos) => setCentro([pos.coords.latitude, pos.coords.longitude]),
       (err) => console.warn('No se pudo obtener ubicación, usando centro por defecto', err),
@@ -70,7 +70,7 @@ export default function MapaIncendios() {
     <div style={styles.mainContainer}>
 
       <div style={styles.leyendaContainer}>
-        <p style={styles.leyendaTitle}>Leyenda</p>
+        <p style={styles.leyendaTitle}>Leyenda — {usuario?.username || usuario?.nombre}</p>
         {leyendaItems.map(item => (
           <div key={item.label} style={styles.leyendaItem}>
             <span style={styles.leyendaColorBox(item.color)} />
@@ -87,7 +87,6 @@ export default function MapaIncendios() {
         </div>
       </div>
 
-      {/* Fix 3: center={centro} sin doble array */}
       <MapContainer center={centro} zoom={15} style={styles.map}>
         <TileLayer
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"

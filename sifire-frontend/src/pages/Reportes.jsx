@@ -18,6 +18,7 @@ export default function Reportes() {
   } = useReportes();
 
   const esFuncionario = usuario?.rol === 'FUNCIONARIO';
+  const esCiudadano   = usuario?.rol === 'CIUDADANO';
 
   return (
     <div style={styles.mainContainer}>
@@ -25,11 +26,18 @@ export default function Reportes() {
       <div style={styles.headerContainer}>
         <div>
           <h1 style={styles.headerTitle}>Reportes de Incendio</h1>
-          <p style={styles.headerSubtitle}>Gestión de focos activos y su historial</p>
+          <p style={styles.headerSubtitle}>
+            {esFuncionario
+              ? 'Gestión de focos activos y su historial'
+              : `Bienvenido, ${usuario?.username || usuario?.nombre} — aquí puedes reportar un incendio`}
+          </p>
         </div>
-        <button onClick={abrirFormulario} style={styles.headerButton}>
-          {showForm ? 'Cancelar' : '+ Nuevo Reporte'}
-        </button>
+        {/* Solo CIUDADANO y FUNCIONARIO pueden crear reportes */}
+        {(esCiudadano || esFuncionario) && (
+          <button onClick={abrirFormulario} style={styles.headerButton}>
+            {showForm ? 'Cancelar' : '+ Nuevo Reporte'}
+          </button>
+        )}
       </div>
 
       {exito      && <div style={styles.successAlert}>✓ Reporte enviado correctamente</div>}

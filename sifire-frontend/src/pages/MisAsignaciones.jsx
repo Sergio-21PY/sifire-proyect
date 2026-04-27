@@ -32,7 +32,7 @@ export default function MisAsignaciones() {
       <div style={styles.headerContainer}>
         <h1 style={styles.headerTitle}>Mis Asignaciones</h1>
         <p style={styles.headerSubtitle}>
-          Brigadista: {usuario?.nombre} — {asignaciones.filter(a => a.estado === 'EN_CURSO').length} activas
+          Brigadista: <strong>{usuario?.username || usuario?.nombre}</strong> — {asignaciones.filter(a => a.estado === 'EN_CURSO').length} activas
         </p>
       </div>
 

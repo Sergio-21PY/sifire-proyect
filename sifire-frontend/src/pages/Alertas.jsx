@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import * as styles from '../styles/Alertas.styles';
 
 const alertasMock = [
@@ -9,8 +10,11 @@ const alertasMock = [
 ];
 
 export default function Alertas() {
+  const { usuario } = useAuth();
   const [alertas] = useState(alertasMock);
   const [filtro, setFiltro] = useState('TODOS');
+
+  const esFuncionario = usuario?.rol === 'FUNCIONARIO';
 
   const alertasFiltradas = filtro === 'TODOS'
     ? alertas
@@ -21,7 +25,9 @@ export default function Alertas() {
       <div style={styles.headerContainer}>
         <h1 style={styles.headerTitle}>Alertas a la Comunidad</h1>
         <p style={styles.headerSubtitle}>
-          Alertas oficiales emitidas por funcionarios del sistema
+          {esFuncionario
+            ? `Funcionario: ${usuario?.username || usuario?.nombre} — alertas oficiales emitidas`
+            : 'Alertas oficiales emitidas por funcionarios del sistema'}
         </p>
       </div>
 

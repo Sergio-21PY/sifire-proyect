@@ -20,9 +20,9 @@ const RUTAS_POR_ROL = {
 };
 
 function NavbarComponent() {
-  const { pathname }            = useLocation();
+  const { pathname } = useLocation();
   const { usuario, logout, estaAutenticado } = useAuth();
-  const navigate                = useNavigate();
+  const navigate = useNavigate();
 
   if (NO_NAVBAR.includes(pathname)) return null;
 
@@ -36,7 +36,6 @@ function NavbarComponent() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary border-bottom">
       <div className="container-fluid">
-
         <NavLink className="navbar-brand fw-semibold" to={rutas[0]?.to || '/login'}>
           🔥 SIFIRE
         </NavLink>
@@ -66,7 +65,7 @@ function NavbarComponent() {
           {estaAutenticado && (
             <div className="d-flex align-items-center gap-3">
               <span className="text-muted small">
-                {usuario?.nombre || usuario?.username} — <strong>{usuario?.rol}</strong>
+                {usuario?.username || usuario?.nombre} — <strong>{usuario?.rol}</strong>
               </span>
               <button
                 onClick={handleLogout}
@@ -77,7 +76,6 @@ function NavbarComponent() {
             </div>
           )}
         </div>
-
       </div>
     </nav>
   );

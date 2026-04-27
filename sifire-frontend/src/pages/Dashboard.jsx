@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import * as styles from '../styles/Dashboard.styles';
 
 const kpisMock = [
@@ -15,6 +16,7 @@ const reportesRecientesMock = [
 ];
 
 export default function Dashboard() {
+  const { usuario } = useAuth();
   const [reportes] = useState(reportesRecientesMock);
 
   return (
@@ -23,7 +25,7 @@ export default function Dashboard() {
       <div style={styles.headerContainer}>
         <h1 style={styles.headerTitle}>🏛️ Panel de Control SIFIRE</h1>
         <p style={styles.headerSubtitle}>
-          Sistema de Monitoreo de Incendios - SIFIRE
+          Bienvenido, <strong>{usuario?.username || usuario?.nombre}</strong> — {usuario?.rol}
         </p>
       </div>
 
