@@ -50,10 +50,10 @@ export default function Registro() {
     try {
       // Creamos el objeto de usuario para enviar al backend
       const nuevoUsuario = {
-        nombre: form.nombre,
+        username: form.nombre, // CORREGIDO: Se envía 'username' en lugar de 'nombre'
         email: form.email,
         password: form.password,
-        // El backend debería asignar el rol 'CIUDADANO' por defecto
+        rol: 'CIUDADANO', // Añadido: Se especifica el rol explícitamente
       };
 
       await registrarUsuario(nuevoUsuario);
