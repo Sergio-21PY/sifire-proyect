@@ -10,22 +10,32 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(nullable = false)
+    private String nombre;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
-    private String rol; //Roles ya definidos: Ciudadano, Brigadista, Funcionario, Admin
+    @Column(nullable = false)
+    private String telefono;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", nullable = false)
+    private TipoUsuario tipo;
+
+    @Column(name = "activo")
+    private Boolean activo = true;
+
+    public enum TipoUsuario {
+        CIUDADANO, BRIGADISTA, FUNCIONARIO, ADMIN
+    }
 }
