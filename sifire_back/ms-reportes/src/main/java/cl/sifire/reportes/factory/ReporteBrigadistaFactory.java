@@ -4,19 +4,6 @@ import cl.sifire.reportes.dto.ReporteRequestDTO;
 import cl.sifire.reportes.model.ReporteIncendio;
 import org.springframework.stereotype.Component;
 
-/**
- * ═══════════════════════════════════════════════════════
- * PATRÓN: Factory Method — Implementación Brigadista
- * ═══════════════════════════════════════════════════════
- *
- * Reglas de negocio para reportes generados por BRIGADISTAS:
- * 1. El nivel de riesgo lo evalúa el propio brigadista (viene en el DTO)
- *    Si no viene, se asigna ALTO por precaución (está en terreno)
- * 2. Estado inicial: EN_PROCESO (ya hay un equipo interviniendo)
- * 3. Valida coordenadas igual que el ciudadano
- *
- * El brigadista reporta con criterio técnico desde el lugar del incidente.
- */
 @Component
 public class ReporteBrigadistaFactory implements ReporteFactory {
 

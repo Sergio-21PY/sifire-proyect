@@ -10,21 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * ═══════════════════════════════════════════════════════
- * PATRÓN: Observer — Observador Geográfico
- * ═══════════════════════════════════════════════════════
- *
- * Observador que notifica a ms-monitoreo cuando se crea o actualiza
- * un reporte, para que el mapa interactivo refleje el nuevo foco.
- *
- * Actúa ante cualquier evento (CREADO o ESTADO_ACTUALIZADO),
- * ya que el mapa debe siempre mostrar el estado vigente de los focos.
- *
- * Si ms-monitoreo no está disponible, registra el error sin lanzar
- * excepción (el reporte ya fue guardado, el mapa se actualizará
- * en la próxima consulta periódica del frontend).
- */
+// este observer se encarga de notificar a ms-monitoreo cada vez que un reporte cambia de estado o se crea, para que el equipo de monitoreo tenga siempre la info actualizada en su dashboard
 @Component
 public class MonitoreoObserver implements ReporteObserver {
 

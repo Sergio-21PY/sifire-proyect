@@ -3,25 +3,10 @@ package cl.sifire.reportes.factory;
 import cl.sifire.reportes.model.ReporteIncendio.TipoReportante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-/**
- * ═══════════════════════════════════════════════════════
- * PATRÓN: Factory Method — Selector (Director de Fábrica)
- * ═══════════════════════════════════════════════════════
- *
- * Centraliza la decisión de qué fábrica concreta utilizar.
- * El ReporteService solo llama a este selector con el tipo de reportante;
- * nunca instancia fábricas directamente.
- *
- * Flujo:
- *   ReporteService → ReporteFactorySelector.seleccionar(tipo) → Factory concreta
- *
- * Si se agrega un nuevo tipo (ej: SENSOR_IOT), solo se crea una nueva
- * fábrica y se agrega un case aquí. Nada más cambia. (Open/Closed)
- */
-@Component
+ @Component
 public class ReporteFactorySelector {
-
+    // Este selector se encarga de devolver la factory correcta según el tipo de reportante, es una forma de centralizar la lógica de selección y evitar que el controlador tenga que conocer las implementaciones específicas
+    // aqui se inyectan las diferentes implementaciones de ReporteFactory, cada una con sus propias reglas de negocio para crear el reporte según el tipo de usuario que lo envía (ciudadano, bombero, funcionario)
     private final ReporteCiudadanoFactory ciudadanoFactory;
     private final ReporteBrigadistaFactory brigadistaFactory;
     private final ReporteFuncionarioFactory funcionarioFactory;
@@ -37,12 +22,6 @@ public class ReporteFactorySelector {
         this.funcionarioFactory = funcionarioFactory;
     }
 
-    /**
-     * Retorna la fábrica correspondiente al tipo de reportante.
-     *
-     * @param tipo TipoReportante del usuario que crea el reporte
-     * @return Implementación concreta de ReporteFactory
-     */
     public ReporteFactory seleccionar(TipoReportante tipo) {
         return switch (tipo) {
             case CIUDADANO   -> ciudadanoFactory;

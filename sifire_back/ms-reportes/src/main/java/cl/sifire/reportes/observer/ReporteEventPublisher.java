@@ -6,27 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * ═══════════════════════════════════════════════════════
- * PATRÓN: Observer — Subject (Sujeto / Publicador)
- * ═══════════════════════════════════════════════════════
- *
- * Es el núcleo del patrón Observer en ms-reportes.
- * Mantiene la lista de observadores y los notifica cuando
- * ocurre un evento relevante (reporte creado o estado actualizado).
- *
- * Según el informe de arquitectura:
- *   ms-reportes = Sujeto (Subject)
- *   ms-alertas  = Observador Principal
- *   ms-monitoreo = Observador Geográfico
- *
- * El ReporteService usa este publisher para disparar notificaciones
- * sin conocer los detalles de cada observador. (Desacoplamiento total)
- *
- * Eventos disponibles:
- *   - "CREADO"            → reporte nuevo guardado en BD
- *   - "ESTADO_ACTUALIZADO" → cambio de estado en un reporte existente
- */
+// este se encarga de publicar eventos relacionados a los reportes, como cuando se crea un nuevo reporte o se actualiza su estado, y notificar a todos los observadores registrados (como el servicio de alertas) para que puedan reaccionar en consecuencia (por ejemplo, generando una alerta cuando se crea un nuevo reporte)
 @Component
 public class ReporteEventPublisher {
 

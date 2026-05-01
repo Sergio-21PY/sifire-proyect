@@ -10,23 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * ═══════════════════════════════════════════════════════
- * PATRÓN: Observer — Observador de Alertas
- * ═══════════════════════════════════════════════════════
- *
- * Observador que reacciona cuando ms-reportes crea un reporte nuevo.
- * Su responsabilidad: notificar a ms-alertas para que emita una alerta
- * automática si el nivel de riesgo es ALTO o CRITICO.
- *
- * Solo actúa si:
- *   - El evento es "CREADO"
- *   - El tipo de reportante es FUNCIONARIO (disparo automático)
- *     O el nivel de riesgo es CRITICO (independiente del tipo)
- *
- * Si ms-alertas no está disponible, registra el error pero NO lanza
- * excepción (el reporte ya fue guardado, la alerta puede reintentarse).
- */
+// este observer se encarga de notificar a ms-alertas cada vez que un reporte crítico o de funcionario es creado, para que el equipo de alertas pueda emitir las alertas correspondientes
 @Component
 public class AlertaObserver implements ReporteObserver {
 

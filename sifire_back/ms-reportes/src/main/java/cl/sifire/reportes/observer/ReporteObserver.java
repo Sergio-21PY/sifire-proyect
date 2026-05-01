@@ -2,21 +2,7 @@ package cl.sifire.reportes.observer;
 
 import cl.sifire.reportes.model.ReporteIncendio;
 
-/**
- * ═══════════════════════════════════════════════════════
- * PATRÓN: Observer — Interfaz Observer
- * ═══════════════════════════════════════════════════════
- *
- * Define el contrato que deben cumplir todos los observadores
- * del sistema de reportes.
- *
- * Observadores registrados:
- *   - AlertaObserver   → notifica a ms-alertas (puerto 8084)
- *   - MonitoreoObserver → notifica a ms-monitoreo (puerto 8083)
- *
- * Cuando ms-reportes guarda un reporte nuevo o cambia su estado,
- * el Subject (ReporteEventPublisher) notifica a todos los observers.
- */
+// este se encarga de recibir notificaciones del service cuando se crea un nuevo reporte o se actualiza el estado de un reporte, y cada observer decide qué hacer con esa notificación (ej: emitir una alerta, enviar un email, etc)
 public interface ReporteObserver {
 
     /**
