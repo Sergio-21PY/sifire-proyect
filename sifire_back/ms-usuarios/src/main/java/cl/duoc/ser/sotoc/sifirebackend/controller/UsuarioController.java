@@ -1,78 +1,70 @@
 package cl.duoc.ser.sotoc.sifirebackend.controller;
 
 import cl.duoc.ser.sotoc.sifirebackend.model.Usuario;
-import cl.duoc.ser.sotoc.sifirebackend.repository.UsuarioRepository;
+import cl.duoc.ser.sotoc.sifirebackend.service.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Map;
 @RestController
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioService usuarioService;
 
-    // GET /api/usuarios/listar
+    @Autowired
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
     @GetMapping("/listar")
     public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
+        return usuarioService.listarTodos();
     }
 
-    // GET /api/usuarios/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
-        return usuarioRepository.findById(id)
+    public ResponseEntity<Usuario> obtenerPorId(@PathVariable Long id) {
+        return usuarioService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // GET /api/usuarios/email/{email}
     @GetMapping("/email/{email}")
     public ResponseEntity<Usuario> obtenerPorEmail(@PathVariable String email) {
-        return usuarioRepository.findByEmail(email)
+        return usuarioService.buscarPorEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST /api/usuarios/registro
     @PostMapping("/registro")
     public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario) {
-        if (usuario.getTipo() == null) {
-            usuario.setTipo(Usuario.TipoUsuario.CIUDADANO);
-        }
-        usuario.setActivo(true);
-        return ResponseEntity.ok(usuarioRepository.save(usuario));
+        return ResponseEntity.ok(usuarioService.registrar(usuario));
     }
 
-    // POST /api/usuarios/login
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Usuario loginReq) {
-        return usuarioRepository.findByEmail(loginReq.getEmail())
-                .filter(u -> u.getPassword().equals(loginReq.getPassword()))
-                .filter(u -> Boolean.TRUE.equals(u.getActivo()))
+    public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
+        return usuarioService.login(body.get("email"), body.get("password"))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    // PUT /api/usuarios/{id}
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario datos) {
-        return usuarioRepository.findById(id).map(u -> {
-            u.setNombre(datos.getNombre());
-            u.setTelefono(datos.getTelefono());
-            if (datos.getTipo() != null) u.setTipo(datos.getTipo());
-            return ResponseEntity.ok(usuarioRepository.save(u));
-        }).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Usuario> actualizar(
+        @PathVariable Long id,
+        @RequestBody Usuario datos
+    ) {
+        return usuarioService.actualizar(id, datos)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETE /api/usuarios/eliminar/{id}
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
-        usuarioRepository.deleteById(id);
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        usuarioService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
 }
