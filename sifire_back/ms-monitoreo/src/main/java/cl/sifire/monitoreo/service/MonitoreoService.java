@@ -31,33 +31,29 @@ public class MonitoreoService {
         this.asignacionRepository = asignacionRepository;
     }
 
-    // ── ZONAS DE RIESGO ──────────────────────────────────────────────
-
-    /** Retorna todas las zonas activas para renderizar en el mapa */
+   // devuelve solo las zonas activas para renderizar en el mapa
     public List<ZonaRiesgo> obtenerZonasActivas() {
         return zonaRiesgoRepository.findByActivoTrue();
     }
 
-    /** Retorna todas las zonas (activas e inactivas) */
+    // devuelve todas las zonas, incluso las inactivas, para la sección de administración
     public List<ZonaRiesgo> obtenerTodasLasZonas() {
         return zonaRiesgoRepository.findAll();
     }
 
-    // ── RUTAS DE EVACUACIÓN ──────────────────────────────────────────
 
-    /** Retorna todas las rutas activas para renderizar en el mapa */
+        /** Retorna todas las rutas activas para renderizar en el mapa */
     public List<RutaEvacuacion> obtenerRutasActivas() {
         return rutaEvacuacionRepository.findByActivoTrue();
     }
 
-    // ── BRIGADAS ─────────────────────────────────────────────────────
 
-    /** Retorna todas las brigadas con su ubicación GPS actual */
+    // devuelve todas las brigadas, incluso las inactivas, para la sección de administración
     public List<Brigada> obtenerTodasLasBrigadas() {
         return brigadaRepository.findAll();
     }
 
-
+    // esto es para actualizar la ubicación GPS y estado de una brigada en tiempo real
     public Brigada actualizarBrigada(Long id, Brigada datos) {
         Brigada brigada = brigadaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Brigada no encontrada: " + id));
@@ -87,7 +83,7 @@ public class MonitoreoService {
         return asignacionRepository.save(asignacion);
     }
 
-    /** Lista todas las asignaciones de un reporte */
+    // devuelve todas las brigadas asignadas a un reporte específico
     public List<AsignacionBrigada> obtenerAsignacionesPorReporte(Long reporteId) {
         return asignacionRepository.findByReporteId(reporteId);
     }

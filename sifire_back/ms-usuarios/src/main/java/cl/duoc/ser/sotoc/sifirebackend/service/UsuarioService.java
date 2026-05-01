@@ -19,6 +19,7 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    // metodo para registrar un nuevo usuario, asignando un tipo por defecto si no se especifica
     public Usuario registrar(Usuario usuario) {
         if (usuario.getTipo() == null) {
             usuario.setTipo(Usuario.TipoUsuario.CIUDADANO);
@@ -30,12 +31,14 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    // metodo para autenticar un usuario por email y password, solo si está activo
      public Optional<Usuario> login(String email, String password) {
         return usuarioRepository.findByEmail(email)
                 .filter(u -> u.getPassword().equals(password))
                 .filter(u -> Boolean.TRUE.equals(u.getActivo()));
     }
 
+    // otros metodos
      public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
