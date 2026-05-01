@@ -3,6 +3,7 @@ package cl.sifire.monitoreo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cl.sifire.monitoreo.model.AsignacionBrigada;
 import cl.sifire.monitoreo.model.Brigada;
@@ -13,6 +14,7 @@ import cl.sifire.monitoreo.repository.BrigadaRepository;
 import cl.sifire.monitoreo.repository.RutaEvacuacionRepository;
 import cl.sifire.monitoreo.repository.ZonaRiesgoRepository;
 
+@Service
 public class MonitoreoService {
     private final ZonaRiesgoRepository zonaRiesgoRepository;
     private final RutaEvacuacionRepository rutaEvacuacionRepository;
