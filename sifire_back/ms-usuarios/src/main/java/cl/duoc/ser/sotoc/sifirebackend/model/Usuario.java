@@ -35,7 +35,10 @@ public class Usuario {
     @Column(name = "activo")
     private Boolean activo = true;
 
+    @Column(name = "username")
+    private String username;
+
     public enum TipoUsuario {
-        CIUDADANO, BRIGADISTA, FUNCIONARIO, ADMIN
+        CIUDADANO, BRIGADISTA, FUNCIONARIO, ADMINISTRADOR
     }
 }
