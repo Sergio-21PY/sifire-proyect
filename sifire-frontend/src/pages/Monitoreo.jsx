@@ -51,6 +51,7 @@ export default function MapaIncendios() {
   const { usuario } = useAuth();
   const [centro, setCentro] = useState([-33.4944, -70.6170]);
 
+  // pregunta por el rol del usuario para mostrar/ocultar capas:
   const esFuncionario = usuario?.rol === 'FUNCIONARIO';
   const esBrigadista  = usuario?.rol === 'BRIGADISTA';
 

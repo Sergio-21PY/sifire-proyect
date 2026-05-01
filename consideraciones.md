@@ -23,3 +23,9 @@ ajustar mejor el flujo del sistema, hablo del registro de usuarios,
 roles, asignaciones, brigadistas, respetar e implementar patrones de diseños que se prometieron en el informe, testear sistema.
 
 implementar patrones de diseño tanto en el frontend como en el backend.
+
+
+
+
+Nuevas consideraciones, estaría bueno que el ciudadano pueda además ver el mapa con todos los reportes además para asi ir comentando
+la publicaciones de los demás usuarios
