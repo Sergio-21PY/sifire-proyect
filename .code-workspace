@@ -1,8 +1,24 @@
 {
   "folders": [
     {
-      "name": "Backend (Spring Boot)",
-      "path": "./sifire_back"
+      "name": "ms-alertas",
+      "path": "./sifire_back/ms-alertas"
+    },
+    {
+      "name": "ms-monitoreo",
+      "path": "./sifire_back/ms-monitoreo"
+    },
+    {
+      "name": "ms-reportes",
+      "path": "./sifire_back/ms-reportes"
+    },
+    {
+      "name": "ms-bff",
+      "path": "./sifire_back/ms-bff"
+    },
+    {
+      "name": "ms-usuarios",
+      "path": "./sifire_back/ms-usuarios"
     },
     {
       "name": "Frontend",
