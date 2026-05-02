@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+// Acá configuramos las URLs de cada microservicio.
+// Si no se define una variable de entorno, usa localhost con el puerto por defecto.
+// Esto nos permite cambiar las URLs fácilmente cuando despleguemos en producción.
 @Configuration
 public class MicroserviciosConfig {
 
@@ -20,12 +23,13 @@ public class MicroserviciosConfig {
     @Value("${ms.alertas.url:http://localhost:8084}")
     private String alertasUrl;
 
-    public String getUsuariosUrl() { return usuariosUrl; }
-    public String getReportesUrl() { return reportesUrl; }
+    public String getUsuariosUrl()  { return usuariosUrl; }
+    public String getReportesUrl()  { return reportesUrl; }
     public String getMonitoreoUrl() { return monitoreoUrl; }
-    public String getAlertasUrl() { return alertasUrl; }
+    public String getAlertasUrl()   { return alertasUrl; }
 
-    // bean compartido para hacer llamadas http a los otros microservicios
+    // RestTemplate es el cliente HTTP que usamos para llamar a los otros micros.
+    // Lo declaramos como Bean para poder inyectarlo en cualquier parte del BFF.
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

@@ -5,15 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Entidad principal del microservicio de reportes.
  * Mapea la tabla REPORTE_INCENDIO de la base de datos SIFIRE.
  *
  * Campos clave:
- * - tipoReportante: define qué factory se usará al crear el reporte (CIUDADANO, BRIGADISTA, FUNCIONARIO)
- * - nivelRiesgo:    asignado automáticamente por el Factory Method según el tipo de reportante
- * - estado:         ciclo de vida del reporte (PENDIENTE → EN_PROCESO → RESUELTO / DESCARTADO)
+ * - tipoReportante: define qué factory se usará al crear el reporte (CIUDADANO,
+ * BRIGADISTA, FUNCIONARIO)
+ * - nivelRiesgo: asignado automáticamente por el Factory Method según el tipo
+ * de reportante
+ * - estado: ciclo de vida del reporte (PENDIENTE → EN_PROCESO → RESUELTO /
+ * DESCARTADO)
  */
 @Entity
 @Table(name = "REPORTE_INCENDIO")
@@ -29,6 +33,9 @@ public class ReporteIncendio {
     /** ID del usuario que crea el reporte (referencia a ms-usuarios) */
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
+
+    @Column(nullable = false)
+    private String titulo;
 
     @Column(nullable = false)
     private String descripcion;
@@ -68,11 +75,16 @@ public class ReporteIncendio {
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reporte_id")
+    private List<ReporteMultimedia> multimedia;
+
     @PrePersist
     public void prePersist() {
         this.fechaCreacion = LocalDateTime.now();
         this.fechaActualizacion = LocalDateTime.now();
-        if (this.estado == null) this.estado = EstadoReporte.PENDIENTE;
+        if (this.estado == null)
+            this.estado = EstadoReporte.PENDIENTE;
     }
 
     @PreUpdate
@@ -82,9 +94,16 @@ public class ReporteIncendio {
 
     // ── ENUMs internos ──────────────────────────────────────────────────────────
 
-    public enum NivelRiesgo { BAJO, MEDIO, ALTO, CRITICO }
+    public enum NivelRiesgo {
+        BAJO, MEDIO, ALTO, CRITICO
+    }
 
-    public enum EstadoReporte { PENDIENTE, EN_PROCESO, RESUELTO, DESCARTADO }
+    public enum EstadoReporte {
+        PENDIENTE, EN_PROCESO, RESUELTO, DESCARTADO
+    }
 
-    public enum TipoReportante { CIUDADANO, BRIGADISTA, FUNCIONARIO }
+    public enum TipoReportante {
+        CIUDADANO, BRIGADISTA, FUNCIONARIO
+    }
+
 }

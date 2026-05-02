@@ -9,6 +9,7 @@ import cl.sifire.reportes.service.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -27,17 +28,23 @@ public class ReporteController {
     }
 
     // crea un reporte nuevo, el service decide como armarlo segun quien reporta
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<ReporteIncendio> crearReporte(@RequestBody ReporteRequestDTO dto) {
         return ResponseEntity.ok(reporteService.crearReporte(dto));
+    }
+
+    @PostMapping("/{id}/subir-foto")
+    public ResponseEntity<ReporteMultimedia> subirFoto(
+            @PathVariable Long id,
+            @RequestParam("archivo") MultipartFile archivo) throws Exception {
+        return ResponseEntity.ok(reporteService.guardarFoto(id, archivo));
     }
 
     // lista todos los reportes, se puede filtrar por estado o solo activos
     @GetMapping
     public ResponseEntity<List<ReporteIncendio>> listarReportes(
-        @RequestParam(required = false) ReporteIncendio.EstadoReporte estado,
-        @RequestParam(required = false) String activos
-    ) {
+            @RequestParam(required = false) ReporteIncendio.EstadoReporte estado,
+            @RequestParam(required = false) String activos) {
         List<ReporteIncendio> reportes;
         if ("true".equals(activos)) {
             reportes = reporteService.listarActivos();
@@ -58,21 +65,18 @@ public class ReporteController {
     // cambia el estado del reporte y guarda el cambio en el historial
     @PutMapping("/{id}/estado")
     public ResponseEntity<ReporteIncendio> cambiarEstado(
-        @PathVariable Long id,
-        @RequestBody CambioEstadoDTO dto
-    ) {
+            @PathVariable Long id,
+            @RequestBody CambioEstadoDTO dto) {
         return ResponseEntity.ok(reporteService.cambiarEstado(id, dto));
     }
 
     // adjunta foto, video o audio a un reporte
     @PostMapping("/{id}/multimedia")
     public ResponseEntity<ReporteMultimedia> adjuntarMultimedia(
-        @PathVariable Long id,
-        @RequestBody Map<String, String> body
-    ) {
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body) {
         return ResponseEntity.ok(
-            reporteService.adjuntarMultimedia(id, body.get("urlArchivo"), body.get("tipoArchivo"))
-        );
+                reporteService.adjuntarMultimedia(id, body.get("urlArchivo"), body.get("tipoArchivo")));
     }
 
     // lista los archivos adjuntos de un reporte

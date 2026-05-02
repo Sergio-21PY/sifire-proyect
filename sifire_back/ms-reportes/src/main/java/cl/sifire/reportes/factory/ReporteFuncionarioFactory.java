@@ -12,6 +12,7 @@ public class ReporteFuncionarioFactory implements ReporteFactory {
         ReporteIncendio reporte = new ReporteIncendio();
         reporte.setUsuarioId(dto.getUsuarioId());
         reporte.setDescripcion(dto.getDescripcion());
+        reporte.setTitulo(dto.getTitulo());
         reporte.setLatitud(dto.getLatitud());
         reporte.setLongitud(dto.getLongitud());
         reporte.setTipoReportante(ReporteIncendio.TipoReportante.FUNCIONARIO);

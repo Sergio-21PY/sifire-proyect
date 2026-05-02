@@ -8,7 +8,7 @@ import lombok.Data;
 public class ReporteRequestDTO {
 
     private Long usuarioId;
-
+    private String titulo;
     private String descripcion;
 
     private Double latitud;
