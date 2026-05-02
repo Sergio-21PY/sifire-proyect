@@ -17,7 +17,7 @@ export default function BrigadistaForm({ form, errors, loading, onChange, onSubm
             {errors.email && <span style={styles.errorStyle}>{errors.email}</span>}
           </div>
           <div>
-            <label style={styles.labelStyle}>Teléfono <span style={{ fontWeight: 400, color: '#94a3b8' }}>(opcional)</span></label>
+            <label style={styles.labelStyle}>Teléfono <span style={{ fontWeight: 400, color: '#94a3b8' }}>(requerido)</span></label>
             <input name="telefono" type="tel" value={form.telefono} onChange={onChange} placeholder="+56 9 1234 5678" style={styles.inputStyle(errors.telefono)} />
             {errors.telefono && <span style={styles.errorStyle}>{errors.telefono}</span>}
           </div>

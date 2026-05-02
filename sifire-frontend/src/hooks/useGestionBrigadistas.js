@@ -42,24 +42,35 @@ export function useGestionBrigadistas() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) return setErrors(validationErrors);
-    setLoading(true);
-    try {
-      const nuevo = await registrarUsuario({ username: form.nombre, email: form.email, password: form.password, rol: 'BRIGADISTA' });
-      setBrigadistas(prev => [{ ...nuevo, telefono: form.telefono || '—', asignaciones: 0, estado: 'ACTIVO' }, ...prev]);
-      setForm(initialForm);
-      setShowForm(false);
-      setExito(true);
-      setTimeout(() => setExito(false), 3000);
-    } catch (e) {
-      console.error('Error al registrar:', e);
-      setErrors({ form: 'No se pudo registrar el brigadista. Intente de nuevo.' });
-    } finally {
-      setLoading(false);
-    }
-  };
+  e.preventDefault();
+  const validationErrors = validate();
+  if (Object.keys(validationErrors).length > 0) return setErrors(validationErrors);
+  setLoading(true);
+  try {
+    const nuevo = await registrarUsuario({
+      username:  form.nombre,
+      nombre:    form.nombre,       // ← agregar nombre separado
+      email:     form.email,
+      password:  form.password,
+      telefono:  form.telefono || '', // ← agregar telefono
+      tipo:      'BRIGADISTA',       // ← cambiar "rol" por "tipo"
+      activo:    true
+    });
+    setBrigadistas(prev => [
+      { ...nuevo, telefono: form.telefono || '—', asignaciones: 0, estado: 'ACTIVO' },
+      ...prev
+    ]);
+    setForm(initialForm);
+    setShowForm(false);
+    setExito(true);
+    setTimeout(() => setExito(false), 3000);
+  } catch (e) {
+    console.error('Error al registrar:', e);
+    setErrors({ form: 'No se pudo registrar el brigadista. Intente de nuevo.' });
+  } finally {
+    setLoading(false);
+  }
+};
 
   const toggleEstado = (id) =>
     setBrigadistas(prev => prev.map(b => b.id === id ? { ...b, estado: b.estado === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO' } : b));
