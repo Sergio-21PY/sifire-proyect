@@ -6,7 +6,7 @@ const syncBadgeStyle = (sincronizado) => ({
   color:      sincronizado === false ? '#92400e' : '#166534',
 });
 
-export default function ReportesTabla({ reportes, esFuncionario, onAsignar }) {
+export default function ReportesTabla({ reportes, esFuncionario, onAsignar, onVerDetalle }) {
   const headers = ['#', 'Título', 'Nivel', 'Estado', 'Origen', 'Descripción', 'Fecha', 'Sync', ...(esFuncionario ? ['Acción'] : [])];
 
   return (
@@ -19,7 +19,7 @@ export default function ReportesTabla({ reportes, esFuncionario, onAsignar }) {
         </thead>
         <tbody>
           {reportes.map((r) => (
-            <tr key={r.id} style={styles.tableBodyRow}>
+            <tr key={r.id} style={{ ...styles.tableBodyRow, cursor: 'pointer' }} onClick={() => onVerDetalle(r)}>
               <td style={styles.tableCellId}>#{r.id}</td>
               <td style={styles.tableCellTitle}>{r.titulo}</td>
               <td style={styles.tableCell}><span style={styles.levelBadge(r.nivel)}>● {r.nivel}</span></td>
@@ -35,7 +35,11 @@ export default function ReportesTabla({ reportes, esFuncionario, onAsignar }) {
               {esFuncionario && (
                 <td style={styles.tableCell}>
                   {r.estado === 'EN_CURSO' && (
-                    <button onClick={() => onAsignar(r)} style={styles.assignButton}>Asignar</button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onAsignar(r); }}
+                      style={styles.assignButton}>
+                      Asignar
+                    </button>
                   )}
                 </td>
               )}

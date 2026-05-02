@@ -141,7 +141,14 @@ public class BffService {
         public Object cambiarEstadoReporte(Long id, Map<String, String> body) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                HttpEntity<Map<String, String>> request = new HttpEntity<>(body, headers);
+
+                Map<String, Object> payload = new HashMap<>();
+                String nuevoEstado = body.get("nuevoEstado") != null ? body.get("nuevoEstado") : body.get("estado");
+                payload.put("nuevoEstado", nuevoEstado);
+                payload.put("usuarioId", 1L);
+                payload.put("observacion", "Cambio desde dashboard");
+
+                HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
                 restTemplate.put(
                                 config.getReportesUrl() + "/api/reportes/" + id + "/estado", request);
                 return Map.of("mensaje", "Estado actualizado correctamente");
@@ -180,8 +187,35 @@ public class BffService {
 
         // Trae las asignaciones activas de brigadas a reportes
         public Object listarAsignaciones() {
-                return restTemplate.getForObject(
-                                config.getMonitoreoUrl() + "/api/asignaciones", Object.class);
+                // Traemos las asignaciones
+                Object[] asignaciones = restTemplate.getForObject(
+                                config.getMonitoreoUrl() + "/api/asignaciones", Object[].class);
+
+                if (asignaciones == null)
+                        return new Object[] {};
+
+                // Para cada asignación cruzamos con ms-reportes
+                return java.util.Arrays.stream(asignaciones).map(a -> {
+                        Map<String, Object> asig = new HashMap<>((Map<String, Object>) a);
+                        try {
+                                Object reporte = restTemplate.getForObject(
+                                                config.getReportesUrl() + "/api/reportes/" + asig.get("reporteId"),
+                                                Object.class);
+                                if (reporte instanceof Map) {
+                                        Map<String, Object> r = (Map<String, Object>) reporte;
+                                        asig.put("titulo", r.get("titulo"));
+                                        asig.put("descripcion", r.get("descripcion"));
+                                        asig.put("nivel", r.get("nivelRiesgo"));
+                                        asig.put("estado", r.get("estado"));
+                                        asig.put("fechaCreacion", r.get("fechaCreacion"));
+                                        asig.put("latitud", r.get("latitud"));
+                                        asig.put("longitud", r.get("longitud"));
+                                }
+                        } catch (Exception e) {
+                                asig.put("titulo", "Reporte #" + asig.get("reporteId"));
+                        }
+                        return asig;
+                }).collect(java.util.stream.Collectors.toList());
         }
 
         // Asigna una brigada disponible a un reporte activo

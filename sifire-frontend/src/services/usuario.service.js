@@ -1,7 +1,6 @@
 /* URL base de la API (configurable por variable de entorno de Vite) */
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
-const API_URL = `${API_BASE_URL}/api/usuarios`;
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/bff";
+const API_URL = `${API_BASE_URL}/usuarios`;
 /**
  * Obtiene la lista de todos los usuarios.
  * @returns {Promise<Array>} Una promesa que resuelve a un array de usuarios.

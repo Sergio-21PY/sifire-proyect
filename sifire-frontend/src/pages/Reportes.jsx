@@ -3,6 +3,7 @@ import { useReportes } from '../hooks/useReportes';
 import ReporteForm from '../components/reportes/ReporteForm';
 import ReportesTabla from '../components/reportes/ReportesTabla';
 import ModalAsignar from '../components/reportes/ModalAsignar';
+import ReporteDetalleModal from '../components/reportes/ReporteDetalleModal';
 import * as styles from '../styles/Reportes.styles';
 
 export default function Reportes() {
@@ -10,6 +11,7 @@ export default function Reportes() {
   const {
     reportes, form, showForm, exito, exitoAsign,
     modalReporte, setModalReporte,
+    reporteDetalle, setReporteDetalle,
     brigadistaId, setBrigadistaId,
     centroMapa,
     handleChange, handleUbicacion, handleArchivos,
@@ -17,12 +19,11 @@ export default function Reportes() {
     handleSubmit, handleAsignar,
   } = useReportes();
 
-  const esFuncionario = usuario?.rol === 'FUNCIONARIO';
-  const esCiudadano   = usuario?.rol === 'CIUDADANO';
+  const esFuncionario = usuario?.tipo === 'FUNCIONARIO';
+  const esCiudadano   = usuario?.tipo === 'CIUDADANO';
 
   return (
     <div style={styles.mainContainer}>
-
       <div style={styles.headerContainer}>
         <div>
           <h1 style={styles.headerTitle}>Reportes de Incendio</h1>
@@ -32,7 +33,6 @@ export default function Reportes() {
               : `Bienvenido, ${usuario?.username || usuario?.nombre} — aquí puedes reportar un incendio`}
           </p>
         </div>
-        {/* Solo CIUDADANO y FUNCIONARIO pueden crear reportes */}
         {(esCiudadano || esFuncionario) && (
           <button onClick={abrirFormulario} style={styles.headerButton}>
             {showForm ? 'Cancelar' : '+ Nuevo Reporte'}
@@ -45,15 +45,11 @@ export default function Reportes() {
 
       {showForm && (
         <ReporteForm
-          form={form}
-          centroMapa={centroMapa}
-          onChange={handleChange}
-          onUbicacion={handleUbicacion}
-          onArchivos={handleArchivos}
-          onEliminarArchivo={eliminarArchivo}
+          form={form} centroMapa={centroMapa}
+          onChange={handleChange} onUbicacion={handleUbicacion}
+          onArchivos={handleArchivos} onEliminarArchivo={eliminarArchivo}
           onUbicacionActual={usarMiUbicacion}
-          onSubmit={handleSubmit}
-          onCancelar={() => abrirFormulario()}
+          onSubmit={handleSubmit} onCancelar={() => abrirFormulario()}
         />
       )}
 
@@ -61,18 +57,24 @@ export default function Reportes() {
         reportes={reportes}
         esFuncionario={esFuncionario}
         onAsignar={(r) => { setModalReporte(r); setBrigadistaId(''); }}
+        onVerDetalle={(r) => setReporteDetalle(r)}
       />
 
       {modalReporte && (
         <ModalAsignar
-          reporte={modalReporte}
-          brigadistaId={brigadistaId}
+          reporte={modalReporte} brigadistaId={brigadistaId}
           onChangeBrigadista={setBrigadistaId}
           onConfirmar={handleAsignar}
           onCancelar={() => setModalReporte(null)}
         />
       )}
 
+      {reporteDetalle && (
+        <ReporteDetalleModal
+          reporte={reporteDetalle}
+          onCerrar={() => setReporteDetalle(null)}
+        />
+      )}
     </div>
   );
 }

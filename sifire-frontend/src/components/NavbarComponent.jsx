@@ -4,6 +4,14 @@ import { useAuth } from '../context/AuthContext';
 const NO_NAVBAR = ['/', '/login', '/registro'];
 
 const RUTAS_POR_ROL = {
+   ADMINISTRADOR: [
+    { to: '/dashboard',   label: 'Dashboard' },
+    { to: '/reportes',    label: 'Reportes' },
+    { to: '/monitoreo',   label: 'Mapa' },
+    { to: '/alertas',     label: 'Alertas' },
+    { to: '/brigadistas', label: 'Brigadistas' },
+    { to: '/usuarios',    label: 'Usuarios' },  // ← para crear cuentas de brigadista
+  ],
   FUNCIONARIO: [
     { to: '/dashboard',   label: 'Dashboard' },
     { to: '/reportes',    label: 'Reportes' },
@@ -29,7 +37,7 @@ function NavbarComponent() {
 
   if (NO_NAVBAR.includes(pathname)) return null;
 
-  const rutas = RUTAS_POR_ROL[usuario?.rol] || [];
+  const rutas = RUTAS_POR_ROL[usuario?.tipo] || [];
 
   const handleLogout = () => {
     logout();

@@ -5,18 +5,18 @@ const initialForm = { nombre: '', email: '', telefono: '', password: '' };
 
 export function useGestionBrigadistas() {
   const [brigadistas, setBrigadistas] = useState([]);
-  const [form, setForm]               = useState(initialForm);
-  const [errors, setErrors]           = useState({});
-  const [showForm, setShowForm]       = useState(false);
-  const [exito, setExito]             = useState(false);
-  const [loading, setLoading]         = useState(false);
+  const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({});
+  const [showForm, setShowForm] = useState(false);
+  const [exito, setExito] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
 
   useEffect(() => {
     const cargar = async () => {
       try {
         const data = await listarUsuarios();
-        setBrigadistas(data.map(u => ({ ...u, asignaciones: 0, estado: 'ACTIVO' })));
+        setBrigadistas(data.filter(u => u.tipo === 'BRIGADISTA').map(u => ({ ...u, asignaciones: 0, estado: 'ACTIVO' })));
       } catch (e) {
         console.error('Error al cargar usuarios:', e);
       } finally {

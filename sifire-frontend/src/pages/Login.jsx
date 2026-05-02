@@ -57,7 +57,7 @@ export default function Login() {
     setLoginError('');
     try {
       const usuarioLogueado = await login(form.email, form.password);
-      const ruta = RUTA_POR_ROL[usuarioLogueado.rol] || RUTA_POR_ROL.DEFAULT;
+      const ruta = RUTA_POR_ROL[usuarioLogueado.tipo] || RUTA_POR_ROL.DEFAULT;
       navigate(ruta);
     } catch (error) {
       setLoginError(error.message || 'Error al iniciar sesión. Revisa tus credenciales.');
