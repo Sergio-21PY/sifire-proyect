@@ -118,4 +118,10 @@ public class BffController {
     public ResponseEntity<Object> crearAsignacion(@RequestBody Map<String, Object> asignacion) {
         return ResponseEntity.ok(bffService.crearAsignacion(asignacion));
     }
+
+    // Asigna brigadistas a una alerta (funcionalidad de Sergio)
+    @PostMapping("/alertas/{id}/asignar-brigadistas")
+    public ResponseEntity<Object> asignarBrigadistasAlerta(@PathVariable Long id) {
+        return ResponseEntity.ok(bffService.asignarBrigadistasAlerta(id));
+    }
 }

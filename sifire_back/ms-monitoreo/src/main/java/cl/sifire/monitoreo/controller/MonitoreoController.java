@@ -43,12 +43,16 @@ public class MonitoreoController {
 
     @GetMapping("/api/zonas-riesgo")
     public ResponseEntity<List<ZonaRiesgo>> obtenerZonasRiesgo(
-        @RequestParam(required = false, defaultValue = "true") Boolean soloActivas
-    ) {
+            @RequestParam(required = false, defaultValue = "true") Boolean soloActivas) {
         List<ZonaRiesgo> zonas = soloActivas
-            ? monitoreoService.obtenerZonasActivas()
-            : monitoreoService.obtenerTodasLasZonas();
+                ? monitoreoService.obtenerZonasActivas()
+                : monitoreoService.obtenerTodasLasZonas();
         return ResponseEntity.ok(zonas);
+    }
+
+    @GetMapping("/api/asignaciones")
+    public ResponseEntity<List<AsignacionBrigada>> obtenerTodasLasAsignaciones() {
+        return ResponseEntity.ok(monitoreoService.obtenerTodasLasAsignaciones());
     }
 
     @GetMapping("/api/rutas-evacuacion")
@@ -63,30 +67,29 @@ public class MonitoreoController {
 
     @PutMapping("/api/brigadas/{id}")
     public ResponseEntity<Brigada> actualizarBrigada(
-        @PathVariable Long id,
-        @RequestBody Brigada datos
-    ) {
+            @PathVariable Long id,
+            @RequestBody Brigada datos) {
         return ResponseEntity.ok(monitoreoService.actualizarBrigada(id, datos));
     }
 
     @PostMapping("/api/asignaciones")
     public ResponseEntity<AsignacionBrigada> asignarBrigada(
-        @RequestBody Map<String, Long> body
-    ) {
+            @RequestBody Map<String, Long> body) {
         return ResponseEntity.ok(
-            monitoreoService.asignarBrigada(
-                body.get("reporteId"),
-                body.get("brigadaId")
-            )
-        );
+                monitoreoService.asignarBrigada(
+                        body.get("reporteId"),
+                        body.get("brigadaId")));
     }
 
     @GetMapping("/api/asignaciones/{reporteId}")
     public ResponseEntity<List<AsignacionBrigada>> obtenerAsignaciones(
-        @PathVariable Long reporteId
-    ) {
+            @PathVariable Long reporteId) {
         return ResponseEntity.ok(
-            monitoreoService.obtenerAsignacionesPorReporte(reporteId)
-        );
+                monitoreoService.obtenerAsignacionesPorReporte(reporteId));
+    }
+
+    @PostMapping("/api/brigadas")
+    public ResponseEntity<Brigada> crearBrigada(@RequestBody Brigada brigada) {
+        return ResponseEntity.ok(monitoreoService.crearBrigada(brigada));
     }
 }

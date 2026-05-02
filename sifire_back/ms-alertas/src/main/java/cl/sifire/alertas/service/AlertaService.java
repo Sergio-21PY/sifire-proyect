@@ -34,4 +34,11 @@ public class AlertaService {
         alerta.setEstado(nuevoEstado);
         return alertaRepository.save(alerta);
     }
+
+    public Alerta asignarBrigadistas(Long id) {
+        Alerta alerta = alertaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
+        alerta.setEstado(Alerta.Estado.ASIGNADA);
+        return alertaRepository.save(alerta);
+    }
 }

@@ -209,4 +209,12 @@ public class BffService {
                 return restTemplate.postForObject(
                                 config.getReportesUrl() + "/api/reportes/" + id + "/subir-foto", request, Object.class);
         }
+
+        // Llama al endpoint en ms-alertas
+        // Integración Sergio: asigna brigadistas a una alerta en ms-alertas
+        public Object asignarBrigadistasAlerta(Long id) {
+                return restTemplate.postForObject(
+                                config.getAlertasUrl() + "/api/alertas/" + id + "/asignar-brigadistas",
+                                null, Object.class);
+        }
 }

@@ -33,29 +33,30 @@ public class MonitoreoService {
         this.asignacionRepository = asignacionRepository;
     }
 
-   // devuelve solo las zonas activas para renderizar en el mapa
+    // devuelve solo las zonas activas para renderizar en el mapa
     public List<ZonaRiesgo> obtenerZonasActivas() {
         return zonaRiesgoRepository.findByActivoTrue();
     }
 
-    // devuelve todas las zonas, incluso las inactivas, para la sección de administración
+    // devuelve todas las zonas, incluso las inactivas, para la sección de
+    // administración
     public List<ZonaRiesgo> obtenerTodasLasZonas() {
         return zonaRiesgoRepository.findAll();
     }
 
-
-        /** Retorna todas las rutas activas para renderizar en el mapa */
+    /** Retorna todas las rutas activas para renderizar en el mapa */
     public List<RutaEvacuacion> obtenerRutasActivas() {
         return rutaEvacuacionRepository.findByActivoTrue();
     }
 
-
-    // devuelve todas las brigadas, incluso las inactivas, para la sección de administración
+    // devuelve todas las brigadas, incluso las inactivas, para la sección de
+    // administración
     public List<Brigada> obtenerTodasLasBrigadas() {
         return brigadaRepository.findAll();
     }
 
-    // esto es para actualizar la ubicación GPS y estado de una brigada en tiempo real
+    // esto es para actualizar la ubicación GPS y estado de una brigada en tiempo
+    // real
     public Brigada actualizarBrigada(Long id, Brigada datos) {
         Brigada brigada = brigadaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Brigada no encontrada: " + id));
@@ -90,9 +91,16 @@ public class MonitoreoService {
         return asignacionRepository.findByReporteId(reporteId);
     }
 
-
     public void sincronizarFoco(Long reporteId, String estado, String nivelRiesgo) {
         System.out.println("[MonitoreoService] Foco sincronizado → reporteId=" +
                 reporteId + " | estado=" + estado + " | nivel=" + nivelRiesgo);
+    }
+
+    public List<AsignacionBrigada> obtenerTodasLasAsignaciones() {
+        return asignacionRepository.findAll();
+    }
+
+    public Brigada crearBrigada(Brigada brigada) {
+        return brigadaRepository.save(brigada);
     }
 }
