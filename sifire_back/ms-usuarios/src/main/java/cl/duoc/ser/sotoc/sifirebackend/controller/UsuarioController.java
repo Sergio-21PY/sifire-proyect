@@ -22,6 +22,12 @@ public class UsuarioController {
         return usuarioRepository.findAll();
     }
 
+    // Obtener usuarios por rol
+    @GetMapping("/por-rol/{rol}")
+    public ResponseEntity<List<Usuario>> listarUsuariosPorRol(@PathVariable String rol) {
+        return ResponseEntity.ok(usuarioRepository.findByRol(rol));
+    }
+
     // Registrar un nuevo usuario
     @PostMapping("/registro")
     public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario){

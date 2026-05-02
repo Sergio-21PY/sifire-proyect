@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ALERTA")
@@ -32,6 +34,11 @@ public class Alerta {
 
     @Column(nullable = false)
     private String estado;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "alerta_asignaciones", joinColumns = @JoinColumn(name = "alerta_id"))
+    @Column(name = "usuario_id")
+    private Set<Long> usuariosAsignadosIds = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {
