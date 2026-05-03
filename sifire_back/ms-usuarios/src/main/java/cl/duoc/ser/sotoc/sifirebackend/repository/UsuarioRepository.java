@@ -8,13 +8,18 @@ import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    // Métodos de consulta personalizados
     Optional<Usuario> findByEmail(String email);
+<<<<<<< HEAD
 
     Optional<Usuario> findByUsername(String username);
 
+=======
+>>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
     List<Usuario> findByTipo(Usuario.TipoUsuario tipo);
 
     List<Usuario> findByActivoTrue();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
 }
