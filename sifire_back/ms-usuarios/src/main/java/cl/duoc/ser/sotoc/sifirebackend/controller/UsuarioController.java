@@ -1,13 +1,8 @@
 package cl.duoc.ser.sotoc.sifirebackend.controller;
 
 import cl.duoc.ser.sotoc.sifirebackend.model.Usuario;
-<<<<<<< HEAD
-import cl.duoc.ser.sotoc.sifirebackend.repository.UsuarioRepository;
-import cl.duoc.ser.sotoc.sifirebackend.service.JwtService;
-=======
 import cl.duoc.ser.sotoc.sifirebackend.service.UsuarioService;
 
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,55 +26,11 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-<<<<<<< HEAD
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtService jwtService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    // Obtener todos los usuarios
-=======
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
     @GetMapping("/listar")
     public List<Usuario> listarUsuarios() {
         return usuarioService.listarTodos();
     }
 
-<<<<<<< HEAD
-    // Obtener usuarios por rol
-    @GetMapping("/por-rol/{rol}")
-    public ResponseEntity<List<Usuario>> listarUsuariosPorRol(@PathVariable String rol) {
-        return ResponseEntity.ok(usuarioRepository.findByRol(rol));
-    }
-
-    // Registrar un nuevo usuario
-    @PostMapping("/registro")
-    public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario){
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        Usuario nuevoUsuario = usuarioRepository.save(usuario);
-        return ResponseEntity.ok(nuevoUsuario);
-    }
-
-    // Login que devuelve un JWT
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Usuario loginReq){
-        authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword())
-        );
-
-        UserDetails user = usuarioRepository.findByEmail(loginReq.getEmail()).orElseThrow();
-        String token = jwtService.generateToken(user);
-
-        return ResponseEntity.ok(Map.of("token", token));
-    }
-
-    // Buscar perfil del usuario por ID
-=======
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerPorId(@PathVariable Long id) {
         return usuarioService.buscarPorId(id)
@@ -93,15 +44,7 @@ public class UsuarioController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-<<<<<<< HEAD
-}
-=======
 
-    /**
-     * Endpoint diseñado por Sergio — permite consultar usuarios por tipo de rol.
-     * Usado por ms-alertas para obtener brigadistas disponibles.
-     * Ejemplo: GET /api/usuarios/por-tipo/BRIGADISTA
-     */
     @GetMapping("/por-tipo/{tipo}")
     public ResponseEntity<List<Usuario>> listarPorTipo(@PathVariable String tipo) {
         try {
@@ -141,4 +84,3 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 }
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
