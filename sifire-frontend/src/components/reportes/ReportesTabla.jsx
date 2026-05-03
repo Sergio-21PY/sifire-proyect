@@ -3,7 +3,7 @@ import * as styles from '../../styles/Reportes.styles';
 const syncBadgeStyle = (sincronizado) => ({
   fontSize: '0.75rem', padding: '2px 8px', borderRadius: '999px', fontWeight: '600',
   background: sincronizado === false ? '#fef3c7' : '#dcfce7',
-  color:      sincronizado === false ? '#92400e' : '#166534',
+  color: sincronizado === false ? '#92400e' : '#166534',
 });
 
 export default function ReportesTabla({ reportes, esFuncionario, onAsignar, onVerDetalle }) {
@@ -22,19 +22,25 @@ export default function ReportesTabla({ reportes, esFuncionario, onAsignar, onVe
             <tr key={r.id} style={{ ...styles.tableBodyRow, cursor: 'pointer' }} onClick={() => onVerDetalle(r)}>
               <td style={styles.tableCellId}>#{r.id}</td>
               <td style={styles.tableCellTitle}>{r.titulo}</td>
-              <td style={styles.tableCell}><span style={styles.levelBadge(r.nivel)}>● {r.nivel}</span></td>
-              <td style={styles.tableCell}><span style={styles.statusBadge(r.estado)}>{r.estado.replace('_', ' ')}</span></td>
-              <td style={styles.tableCell}>{r.origen}</td>
+              <td style={styles.tableCell}>
+                <span style={styles.levelBadge(r.nivelRiesgo)}>● {r.nivelRiesgo}</span>
+              </td>
+              <td style={styles.tableCell}>
+                <span style={styles.statusBadge(r.estado)}>{r.estado?.replace('_', ' ')}</span>
+              </td>
+              <td style={styles.tableCell}>{r.tipoReportante || '—'}</td>
               <td style={styles.tableCellDescription}>{r.descripcion}</td>
-              <td style={styles.tableCell}>{r.fecha}</td>
+              <td style={styles.tableCell}>
+                {r.fechaCreacion ? new Date(r.fechaCreacion).toLocaleDateString('es-CL') : '—'}
+              </td>
               <td style={styles.tableCell}>
                 <span style={syncBadgeStyle(r.sincronizado)}>
-                  {r.sincronizado === false ? ' Pendiente' : ' Sync'}
+                  {r.sincronizado === false ? 'Pendiente' : 'Sync'}
                 </span>
               </td>
               {esFuncionario && (
                 <td style={styles.tableCell}>
-                  {r.estado === 'EN_CURSO' && (
+                  {r.estado === 'PENDIENTE' && (
                     <button
                       onClick={(e) => { e.stopPropagation(); onAsignar(r); }}
                       style={styles.assignButton}>

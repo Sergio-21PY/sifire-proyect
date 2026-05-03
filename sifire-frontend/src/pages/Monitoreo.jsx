@@ -171,7 +171,7 @@ export default function MapaIncendios() {
                             fontSize: '20px', cursor: 'pointer'
                         }}>✕</button>
                         <h2 style={{ marginBottom: '16px', fontSize: '1.2rem' }}>
-                            🔥 {reporteSeleccionado.titulo}
+                             {reporteSeleccionado.titulo}
                         </h2>
                         <p><strong>Descripción:</strong> {reporteSeleccionado.descripcion}</p>
                         <p><strong>Nivel de riesgo:</strong> {reporteSeleccionado.nivelRiesgo}</p>
