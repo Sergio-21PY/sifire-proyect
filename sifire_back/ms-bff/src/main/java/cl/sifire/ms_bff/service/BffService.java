@@ -160,6 +160,34 @@ public class BffService {
                 HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
                 restTemplate.put(
                                 config.getReportesUrl() + "/api/reportes/" + id + "/estado", request);
+
+                // Si el reporte se resuelve o descarta, liberar las brigadas asignadas
+                if ("RESUELTO".equals(nuevoEstado) || "DESCARTADO".equals(nuevoEstado)) {
+                        try {
+                                Object[] asignaciones = restTemplate.getForObject(
+                                                config.getMonitoreoUrl() + "/api/asignaciones/" + id, Object[].class);
+
+                                if (asignaciones != null) {
+                                        for (Object a : asignaciones) {
+                                                Map<String, Object> asig = (Map<String, Object>) a;
+                                                Map<String, Object> brigada = (Map<String, Object>) asig.get("brigada");
+                                                Long brigadaId = Long.valueOf(brigada.get("id").toString());
+
+                                                Map<String, Object> brigadaUpdate = new HashMap<>();
+                                                brigadaUpdate.put("estado", "DISPONIBLE");
+                                                HttpEntity<Map<String, Object>> brigReq = new HttpEntity<>(
+                                                                brigadaUpdate, headers);
+                                                restTemplate.put(
+                                                                config.getMonitoreoUrl() + "/api/brigadas/" + brigadaId,
+                                                                brigReq);
+                                        }
+                                }
+                        } catch (Exception e) {
+                                // falla silenciosamente — el reporte igual queda resuelto
+                                System.out.println("Error al liberar brigadas: " + e.getMessage());
+                        }
+                }
+
                 return Map.of("mensaje", "Estado actualizado correctamente");
         }
 
