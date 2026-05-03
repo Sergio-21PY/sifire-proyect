@@ -5,7 +5,7 @@ import { listarBrigadas, crearAsignacion } from '../services/monitoreo.service';
 
 const initialForm = {
     titulo: '', descripcion: '', nivel: 'MEDIO',
-    latitud: '', longitud: '', archivos: []
+    latitud: '', longitud: '', archivos: [], comuna: ''
 };
 
 const pedirUbicacion = (onSuccess) => {
@@ -80,6 +80,7 @@ export function useReportes() {
                 latitud: parseFloat(form.latitud), longitud: parseFloat(form.longitud),
                 tipoReportante: usuario?.tipo || 'CIUDADANO',
                 usuarioId: usuario?.id,
+                comuna: form.comuna,  // ← agregar esta línea
             };
             const creado = await crearReporte(nuevoReporte);
 
