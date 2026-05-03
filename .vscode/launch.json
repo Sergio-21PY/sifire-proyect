@@ -9,6 +9,47 @@
             "projectName": "ms-usuario",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MonitoreoApplication<monitoreo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sifire.monitoreo.MonitoreoApplication",
+            "projectName": "monitoreo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AlertasApplication<alertas>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sifire.alertas.AlertasApplication",
+            "projectName": "alertas",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsBffApplication<ms-bff>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sifire.ms_bff.MsBffApplication",
+            "projectName": "ms-bff",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ReportesApplication<ms-reportes>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.sifire.reportes.ReportesApplication",
+            "projectName": "ms-reportes",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

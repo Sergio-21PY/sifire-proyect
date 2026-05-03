@@ -7,6 +7,7 @@ export const coloresZona = {
   MEDIO:  { color: '#f97316', fill: '#f97316' },
   BAJO:   { color: '#eab308', fill: '#eab308' },
   CRITICO:{ color: '#7f1d1d', fill: '#7f1d1d' },
+  RESUELTO:{ color: '#22c55e', fill: '#22c55e' }
 };
 
 // --- Iconos ---
@@ -85,8 +86,15 @@ export const rutaPathOptions = {
   dashArray: '8 4'
 };
 
-export const focoCirclePathOptions = (nivel) => ({
-  color: coloresPorNivel[nivel],
-  fillColor: coloresPorNivel[nivel],
-  fillOpacity: 0.25,
-});
+export const focoCirclePathOptions = (nivel, estado) => {
+  const esResuelto = estado === 'RESUELTO' || estado === 'DESCARTADO';
+  const nivelNormalizado = String(nivel || '').toLowerCase();
+  const color = esResuelto
+    ? coloresPorNivel.resuelto
+    : coloresPorNivel[nivelNormalizado] || coloresPorNivel.medio;
+  return {
+    color,
+    fillColor: color,
+    fillOpacity: 0.25,
+  };
+};

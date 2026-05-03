@@ -16,23 +16,34 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+<<<<<<< HEAD
 public class Usuario implements UserDetails { // MODIFICADO
+=======
+public class Usuario {
+>>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(nullable = false)
+    private String nombre;
 
+<<<<<<< HEAD
     @Column(nullable = false)
     private String username;
+=======
+    @Column(unique = true, nullable = false)
+    private String email;
+>>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
 
     @Column(nullable = false)
     private String password;
 
-    private String rol; //Roles ya definidos: Ciudadano, Brigadista, Funcionario, Admin
+    @Column(nullable = false)
+    private String telefono;
 
+<<<<<<< HEAD
     // --- MÉTODOS DE USERDETAILS AÑADIDOS ---
 
     @Override
@@ -65,5 +76,19 @@ public class Usuario implements UserDetails { // MODIFICADO
     @Override
     public boolean isEnabled() {
         return true; // La cuenta siempre está habilitada
+=======
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", nullable = false)
+    private TipoUsuario tipo;
+
+    @Column(name = "activo")
+    private Boolean activo = true;
+
+    @Column(name = "username")
+    private String username;
+
+    public enum TipoUsuario {
+        CIUDADANO, BRIGADISTA, FUNCIONARIO, ADMINISTRADOR
+>>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
     }
 }

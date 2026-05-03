@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -10,6 +11,15 @@
 	</parent>
 	<groupId>cl.duoc.ser.sotoc</groupId>
 	<artifactId>ms-alertas</artifactId>
+=======
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.5</version>
+</parent>
+	<groupId>cl.sifire</groupId>
+	<artifactId>alertas</artifactId>
+>>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ms-alertas</name>
 	<description>Microservicio para la gestión de alertas</description>

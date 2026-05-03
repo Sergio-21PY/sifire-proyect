@@ -1,90 +1,122 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { listarAsignaciones } from "../services/monitoreo.service";
+import { cambiarEstadoReporte } from "../services/reporte.service";
 import * as styles from '../styles/MisAsignaciones.styles';
 
-const asignacionesMock = [
-    { id: 1, reporteId: 1, titulo: 'Incendio Sector Carén', nivel: 'ALTO', estado: 'EN_CURSO', fecha: '15-04-2026', descripcion: 'Incendio activo en el sector Carén, con humo visible desde el pueblo.', lat: -30.692, lng: -70.962 },
-    { id: 2, reporteId: 2, titulo: 'Columna de humo Cerro Las Ramadas', nivel: 'MEDIO', estado: 'EN_CURSO', fecha: '14-04-2026', descripcion: 'Columna de humo visible desde el Cerro Las Ramadas, sin confirmación de incendio.', lat: -30.701, lng: -70.948 },
-];
-
 const estadosSiguientes = {
-  EN_CURSO:   ['CONTROLADO', 'CERRADO'],
-  CONTROLADO: ['CERRADO'],
-  CERRADO:    [],
+    EN_PROCESO: ['RESUELTO', 'DESCARTADO'],
+    RESUELTO:   [],
+    DESCARTADO: [],
 };
 
 export default function MisAsignaciones() {
-  const { usuario } = useAuth();
-  const [asignaciones, setAsignaciones] = useState(asignacionesMock);
-  const [exito, setExito] = useState(false);
+    const { usuario } = useAuth();
+    const [asignaciones, setAsignaciones] = useState([]);
+    const [exito, setExito]               = useState(false);
+    const [cargando, setCargando]         = useState(true);
+    const [error, setError]               = useState(null);
 
-  const cambiarEstado = (id, nuevoEstado) => {
-    setAsignaciones(prev =>
-      prev.map(a => a.id === id ? { ...a, estado: nuevoEstado } : a)
-    );
-    setExito(true);
-    setTimeout(() => setExito(false), 3000);
-  };
+    useEffect(() => {
+    const cargar = async () => {
+        try {
+            const data = await listarAsignaciones();
 
-  return (
-    <div style={styles.mainContainer}>
-      {/* Header */}
-      <div style={styles.headerContainer}>
-        <h1 style={styles.headerTitle}>Mis Asignaciones</h1>
-        <p style={styles.headerSubtitle}>
-          Brigadista: {usuario?.nombre} — {asignaciones.filter(a => a.estado === 'EN_CURSO').length} activas
-        </p>
-      </div>
+            // Filtrar por el brigadista logueado y sin fechaFin
+            const activas = data.filter(a =>
+                !a.fechaFin &&
+                (a.usuarioId === usuario?.id || a.brigadaId === usuario?.brigadaId)
+            );
 
-      {/* Alerta éxito */}
-      {exito && <div style={styles.successAlert}>✓ Estado actualizado correctamente</div>}
+            // Deduplicar por reporteId por si el backend repite
+            const seen = new Set();
+            const unicas = activas.filter(a => {
+                if (seen.has(a.reporteId)) return false;
+                seen.add(a.reporteId);
+                return true;
+            });
 
-      {/* Sin asignaciones */}
-      {asignaciones.length === 0 && (
-        <div style={styles.noAsignacionesContainer}>
-          <p style={styles.noAsignacionesText}>No tienes asignaciones activas.</p>
-        </div>
-      )}
+            setAsignaciones(unicas);
+        } catch (err) {
+            setError('No se pudieron cargar las asignaciones');
+            console.error(err);
+        } finally {
+            setCargando(false);
+        }
+    };
+    cargar();
+}, [usuario]);
 
-      {/* Tarjetas de asignaciones */}
-      <div style={styles.cardsGrid}>
-        {asignaciones.map((a) => (
-          <div key={a.id} style={styles.card(a.nivel)}>
-            {/* Título y nivel */}
-            <div style={styles.cardHeader}>
-              <h2 style={styles.cardTitle}>{a.titulo}</h2>
-              <span style={styles.cardLevelBadge(a.nivel)}>● {a.nivel}</span>
+    const cambiarEstado = async (reporteId, nuevoEstado) => {
+        try {
+            await cambiarEstadoReporte(reporteId, nuevoEstado);
+            setAsignaciones(prev =>
+                prev.map(a => a.reporteId === reporteId ? { ...a, estado: nuevoEstado } : a)
+            );
+            setExito(true);
+            setTimeout(() => setExito(false), 3000);
+        } catch (err) {
+            setError('No se pudo actualizar el estado');
+            console.error(err);
+        }
+    };
+
+    return (
+        <div style={styles.mainContainer}>
+            <div style={styles.headerContainer}>
+                <h1 style={styles.headerTitle}>Mis Asignaciones</h1>
+                <p style={styles.headerSubtitle}>
+                    Brigadista: <strong>{usuario?.username || usuario?.nombre}</strong> — {asignaciones.filter(a => a.estado === 'EN_PROCESO').length} activas
+                </p>
             </div>
 
-            {/* Descripción */}
-            <p style={styles.cardDescription}>{a.descripcion}</p>
+            {exito && <div style={styles.successAlert}>Estado actualizado correctamente</div>}
+            {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
 
-            {/* Meta info */}
-            <div style={styles.cardMeta}>
-              <span>📅 {a.fecha}</span>
-              <span>📍 {a.lat}, {a.lng}</span>
-            </div>
+            {cargando && <p style={{ textAlign: 'center', padding: '1rem' }}>Cargando asignaciones...</p>}
 
-            {/* Estado actual y acciones */}
-            <div style={styles.cardFooter}>
-              <span style={styles.cardStatusBadge(a.estado)}>
-                {a.estado.replace('_', ' ')}
-              </span>
-              <div style={styles.cardActions}>
-                {estadosSiguientes[a.estado]?.map(siguiente => (
-                  <button
-                    key={siguiente}
-                    onClick={() => cambiarEstado(a.id, siguiente)}
-                    style={styles.actionButton(siguiente)}
-                  >
-                    → {siguiente.replace('_', ' ')}
-                  </button>
+            {!cargando && asignaciones.length === 0 && (
+                <div style={styles.noAsignacionesContainer}>
+                    <p style={styles.noAsignacionesText}>No tienes asignaciones activas.</p>
+                </div>
+            )}
+
+            <div style={styles.cardsGrid}>
+                {asignaciones.map((a) => (
+                    <div key={a.id} style={styles.card(a.nivel || a.nivelRiesgo)}>
+                        <div style={styles.cardHeader}>
+                            <h2 style={styles.cardTitle}>{a.titulo}</h2>
+                            <span style={styles.cardLevelBadge(a.nivel || a.nivelRiesgo)}>
+                                {a.nivel || a.nivelRiesgo}
+                            </span>
+                        </div>
+
+                        <p style={styles.cardDescription}>{a.descripcion}</p>
+
+                        <div style={styles.cardMeta}>
+                            <span>{a.fechaCreacion || a.fecha}</span>
+                            <span>{a.latitud || a.lat}, {a.longitud || a.lng}</span>
+                        </div>
+
+                        <div style={styles.cardFooter}>
+                            <span style={styles.cardStatusBadge(a.estado)}>
+                                {a.estado?.replace('_', ' ')}
+                            </span>
+                            <div style={styles.cardActions}>
+                                {estadosSiguientes[a.estado]?.map(siguiente => (
+                                    <button
+                                        key={siguiente}
+                                        onClick={() => cambiarEstado(a.reporteId, siguiente)}
+                                        style={styles.actionButton(siguiente)}
+                                    >
+                                        {siguiente.replace('_', ' ')}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 ))}
-              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }

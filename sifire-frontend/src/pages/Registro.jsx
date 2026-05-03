@@ -1,22 +1,17 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { registrarUsuario } from '../services/usuario.service'; // Importamos el servicio
-import '../assets/Registro.css';
+import { registrarUsuario } from '../services/usuario.service';
+import * as s from '../styles/Registro.styles';
 
 export default function Registro() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    password: '',
-    confirmar_password: '',
+    nombre: '', email: '', telefono: '', password: '', confirmar_password: '',
   });
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [registroError, setRegistroError] = useState(''); // Estado para errores del backend
+  const [registroError, setRegistroError] = useState('');
 
   const validate = () => {
     const e = {};
@@ -37,17 +32,12 @@ export default function Registro() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
+    if (Object.keys(validationErrors).length > 0) return setErrors(validationErrors);
     setLoading(true);
     setRegistroError('');
-
     try {
+<<<<<<< HEAD
       // Creamos el objeto de usuario para enviar al backend
       const nuevoUsuario = {
         username: form.nombre, // CORREGIDO: Se envía 'username' en lugar de 'nombre'
@@ -59,131 +49,95 @@ export default function Registro() {
       await registrarUsuario(nuevoUsuario);
 
       // Si el registro es exitoso, redirigimos al login con un mensaje
+=======
+      await registrarUsuario({ username: form.nombre, email: form.email, telefono: form.telefono || null, password: form.password, tipo: 'CIUDADANO' });
+>>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
       navigate('/login', { state: { registrado: true } });
-
     } catch (error) {
-      // Si el servicio lanza un error, lo mostramos
       setRegistroError(error.message || 'No se pudo completar el registro. Inténtelo de nuevo.');
-      console.error("Error en el registro:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="sifire-registro-page">
-      <div className="container py-5">
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-5">
+  const field = (name) => ({ ...s.input, ...(errors[name] ? s.inputError : {}) });
 
-            <div className="text-center mb-4">
-              <h1 className="fs-4 fw-bold text-dark mb-1">Crear cuenta</h1>
-              <p className="text-muted small">
-                Sistema de Gestión de Emergencias — Municipalidad Valle del Sol
-              </p>
+  return (
+    <div style={s.page}>
+      <div style={s.box}>
+
+        <div style={s.header}>
+          <h1 style={s.title}>Crear cuenta</h1>
+          <p style={s.subtitle}>
+            Sistema de Gestión de Emergencias<br />
+
+          </p>
+        </div>
+
+        {registroError && <div style={s.alertErr}>⚠ {registroError}</div>}
+
+        <div style={s.card}>
+          <form onSubmit={handleSubmit} noValidate>
+            <div style={s.formGrid}>
+
+              <div style={{ ...s.mb, ...s.formGridFull }}>
+                <label htmlFor="nombre" style={s.label}>Nombre completo</label>
+                <input id="nombre" name="nombre" type="text" autoComplete="name"
+                  placeholder="Ej: María González"
+                  value={form.nombre} onChange={handleChange} style={field('nombre')} />
+                {errors.nombre && <span style={s.error}>{errors.nombre}</span>}
+              </div>
+
+
+              <div style={{ ...s.mb, ...s.formGridFull }}>
+                <label htmlFor="email" style={s.label}>Correo electrónico</label>
+                <input id="email" name="email" type="email" autoComplete="email"
+                  placeholder="correo@ejemplo.cl"
+                  value={form.email} onChange={handleChange} style={field('email')} />
+                {errors.email && <span style={s.error}>{errors.email}</span>}
+              </div>
+
+
+              <div style={{ ...s.mb, ...s.formGridFull }}>
+                <label htmlFor="telefono" style={s.label}>
+                  Teléfono <span style={s.labelOpt}>(opcional)</span>
+                </label>
+                <input id="telefono" name="telefono" type="tel" autoComplete="tel"
+                  placeholder="+56 9 1234 5678"
+                  value={form.telefono} onChange={handleChange} style={field('telefono')} />
+                {errors.telefono && <span style={s.error}>{errors.telefono}</span>}
+              </div>
+
+              <div style={s.mb}>
+                <label htmlFor="password" style={s.label}>Contraseña</label>
+                <input id="password" name="password" type="password" autoComplete="new-password"
+                  placeholder="Mínimo 8 caracteres"
+                  value={form.password} onChange={handleChange} style={field('password')} />
+                {errors.password && <span style={s.error}>{errors.password}</span>}
+              </div>
+
+              <div style={s.mb}>
+                <label htmlFor="confirmar_password" style={s.label}>Confirmar contraseña</label>
+                <input id="confirmar_password" name="confirmar_password" type="password" autoComplete="new-password"
+                  placeholder="Repite tu contraseña"
+                  value={form.confirmar_password} onChange={handleChange} style={field('confirmar_password')} />
+                {errors.confirmar_password && <span style={s.error}>{errors.confirmar_password}</span>}
+              </div>
+
             </div>
 
-            {registroError && (
-              <div className="alert alert-danger py-2 small text-center" role="alert">
-                {registroError}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} noValidate>
-              <div className="mb-3">
-                <label htmlFor="nombre" className="form-label small fw-semibold">
-                  Nombre completo
-                </label>
-                <input
-                  id="nombre" name="nombre" type="text" autoComplete="name"
-                  className={`form-control ${errors.nombre ? 'is-invalid' : ''}`}
-                  placeholder="Ej: María González"
-                  value={form.nombre}
-                  onChange={handleChange}
-                />
-                {errors.nombre && <div className="invalid-feedback">{errors.nombre}</div>}
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label small fw-semibold">
-                  Correo electrónico
-                </label>
-                <input
-                  id="email" name="email" type="email" autoComplete="email"
-                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                  placeholder="correo@ejemplo.cl"
-                  value={form.email}
-                  onChange={handleChange}
-                />
-                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="telefono" className="form-label small fw-semibold">
-                  Teléfono <span className="text-muted fw-normal">(opcional)</span>
-                </label>
-                <input
-                  id="telefono" name="telefono" type="tel" autoComplete="tel"
-                  className={`form-control ${errors.telefono ? 'is-invalid' : ''}`}
-                  placeholder="+56 9 1234 5678"
-                  value={form.telefono}
-                  onChange={handleChange}
-                />
-                {errors.telefono && <div className="invalid-feedback">{errors.telefono}</div>}
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label small fw-semibold">
-                  Contraseña
-                </label>
-                <input
-                  id="password" name="password" type="password" autoComplete="new-password"
-                  className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                  placeholder="Mínimo 8 caracteres"
-                  value={form.password}
-                  onChange={handleChange}
-                />
-                {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="confirmar_password" className="form-label small fw-semibold">
-                  Confirmar contraseña
-                </label>
-                <input
-                  id="confirmar_password" name="confirmar_password"
-                  type="password" autoComplete="new-password"
-                  className={`form-control ${errors.confirmar_password ? 'is-invalid' : ''}`}
-                  placeholder="Repite tu contraseña"
-                  value={form.confirmar_password}
-                  onChange={handleChange}
-                />
-                {errors.confirmar_password && (
-                  <div className="invalid-feedback">{errors.confirmar_password}</div>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn btn-danger w-100 py-2 fw-semibold"
-              >
-                {loading
-                  ? <><span className="spinner-border spinner-border-sm me-2" />Creando cuenta…</>
-                  : 'Crear cuenta'
-                }
-              </button>
-            </form>
-
-            <p className="text-center text-muted small mt-4">
-              ¿Ya tienes cuenta?{' '}
-              <Link to="/login" className="text-danger text-decoration-none fw-semibold">
-                Iniciar sesión
-              </Link>
-            </p>
-
-          </div>
+            <button type="submit" disabled={loading}
+              style={{ ...s.btn, ...(loading ? s.btnLoad : {}) }}>
+              {loading ? '⏳ Creando cuenta...' : 'Crear cuenta'}
+            </button>
+          </form>
         </div>
+
+        <p style={s.footer}>
+          ¿Ya tienes cuenta?{' '}
+          <Link to="/login" style={s.link}>Iniciar sesión</Link>
+        </p>
+
       </div>
     </div>
   );

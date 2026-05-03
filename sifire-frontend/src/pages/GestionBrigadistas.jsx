@@ -1,186 +1,208 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { listarUsuarios, registrarUsuario } from '../services/usuario.service';
+import { useGestionBrigadistas } from '../hooks/useGestionBrigadistas';
+import { useBrigadas } from '../hooks/useBrigadas';
+import BrigadistaForm from '../components/brigadistas/BrigadistaForm';
+import BrigadistasTabla from '../components/brigadistas/BrigadistasTabla';
+import MapaSelector from '../components/reportes/MapaSelector';
 import * as styles from '../styles/GestionBrigadistas.styles';
-
-const initialForm = { nombre: '', email: '', telefono: '', password: '' };
 
 export default function GestionBrigadistas() {
   const { usuario } = useAuth();
+  const [tab, setTab] = useState('brigadistas');
 
-  const [brigadistas, setBrigadistas] = useState([]);
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState({});
-  const [showForm, setShowForm] = useState(false);
-  const [exito, setExito] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [loadingData, setLoadingData] = useState(true);
+  const brig  = useGestionBrigadistas();
+  const brig2 = useBrigadas();
 
-  useEffect(() => {
-    const cargarUsuarios = async () => {
-      try {
-        setLoadingData(true);
-        const data = await listarUsuarios();
-        setBrigadistas(data.map(u => ({ ...u, asignaciones: 0, estado: 'ACTIVO' })));
-      } catch (error) {
-        console.error("Error al cargar usuarios:", error);
-      } finally {
-        setLoadingData(false);
-      }
-    };
-    cargarUsuarios();
-  }, []);
+  const tabStyle = (activa) => ({
+    padding: '8px 20px', border: 'none', cursor: 'pointer', borderRadius: '6px',
+    background: tab === activa ? '#1d4ed8' : '#e5e7eb',
+    color: tab === activa ? '#fff' : '#111',
+    fontWeight: tab === activa ? '600' : '400',
+  });
 
-  const validate = () => {
-    const e = {};
-    if (!form.nombre.trim()) e.nombre = 'El nombre es requerido.';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Ingresa un correo válido.';
-    if (form.telefono && !/^\+?56?[\s-]?9[\s-]?\d{4}[\s-]?\d{4}$/.test(form.telefono)) e.telefono = 'Formato inválido. Ej: +56 9 1234 5678';
-    if (form.password.length < 8) e.password = 'Mínimo 8 caracteres.';
-    return e;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-    setLoading(true);
-    try {
-      const nuevoBrigadista = await registrarUsuario({
-        nombre: form.nombre,
-        email: form.email,
-        password: form.password,
-      });
-      setBrigadistas([{ ...nuevoBrigadista, telefono: form.telefono || '—', asignaciones: 0, estado: 'ACTIVO' }, ...brigadistas]);
-      setForm(initialForm);
-      setShowForm(false);
-      setExito(true);
-      setTimeout(() => setExito(false), 3000);
-    } catch (error) {
-      console.error("Error al registrar brigadista:", error);
-      setErrors({ form: 'No se pudo registrar el brigadista. Intente de nuevo.' });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const toggleEstado = (id) => {
-    setBrigadistas(prev =>
-      prev.map(b => b.id === id ? { ...b, estado: b.estado === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO' } : b)
-    );
+  // Handler para cuando el funcionario hace clic en el mapa
+  const handleMapaSeleccionar = (lat, lng) => {
+    brig2.handleChange({ target: { name: 'latitud',  value: lat } });
+    brig2.handleChange({ target: { name: 'longitud', value: lng } });
   };
 
   return (
     <div style={styles.mainContainer}>
-      {/* Header */}
       <div style={styles.headerContainer}>
         <div>
           <h1 style={styles.headerTitle}>Gestión de Brigadistas</h1>
-          <p style={styles.headerSubtitle}>Registrado como: {usuario?.nombre} — {usuario?.rol}</p>
+          <p style={styles.headerSubtitle}>
+            Registrado como: {usuario?.nombre} — {usuario?.tipo}
+          </p>
         </div>
-        <button onClick={() => setShowForm(!showForm)} style={styles.headerButton}>
-          {showForm ? 'Cancelar' : '+ Nuevo Brigadista'}
+        <button
+          onClick={() => tab === 'brigadistas'
+            ? brig.setShowForm(!brig.showForm)
+            : brig2.setShowForm(!brig2.showForm)}
+          style={styles.headerButton}
+        >
+          {tab === 'brigadistas'
+            ? (brig.showForm  ? 'Cancelar' : '+ Nuevo Brigadista')
+            : (brig2.showForm ? 'Cancelar' : '+ Nueva Brigada')}
         </button>
       </div>
 
-      {/* Alerta éxito */}
-      {exito && <div style={styles.successAlert}>✓ Brigadista registrado correctamente.</div>}
+      {/* Tabs */}
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
+        <button style={tabStyle('brigadistas')} onClick={() => setTab('brigadistas')}>Brigadistas</button>
+        <button style={tabStyle('brigadas')}    onClick={() => setTab('brigadas')}>Brigadas</button>
+      </div>
 
-      {/* Formulario */}
-      {showForm && (
-        <div style={styles.formContainer}>
-          <h2 style={styles.formTitle}>Nuevo Brigadista</h2>
-          <form onSubmit={handleSubmit}>
-            <div style={styles.formGrid}>
-              <div>
-                <label style={styles.labelStyle}>Nombre completo *</label>
-                <input name="nombre" value={form.nombre} onChange={handleChange} required placeholder="Ej: Carlos Rojas" style={styles.inputStyle(errors.nombre)} />
-                {errors.nombre && <span style={styles.errorStyle}>{errors.nombre}</span>}
-              </div>
-              <div>
-                <label style={styles.labelStyle}>Correo electrónico *</label>
-                <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="correo@ejemplo.cl" style={styles.inputStyle(errors.email)} />
-                {errors.email && <span style={styles.errorStyle}>{errors.email}</span>}
-              </div>
-              <div>
-                <label style={styles.labelStyle}>Teléfono <span style={{ fontWeight: 400, color: '#94a3b8' }}>(opcional)</span></label>
-                <input name="telefono" type="tel" value={form.telefono} onChange={handleChange} placeholder="+56 9 1234 5678" style={styles.inputStyle(errors.telefono)} />
-                {errors.telefono && <span style={styles.errorStyle}>{errors.telefono}</span>}
-              </div>
-              <div>
-                <label style={styles.labelStyle}>Contraseña temporal *</label>
-                <input name="password" type="password" value={form.password} onChange={handleChange} required placeholder="Mínimo 8 caracteres" style={styles.inputStyle(errors.password)} />
-                {errors.password && <span style={styles.errorStyle}>{errors.password}</span>}
-              </div>
-            </div>
-            {errors.form && <span style={styles.errorStyle}>{errors.form}</span>}
-            <div style={styles.formActions}>
-              <button type="submit" disabled={loading} style={styles.submitButton(loading)}>
-                {loading ? 'Registrando...' : 'Registrar Brigadista'}
-              </button>
-              <button type="button" onClick={() => { setShowForm(false); setForm(initialForm); setErrors({}); }} style={styles.cancelButton}>
-                Cancelar
-              </button>
-            </div>
-          </form>
-        </div>
+      {/* ── Tab Brigadistas ── */}
+      {tab === 'brigadistas' && (
+        <>
+          {brig.exito && <div style={styles.successAlert}>Brigadista registrado correctamente.</div>}
+          {brig.showForm && (
+            <BrigadistaForm
+              form={brig.form} errors={brig.errors} loading={brig.loading}
+              onChange={brig.handleChange} onSubmit={brig.handleSubmit}
+              onCancelar={() => {
+                brig.setShowForm(false);
+                brig.setForm({ nombre: '', email: '', telefono: '', password: '' });
+                brig.setErrors({});
+              }}
+            />
+          )}
+          <BrigadistasTabla
+            brigadistas={brig.brigadistas}
+            loadingData={brig.loadingData}
+            onToggleEstado={brig.toggleEstado}
+          />
+        </>
       )}
 
-      {/* Tabla */}
-      <div style={styles.tableWrapper}>
-        <div style={styles.tableHeader}>
-          <p style={styles.tableHeaderText}>
-            {brigadistas.length} brigadistas registrados — {brigadistas.filter(b => b.estado === 'ACTIVO').length} activos
-          </p>
-        </div>
-        {loadingData ? (
-          <p style={styles.loadingText}>Cargando datos...</p>
-        ) : (
-          <table style={styles.table}>
-            <thead>
-              <tr style={styles.tableHeadRow}>
-                {['#', 'Nombre', 'Correo', 'Teléfono', 'Asignaciones', 'Estado', 'Acción'].map(h => (
-                  <th key={h} style={styles.tableHeadCell}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {brigadistas.map((b) => (
-                <tr key={b.id} style={styles.tableBodyRow}>
-                  <td style={styles.tableCellId}>#{b.id}</td>
-                  <td style={styles.tableCellName}>{b.nombre}</td>
-                  <td style={styles.tableCell}>{b.email}</td>
-                  <td style={styles.tableCell}>{b.telefono || 'N/A'}</td>
-                  <td style={styles.tableCell}>
-                    <span style={styles.asignacionesBadge(b.asignaciones)}>
-                      {b.asignaciones > 0 ? `${b.asignaciones} activa${b.asignaciones > 1 ? 's' : ''}` : 'Sin asignar'}
-                    </span>
-                  </td>
-                  <td style={styles.tableCell}>
-                    <span style={styles.estadoBadge(b.estado)}>
-                      {b.estado}
-                    </span>
-                  </td>
-                  <td style={styles.tableCell}>
-                    <button onClick={() => toggleEstado(b.id)} style={styles.actionButton}>
-                      {b.estado === 'ACTIVO' ? 'Desactivar' : 'Activar'}
-                    </button>
-                  </td>
+      {/* ── Tab Brigadas ── */}
+      {tab === 'brigadas' && (
+        <>
+          {brig2.exito && <div style={styles.successAlert}>Brigada creada correctamente.</div>}
+          {brig2.errors.form && (
+            <div style={{ ...styles.successAlert, background: '#fee2e2', color: '#991b1b' }}>
+              {brig2.errors.form}
+            </div>
+          )}
+
+          {brig2.showForm && (
+            <div style={{ background: '#f9fafb', padding: '1.5rem', borderRadius: '10px', marginBottom: '1.5rem' }}>
+              <form onSubmit={brig2.handleSubmit}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div>
+                    <label style={{ fontSize: '14px', fontWeight: '500' }}>Nombre</label>
+                    <input name="nombre" value={brig2.form.nombre} onChange={brig2.handleChange} required
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', border: `1px solid ${brig2.errors.nombre ? '#ef4444' : '#ccc'}`, marginTop: '4px' }} />
+                    {brig2.errors.nombre && <span style={{ color: '#ef4444', fontSize: '12px' }}>{brig2.errors.nombre}</span>}
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '14px', fontWeight: '500' }}>Estado</label>
+                    <select name="estado" value={brig2.form.estado} onChange={brig2.handleChange}
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', marginTop: '4px' }}>
+                      <option value="DISPONIBLE">DISPONIBLE</option>
+                      <option value="EN_CAMINO">EN_CAMINO</option>
+                      <option value="INTERVINIENDO">INTERVINIENDO</option>
+                      <option value="INACTIVA">INACTIVA</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '14px', fontWeight: '500' }}>Tipo</label>
+                    <select name="tipo" value={brig2.form.tipo} onChange={brig2.handleChange}
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', marginTop: '4px' }}>
+                      <option value="FORESTAL">FORESTAL</option>
+                      <option value="URBANA">URBANA</option>
+                      <option value="MIXTA">MIXTA</option>
+                    </select>
+                  </div>
+
+                  {/* Coordenadas — se pueden editar manualmente o seleccionar del mapa */}
+                  <div>
+                    <label style={{ fontSize: '14px', fontWeight: '500' }}>Latitud</label>
+                    <input name="latitud" type="number" step="any" value={brig2.form.latitud}
+                      onChange={brig2.handleChange} placeholder="Haz click en el mapa →"
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', marginTop: '4px' }} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '14px', fontWeight: '500' }}>Longitud</label>
+                    <input name="longitud" type="number" step="any" value={brig2.form.longitud}
+                      onChange={brig2.handleChange} placeholder="Haz click en el mapa →"
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', marginTop: '4px' }} />
+                  </div>
+                </div>
+
+                {/* Mapa para seleccionar ubicación de la brigada */}
+                <div style={{ marginTop: '1rem' }}>
+                  <label style={{ fontSize: '14px', fontWeight: '500', display: 'block', marginBottom: '6px' }}>
+                    📍 Ubicación de la brigada — <span style={{ color: '#6b7280', fontWeight: 400 }}>haz clic en el mapa para marcar</span>
+                  </label>
+                  <div style={{ height: '260px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+                    <MapaSelector
+                      centro={[-33.4969, -70.6168]}
+                      latitud={brig2.form.latitud}
+                      longitud={brig2.form.longitud}
+                      onSeleccionar={handleMapaSeleccionar}
+                    />
+                  </div>
+                  {brig2.form.latitud && brig2.form.longitud && (
+                    <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>
+                      📌 Seleccionado: {brig2.form.latitud}, {brig2.form.longitud}
+                    </p>
+                  )}
+                </div>
+
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', justifyContent: 'flex-end' }}>
+                  <button type="button"
+                    onClick={() => {
+                      brig2.setShowForm(false);
+                      brig2.setForm({ nombre: '', estado: 'DISPONIBLE', tipo: 'FORESTAL', latitud: '', longitud: '' });
+                      brig2.setErrors({});
+                    }}
+                    style={{ padding: '8px 16px', borderRadius: '6px', border: '1px solid #ccc', cursor: 'pointer', background: '#fff' }}>
+                    Cancelar
+                  </button>
+                  <button type="submit" disabled={brig2.loading}
+                    style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', cursor: 'pointer', background: '#1d4ed8', color: '#fff' }}>
+                    {brig2.loading ? 'Guardando...' : 'Crear Brigada'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {/* Tabla brigadas */}
+          {brig2.loadingData ? <p>Cargando...</p> : (
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ background: '#f3f4f6' }}>
+                  {['ID', 'Nombre', 'Tipo', 'Estado', 'Latitud', 'Longitud'].map(h => (
+                    <th key={h} style={{ padding: '10px 12px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#374151' }}>{h}</th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {brig2.brigadas.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} style={{ padding: '1rem', textAlign: 'center', color: '#888' }}>
+                      Sin brigadas registradas
+                    </td>
+                  </tr>
+                ) : brig2.brigadas.map(b => (
+                  <tr key={b.id} style={{ borderBottom: '1px solid #e5e7eb' }}>
+                    <td style={{ padding: '10px 12px', fontSize: '14px' }}>#{b.id}</td>
+                    <td style={{ padding: '10px 12px', fontSize: '14px', fontWeight: '500' }}>{b.nombre}</td>
+                    <td style={{ padding: '10px 12px', fontSize: '14px' }}>{b.tipo ?? '—'}</td>
+                    <td style={{ padding: '10px 12px', fontSize: '14px' }}>{b.estado}</td>
+                    <td style={{ padding: '10px 12px', fontSize: '14px' }}>{b.latitud ?? '—'}</td>
+                    <td style={{ padding: '10px 12px', fontSize: '14px' }}>{b.longitud ?? '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
+      )}
     </div>
   );
 }

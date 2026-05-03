@@ -1,59 +1,179 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import * as styles from '../styles/Alertas.styles';
+import axios from 'axios';
 
-const alertasMock = [
-  { id: 1, titulo: 'Evacuación Centro Rad. Fleming', mensaje: 'Se ordena evacuación preventiva del sector norte. Lamentablemente Matias murió en el lugar XD', estado: 'ENVIADA',   fecha: '15/04/2026 21:10', autor: 'Sergio Perez' },
-  { id: 2, titulo: 'Alerta Lo Barnechea',            mensaje: 'Foco activo en sector oriente. Evite la zona y manténgase informado.',                         estado: 'ENVIADA',   fecha: '15/04/2026 20:45', autor: 'Ana Martínez' },
-  { id: 3, titulo: 'Aviso Pudahuel',                 mensaje: 'Foco menor detectado en el sector. Equipos en camino, situación bajo control.',                 estado: 'PENDIENTE', fecha: '15/04/2026 20:30', autor: 'Carlos Rojas'  },
-  { id: 4, titulo: 'Alerta Las Condes',              mensaje: 'Se detectó humo en el sector oriente de Las Condes. Pendiente confirmación.',                   estado: 'PENDIENTE', fecha: '15/04/2026 19:55', autor: 'Carlos Rojas'  },
-];
+const BASE_URL = 'http://localhost:8080';
 
 export default function Alertas() {
-  const [alertas] = useState(alertasMock);
-  const [filtro, setFiltro] = useState('TODOS');
+  const { usuario } = useAuth();
+  const [alertas, setAlertas]   = useState([]);
+  const [filtro, setFiltro]     = useState('TODOS');
+  const [exito, setExito]       = useState('');
+  const [error, setError]       = useState('');
+  const [cargando, setCargando] = useState(true);
+  const [form, setForm]         = useState({
+    titulo: '', mensaje: '', tipo: '', descripcion: '',
+    latitud: '', longitud: '', canal: 'EMAIL',
+  });
+
+  const esFuncionario = usuario?.tipo === 'FUNCIONARIO';
+  const esAdmin       = usuario?.tipo === 'ADMINISTRADOR';
+
+  useEffect(() => { cargarAlertas(); }, []);
+
+  const cargarAlertas = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/bff/alertas`);
+      setAlertas(res.data || []);
+    } catch {
+      setError('No se pudieron cargar las alertas.');
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleEmitir = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      await axios.post(`${BASE_URL}/bff/alertas/crear`, form);
+      setExito('✓ Alerta emitida correctamente');
+      setForm({ titulo: '', mensaje: '', tipo: '', descripcion: '', latitud: '', longitud: '', canal: 'EMAIL' });
+      setTimeout(() => setExito(''), 3000);
+      cargarAlertas();
+    } catch { setError('No se pudo emitir la alerta.'); }
+  };
+
+  const handleAsignarBrigadistas = async (id) => {
+    setError('');
+    try {
+      await axios.post(`${BASE_URL}/bff/alertas/${id}/asignar-brigadistas`);
+      setExito('✓ Brigadistas asignados correctamente');
+      setTimeout(() => setExito(''), 3000);
+      cargarAlertas();
+    } catch { setError('No se pudo asignar brigadistas.'); }
+  };
+
+  // Normaliza estado para los estilos de Sergio
+  // (Sergio usa ENVIADA/PENDIENTE/FALLIDA, dev usa NUEVA/ASIGNADA)
+  const estadoVisual = (estado) => {
+    const mapa = { NUEVA: 'PENDIENTE', ASIGNADA: 'ENVIADA', ENVIADA: 'ENVIADA', PENDIENTE: 'PENDIENTE', FALLIDA: 'FALLIDA' };
+    return mapa[estado] || 'PENDIENTE';
+  };
 
   const alertasFiltradas = filtro === 'TODOS'
     ? alertas
-    : alertas.filter(a => a.estado === filtro);
+    : alertas.filter(a => estadoVisual(a.estado) === filtro);
 
   return (
     <div style={styles.mainContainer}>
+
+      {/* Header */}
       <div style={styles.headerContainer}>
         <h1 style={styles.headerTitle}>Alertas a la Comunidad</h1>
         <p style={styles.headerSubtitle}>
-          Alertas oficiales emitidas por funcionarios del sistema
+          {esFuncionario
+            ? 'Emite alertas oficiales hacia la comunidad ante incendios activos'
+            : esAdmin
+            ? 'Administración de alertas y asignación de brigadistas'
+            : 'Alertas oficiales emitidas por funcionarios del sistema'}
         </p>
       </div>
 
+      {/* Mensajes */}
+      {exito && <div style={{ background:'#dcfce7', color:'#166534', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem', fontWeight:600 }}>{exito}</div>}
+      {error && <div style={{ background:'#fee2e2', color:'#991b1b', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem' }}>{error}</div>}
+
+      {/* Formulario — solo FUNCIONARIO */}
+      {esFuncionario && (
+        <form onSubmit={handleEmitir} style={{ background:'#fff', borderRadius:12, padding:'1.5rem', marginBottom:'2rem', boxShadow:'0 1px 4px rgba(0,0,0,0.08)', border:'1px solid #e2e8f0' }}>
+          <h2 style={{ fontSize:'1rem', fontWeight:700, marginBottom:'1rem', color:'#1e293b' }}>📢 Emitir nueva alerta</h2>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0.75rem' }}>
+            <input name="titulo"      placeholder="Título de la alerta *" value={form.titulo}      onChange={handleChange} required style={inputStyle} />
+            <input name="tipo"        placeholder="Tipo (ej: EVACUACIÓN)"  value={form.tipo}        onChange={handleChange} style={inputStyle} />
+            <input name="descripcion" placeholder="Descripción"            value={form.descripcion} onChange={handleChange} style={{ ...inputStyle, gridColumn:'1 / -1' }} />
+            <input name="mensaje"     placeholder="Mensaje para la comunidad *" value={form.mensaje} onChange={handleChange} required style={{ ...inputStyle, gridColumn:'1 / -1' }} />
+            <input name="latitud"     placeholder="Latitud"                value={form.latitud}     onChange={handleChange} style={inputStyle} />
+            <input name="longitud"    placeholder="Longitud"               value={form.longitud}    onChange={handleChange} style={inputStyle} />
+            <select name="canal" value={form.canal} onChange={handleChange} style={inputStyle}>
+              <option value="EMAIL">EMAIL</option>
+              <option value="SMS">SMS</option>
+              <option value="PUSH">PUSH</option>
+            </select>
+          </div>
+          <button type="submit" style={{ marginTop:'1rem', background:'#dc2626', color:'white', border:'none', borderRadius:8, padding:'0.6rem 1.5rem', fontWeight:700, cursor:'pointer', fontSize:'0.9rem' }}>
+            🚨 Emitir Alerta
+          </button>
+        </form>
+      )}
+
+      {/* Filtros — diseño de Sergio */}
       <div style={styles.filterContainer}>
         {['TODOS', 'ENVIADA', 'PENDIENTE', 'FALLIDA'].map(f => (
           <button key={f} onClick={() => setFiltro(f)} style={styles.filterButton(filtro === f)}>
             {f}
+            {f !== 'TODOS' && (
+              <span style={{ marginLeft:6, opacity:.7 }}>
+                ({alertas.filter(a => estadoVisual(a.estado) === f).length})
+              </span>
+            )}
           </button>
         ))}
       </div>
 
-      <div style={styles.alertsListContainer}>
-        {alertasFiltradas.map((alerta) => (
-          <div key={alerta.id} style={styles.alertCard(alerta.estado)}>
-            <div>
-              <strong style={styles.alertTitle}>
-                {alerta.titulo}
-              </strong>
-              <p style={styles.alertMessage}>
-                {alerta.mensaje}
-              </p>
-              <div style={styles.alertMetaContainer}>
-                <span>{alerta.fecha}</span>
-                <span>{alerta.autor}</span>
+      {/* Lista de alertas — diseño de Sergio */}
+      {cargando ? (
+        <p style={{ color:'#64748b', textAlign:'center', padding:'2rem' }}>Cargando alertas...</p>
+      ) : alertasFiltradas.length === 0 ? (
+        <p style={{ color:'#94a3b8', textAlign:'center', padding:'2rem' }}>No hay alertas para mostrar.</p>
+      ) : (
+        <div style={styles.alertsListContainer}>
+          {alertasFiltradas.map(alerta => (
+            <div key={alerta.id} style={styles.alertCard(estadoVisual(alerta.estado))}>
+              <div style={{ flex: 1 }}>
+                <strong style={styles.alertTitle}>
+                  {alerta.titulo || alerta.tipo || `Alerta #${alerta.id}`}
+                </strong>
+                <p style={styles.alertMessage}>
+                  {alerta.mensaje || alerta.descripcion || '—'}
+                </p>
+                <div style={styles.alertMetaContainer}>
+                  <span>
+                    🕐 {alerta.createdAt
+                      ? new Date(alerta.createdAt).toLocaleString('es-CL')
+                      : alerta.fechaHora
+                      ? new Date(alerta.fechaHora).toLocaleString('es-CL')
+                      : '—'}
+                  </span>
+                  {alerta.canal && <span>📡 {alerta.canal}</span>}
+                  {alerta.latitud && <span>📍 {alerta.latitud}, {alerta.longitud}</span>}
+                </div>
+              </div>
+
+              <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:8 }}>
+                <span style={styles.alertStatusBadge(estadoVisual(alerta.estado))}>
+                  {alerta.estado}
+                </span>
+                {/* Botón asignar brigadistas — solo ADMIN y solo si no está asignada */}
+                {esAdmin && alerta.estado !== 'ASIGNADA' && (
+                  <button onClick={() => handleAsignarBrigadistas(alerta.id)}
+                    style={{ background:'#3b82f6', color:'#fff', border:'none', borderRadius:6, padding:'4px 12px', fontSize:'0.8rem', cursor:'pointer', fontWeight:600, whiteSpace:'nowrap' }}>
+                    👥 Asignar Brigada
+                  </button>
+                )}
               </div>
             </div>
-            <span style={styles.alertStatusBadge(alerta.estado)}>
-              {alerta.estado}
-            </span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
+
+const inputStyle = {
+  padding: '0.5rem 0.75rem', borderRadius: 8,
+  border: '1px solid #e2e8f0', fontSize: '0.9rem', width: '100%',
+};
