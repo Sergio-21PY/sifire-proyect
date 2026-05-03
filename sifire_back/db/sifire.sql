@@ -160,54 +160,53 @@ INSERT INTO usuario (username, nombre, email, password, telefono, tipo, activo) 
 
 -- Zonas de riesgo
 INSERT INTO zona_riesgo (nombre, nivel_riesgo, coordenadas, activo) VALUES
-    ('Cerro San Cristóbal Norte', 'ALTO',    '{"lat":-33.415,"lng":-70.630}', 1),
-    ('Sector Las Vizcachas',      'CRITICO', '{"lat":-33.589,"lng":-70.472}', 1),
-    ('Cerro Chena',               'MEDIO',   '{"lat":-33.584,"lng":-70.672}', 1),
-    ('Quebrada de Macul',         'ALTO',    '{"lat":-33.490,"lng":-70.558}', 1),
-    ('Sector Peñalolén Alto',     'MEDIO',   '{"lat":-33.476,"lng":-70.537}', 0);
+    ('Sector Duoc - Zona Industrial', 'ALTO',
+     '[[-33.4960,-70.6180],[-33.4980,-70.6180],[-33.4980,-70.6150],[-33.4960,-70.6150]]', 1),
+    ('Sector Parque Felipe Camiroaga', 'MEDIO',
+     '[[-33.5000,-70.6200],[-33.5020,-70.6200],[-33.5020,-70.6160],[-33.5000,-70.6160]]', 1),
+    ('Sector Walker Martínez', 'BAJO',
+     '[[-33.4940,-70.6140],[-33.4960,-70.6140],[-33.4960,-70.6110],[-33.4940,-70.6110]]', 1);
 
--- Rutas de evacuación
+-- Rutas de evacuación (trazado en formato [[lat,lng]] requerido por Leaflet)
+-- Sector San Joaquín / Duoc UC como punto de referencia
 INSERT INTO ruta_evacuacion (nombre, trazado, descripcion, activo) VALUES
-    ('Ruta Evacuación Norte',
-     '[{"lat":-33.415,"lng":-70.630},{"lat":-33.400,"lng":-70.620}]',
-     'Evacuar hacia Av. Bellavista hacia el norte', 1),
-    ('Ruta Evacuación Sur',
-     '[{"lat":-33.490,"lng":-70.558},{"lat":-33.510,"lng":-70.560}]',
-     'Evacuar por Av. Tobalaba hacia el sur', 1),
-    ('Ruta Emergencia Centro',
-     '[{"lat":-33.450,"lng":-70.600},{"lat":-33.445,"lng":-70.580}]',
-     'Ruta alternativa por Av. Irarrázaval', 0);
+    ('Ruta Vicuña Mackenna Norte',
+     '[[-33.4969,-70.6168],[-33.4956,-70.6147],[-33.4930,-70.6130],[-33.4900,-70.6110]]',
+     'Evacuación por Av. Vicuña Mackenna hacia el norte', 1),
+    ('Ruta Walker Martínez Oriente',
+     '[[-33.4969,-70.6168],[-33.4975,-70.6140],[-33.4980,-70.6110],[-33.4990,-70.6080]]',
+     'Evacuación por Walker Martínez hacia el oriente', 1);
 
--- Brigadas
+-- Brigadas ubicadas en sector San Joaquín y alrededores
 INSERT INTO brigada (nombre, tipo, estado, latitud, longitud) VALUES
-    ('Brigada Andes 1',    'FORESTAL', 'DISPONIBLE', -33.4150, -70.6300),
-    ('Brigada Andes 2',    'FORESTAL', 'DISPONIBLE', -33.4200, -70.6250),
-    ('Brigada Urbana Sur', 'URBANA',   'DISPONIBLE', -33.5100, -70.6500),
-    ('Brigada Mixta Este', 'MIXTA',    'INACTIVA',   -33.4800, -70.5400),
-    ('Brigada Peñalolén',  'FORESTAL', 'DISPONIBLE', -33.4760, -70.5370);
+    ('Brigada San Joaquín',  'URBANA',   'DISPONIBLE',    -33.4969, -70.6168),
+    ('Brigada Vicuña Mac.',  'FORESTAL', 'DISPONIBLE',    -33.4990, -70.6130),
+    ('Brigada Sur',          'MIXTA',    'DISPONIBLE',    -33.5010, -70.6180),
+    ('Brigada La Granja',    'URBANA',   'INACTIVA',      -33.5100, -70.6200),
+    ('Brigada San Ramón',    'FORESTAL', 'DISPONIBLE',    -33.4920, -70.6100);
 
 -- Reportes de incendio
 INSERT INTO REPORTE_INCENDIO
     (usuario_id, titulo, descripcion, latitud, longitud, nivel_riesgo, estado, tipo_reportante, fecha_creacion, fecha_actualizacion)
 VALUES
-    (5, 'Incendio en Cerro San Cristóbal',
-        'Veo humo negro saliendo de la ladera norte del cerro, lleva unos 10 minutos.',
-        -33.4150, -70.6300, 'MEDIO', 'PENDIENTE', 'CIUDADANO',
+    (5, 'Incendio sector Duoc San Joaquín',
+        'Veo humo saliendo desde el sector industrial frente al campus. Lleva unos 10 minutos.',
+        -33.4969, -70.6168, 'MEDIO', 'PENDIENTE', 'CIUDADANO',
         NOW() - INTERVAL 2 HOUR, NOW() - INTERVAL 2 HOUR),
 
-    (3, 'Foco activo Quebrada de Macul',
-        'Foco confirmado en la quebrada, viento sur moderado, peligro de expansión.',
-        -33.4900, -70.5580, 'ALTO', 'EN_PROCESO', 'BRIGADISTA',
+    (3, 'Foco activo Walker Martínez',
+        'Foco confirmado en Walker Martínez, viento sur moderado, peligro de expansión.',
+        -33.4975, -70.6140, 'ALTO', 'EN_PROCESO', 'BRIGADISTA',
         NOW() - INTERVAL 5 HOUR, NOW() - INTERVAL 3 HOUR),
 
-    (2, 'Incendio crítico Sector Las Vizcachas',
-        'Incendio de gran magnitud con riesgo de expansión a sectores habitados.',
-        -33.5890, -70.4720, 'CRITICO', 'EN_PROCESO', 'FUNCIONARIO',
+    (2, 'Incendio crítico sector industrial San Joaquín',
+        'Incendio de gran magnitud en bodega industrial, riesgo de expansión a sectores habitados.',
+        -33.4980, -70.6155, 'CRITICO', 'EN_PROCESO', 'FUNCIONARIO',
         NOW() - INTERVAL 8 HOUR, NOW() - INTERVAL 6 HOUR),
 
-    (6, 'Quema de pastizales Cerro Chena',
-        'Pequeño foco de quema de pastizales, controlado por vecinos.',
-        -33.5840, -70.6720, 'BAJO', 'RESUELTO', 'CIUDADANO',
+    (6, 'Quema de pastizales Parque Camiroaga',
+        'Pequeño foco de quema de pastizales en el parque, controlado por vecinos.',
+        -33.5010, -70.6180, 'BAJO', 'RESUELTO', 'CIUDADANO',
         NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 1 DAY);
 
 -- Historial de cambios de estado
@@ -222,8 +221,8 @@ INSERT INTO ASIGNACION_BRIGADA (reporte_id, brigada_id, fecha_asignacion, fecha_
     (2, 1, NOW() - INTERVAL 4 HOUR, NULL),
     (3, 2, NOW() - INTERVAL 6 HOUR, NULL);
 
--- Brigadas que están interviniendo actualmente
-UPDATE brigada SET estado = 'INTERVINIENDO' WHERE id IN (1, 2);
+-- Brigadas asignadas pasan a EN_CAMINO automáticamente
+UPDATE brigada SET estado = 'EN_CAMINO' WHERE id IN (1, 2);
 
 -- Alertas
 INSERT INTO alerta (reporte_id, titulo, mensaje, canal, tipo, descripcion, latitud, longitud, estado, created_at) VALUES
