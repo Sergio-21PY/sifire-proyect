@@ -30,6 +30,10 @@ public class BffService {
         private RestTemplate restTemplate;
 
         // ─── MAPA Y DASHBOARD ───────────────────────────────────────────
+        public Object listarRutas() {
+                return restTemplate.getForObject(
+                                config.getMonitoreoUrl() + "/api/rutas-evacuacion", Object.class);
+        }
 
         // Junta todo lo que necesita el mapa: reportes activos, zonas de riesgo,
         // rutas de evacuación y brigadas disponibles en una sola llamada

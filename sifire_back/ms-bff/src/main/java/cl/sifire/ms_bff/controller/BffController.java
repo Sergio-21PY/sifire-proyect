@@ -101,6 +101,11 @@ public class BffController {
         return ResponseEntity.ok(bffService.listarZonas());
     }
 
+    @GetMapping("/monitoreo/rutas")
+    public ResponseEntity<Object> listarRutas() {
+        return ResponseEntity.ok(bffService.listarRutas());
+    }
+
     // Lista las brigadas disponibles para asignación
     @GetMapping("/monitoreo/brigadas")
     public ResponseEntity<Object> listarBrigadas() {
