@@ -11,11 +11,16 @@ import cl.sifire.reportes.observer.ReporteEventPublisher;
 import cl.sifire.reportes.repository.HistorialRepository;
 import cl.sifire.reportes.repository.MultimediaRepository;
 import cl.sifire.reportes.repository.ReporteRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,16 +41,23 @@ import java.util.List;
  * Tras guardar un reporte o cambiar su estado, el servicio
  * notifica al ReporteEventPublisher, quien propaga el evento
  * a todos los observers (AlertaObserver, MonitoreoObserver).
+ * La notificación va FUERA de la transacción para que un
+ * fallo del observer no haga rollback del reporte guardado.
  * ═══════════════════════════════════════════════════════════════
  */
 @Service
 public class ReporteService {
 
+    private static final Logger log = LoggerFactory.getLogger(ReporteService.class);
+
     private final ReporteRepository reporteRepository;
     private final HistorialRepository historialRepository;
     private final MultimediaRepository multimediaRepository;
     private final ReporteFactorySelector factorySelector; // Factory Method
-    private final ReporteEventPublisher eventPublisher; // Observer
+    private final ReporteEventPublisher eventPublisher;   // Observer
+
+    @Value("${app.upload.dir:uploads}")
+    private String uploadDir;
 
     @Autowired
     public ReporteService(
@@ -63,30 +75,35 @@ public class ReporteService {
 
     // ──────────────────────────────────────────────────────────────
     // CREAR REPORTE — usa Factory Method
+    // La transacción solo cubre el INSERT en BD.
+    // La notificación al Observer va separada para que si ms-alertas
+    // o ms-monitoreo fallan, el reporte ya quedó guardado igual.
     // ──────────────────────────────────────────────────────────────
 
-    /**
-     * Crea un reporte usando el Factory Method.
-     *
-     * Paso 1: ReporteFactorySelector elige la fábrica según tipoReportante
-     * Paso 2: La fábrica aplica sus reglas (nivel riesgo, estado inicial,
-     * validaciones)
-     * Paso 3: Repository guarda el reporte
-     * Paso 4: Observer notifica a ms-alertas y ms-monitoreo
-     */
     @Transactional
     public ReporteIncendio crearReporte(ReporteRequestDTO dto) {
-        // Paso 1 y 2: Factory Method
+        // Paso 1 y 2: Factory Method elige la fábrica y aplica reglas de negocio
         ReporteFactory factory = factorySelector.seleccionar(dto.getTipoReportante());
         ReporteIncendio reporte = factory.crear(dto);
 
-        // Paso 3: Repository Pattern
+        // Paso 3: Repository Pattern — guarda en BD
         ReporteIncendio guardado = reporteRepository.save(reporte);
-
-        // Paso 4: Observer Pattern — notifica a ms-alertas y ms-monitoreo
-        eventPublisher.publicar(guardado, "CREADO");
-
+        log.info("[ReporteService] Reporte ID={} guardado correctamente.", guardado.getId());
         return guardado;
+    }
+
+    /**
+     * Notifica a los observers FUERA de la transacción.
+     * Si ms-alertas o ms-monitoreo no están disponibles,
+     * el reporte ya está en BD y no se hace rollback.
+     */
+    public void notificarCreacion(ReporteIncendio reporte) {
+        try {
+            eventPublisher.publicar(reporte, "CREADO");
+        } catch (Exception e) {
+            log.warn("[ReporteService] Observer falló al notificar creación ID={}: {}",
+                reporte.getId(), e.getMessage());
+        }
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -111,8 +128,13 @@ public class ReporteService {
         reporte.setEstado(dto.getNuevoEstado());
         ReporteIncendio actualizado = reporteRepository.save(reporte);
 
-        // Observer notifica el cambio
-        eventPublisher.publicar(actualizado, "ESTADO_ACTUALIZADO");
+        // Observer notifica el cambio (fuera de transacción implícita)
+        try {
+            eventPublisher.publicar(actualizado, "ESTADO_ACTUALIZADO");
+        } catch (Exception e) {
+            log.warn("[ReporteService] Observer falló al notificar cambio estado ID={}: {}",
+                reporteId, e.getMessage());
+        }
 
         return actualizado;
     }
@@ -135,42 +157,46 @@ public class ReporteService {
     }
 
     public List<ReporteIncendio> listarActivos() {
-        return reporteRepository.findByEstadoIn(
-                List.of(ReporteIncendio.EstadoReporte.PENDIENTE,
-                        ReporteIncendio.EstadoReporte.EN_PROCESO));
+        return reporteRepository.findByEstadoIn(List.of(
+                ReporteIncendio.EstadoReporte.PENDIENTE,
+                ReporteIncendio.EstadoReporte.EN_PROCESO));
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // MULTIMEDIA — Repository Pattern
+    // ──────────────────────────────────────────────────────────────
+
+    public ReporteMultimedia adjuntarMultimedia(Long reporteId, String urlArchivo, String tipoArchivo) {
+        ReporteIncendio reporte = obtenerPorId(reporteId);
+        ReporteMultimedia multimedia = new ReporteMultimedia();
+        multimedia.setReporteId(reporte.getId());
+        multimedia.setUrlArchivo(urlArchivo);
+        multimedia.setTipoArchivo(tipoArchivo);
+        return multimediaRepository.save(multimedia);
+    }
+
+    public List<ReporteMultimedia> obtenerMultimedia(Long reporteId) {
+        return multimediaRepository.findByReporteId(reporteId);
     }
 
     public List<HistorialReporte> obtenerHistorial(Long reporteId) {
         return historialRepository.findByReporteIdOrderByFechaCambioAsc(reporteId);
     }
 
-    public ReporteMultimedia adjuntarMultimedia(Long reporteId, String urlArchivo, String tipoArchivo) {
-        // Verifica que el reporte existe
-        reporteRepository.findById(reporteId)
-                .orElseThrow(() -> new RuntimeException("Reporte no encontrado: " + reporteId));
+    public ReporteMultimedia guardarFoto(Long reporteId, MultipartFile archivo) throws IOException {
+        ReporteIncendio reporte = obtenerPorId(reporteId);
 
-        ReporteMultimedia media = new ReporteMultimedia();
-        media.setReporteId(reporteId);
-        media.setUrlArchivo(urlArchivo);
-        media.setTipoArchivo(tipoArchivo);
-        return multimediaRepository.save(media);
-    }
+        File dir = new File(uploadDir);
+        if (!dir.exists()) dir.mkdirs();
 
-    public ReporteMultimedia guardarFoto(Long reporteId, MultipartFile archivo) throws Exception {
-        String carpeta = "uploads/";
-        new java.io.File(carpeta).mkdirs();
         String nombreArchivo = System.currentTimeMillis() + "_" + archivo.getOriginalFilename();
-        java.nio.file.Path ruta = java.nio.file.Paths.get(carpeta + nombreArchivo);
-        java.nio.file.Files.write(ruta, archivo.getBytes());
+        File destino = new File(dir, nombreArchivo);
+        archivo.transferTo(destino);
 
-        ReporteMultimedia media = new ReporteMultimedia();
-        media.setReporteId(reporteId);
-        media.setUrlArchivo("/uploads/" + nombreArchivo);
-        media.setTipoArchivo(archivo.getContentType());
-        return multimediaRepository.save(media);
-    }
-
-    public List<ReporteMultimedia> obtenerMultimedia(Long reporteId) {
-        return multimediaRepository.findByReporteId(reporteId);
+        ReporteMultimedia multimedia = new ReporteMultimedia();
+        multimedia.setReporteId(reporte.getId());
+        multimedia.setUrlArchivo(uploadDir + "/" + nombreArchivo);
+        multimedia.setTipoArchivo(archivo.getContentType());
+        return multimediaRepository.save(multimedia);
     }
 }

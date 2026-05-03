@@ -13,4 +13,5 @@ public interface HistorialRepository extends JpaRepository<HistorialReporte, Lon
 
     /** Retorna todos los cambios de estado ordenados por fecha para un reporte */
     List<HistorialReporte> findByReporteIdOrderByFechaCambioAsc(Long reporteId);
+
 }

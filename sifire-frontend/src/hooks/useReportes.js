@@ -33,7 +33,7 @@ export function useReportes() {
 
     useEffect(() => {
         cargarReportes();
-        listarBrigadas().then(setBrigadas).catch(() => {});
+        listarBrigadas().then(setBrigadas).catch(() => { });
     }, []);
 
     const cargarReportes = async () => {
@@ -82,11 +82,18 @@ export function useReportes() {
                 usuarioId: usuario?.id,
             };
             const creado = await crearReporte(nuevoReporte);
+
+            // Subir fotos — opcional, si falla el reporte igual queda guardado
             if (form.archivos.length > 0) {
                 for (const archivo of form.archivos) {
-                    await subirFotoReporte(creado.id, archivo);
+                    try {
+                        await subirFotoReporte(creado.id, archivo);
+                    } catch (fotoErr) {
+                        console.warn('Foto no pudo subirse, reporte guardado igual:', fotoErr);
+                    }
                 }
             }
+
             await cargarReportes();
             setForm(initialForm);
             setShowForm(false);
