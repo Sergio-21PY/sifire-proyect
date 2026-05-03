@@ -74,10 +74,16 @@ export default function GestionBrigadistas() {
                       style={{ width: '100%', padding: '8px', borderRadius: '6px', border: `1px solid ${brig2.errors.nombre ? '#ef4444' : '#ccc'}`, marginTop: '4px' }} />
                     {brig2.errors.nombre && <span style={{ color: '#ef4444', fontSize: '12px' }}>{brig2.errors.nombre}</span>}
                   </div>
-                  <option value="DISPONIBLE">DISPONIBLE</option>
-                  <option value="EN_CAMINO">EN_CAMINO</option>
-                  <option value="INTERVINIENDO">INTERVINIENDO</option>
-                  <option value="INACTIVA">INACTIVA</option>
+                  <div>
+                    <label style={{ fontSize: '14px', fontWeight: '500' }}>Estado</label>
+                    <select name="estado" value={brig2.form.estado} onChange={brig2.handleChange}
+                      style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', marginTop: '4px' }}>
+                      <option value="DISPONIBLE">DISPONIBLE</option>
+                      <option value="EN_CAMINO">EN_CAMINO</option>
+                      <option value="INTERVINIENDO">INTERVINIENDO</option>
+                      <option value="INACTIVA">INACTIVA</option>
+                    </select>
+                  </div>
                   <div>
                     <label style={{ fontSize: '14px', fontWeight: '500' }}>Tipo</label>
                     <select name="tipo" value={brig2.form.tipo} onChange={brig2.handleChange}

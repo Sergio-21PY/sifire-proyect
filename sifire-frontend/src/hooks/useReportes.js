@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { listarReportes, crearReporte, cambiarEstadoReporte, subirFotoReporte } from '../services/reporte.service';
+import { listarBrigadas, crearAsignacion } from '../services/monitoreo.service';
 
 const initialForm = {
     titulo: '', descripcion: '', nivel: 'MEDIO',
@@ -28,8 +29,12 @@ export function useReportes() {
     const [centroMapa, setCentroMapa] = useState([-33.4944, -70.6170]);
     const [cargando, setCargando] = useState(false);
     const [error, setError] = useState(null);
+    const [brigadas, setBrigadas] = useState([]);
 
-    useEffect(() => { cargarReportes(); }, []);
+    useEffect(() => {
+        cargarReportes();
+        listarBrigadas().then(setBrigadas).catch(() => {});
+    }, []);
 
     const cargarReportes = async () => {
         try {
@@ -97,6 +102,9 @@ export function useReportes() {
         e.preventDefault();
         if (!brigadistaId) return;
         try {
+            // 1. Crear asignación en ms-monitoreo con la brigada real
+            await crearAsignacion({ reporteId: modalReporte.id, brigadaId: Number(brigadistaId) });
+            // 2. Cambiar estado del reporte a EN_PROCESO
             await cambiarEstadoReporte(modalReporte.id, 'EN_PROCESO');
             await cargarReportes();
             setModalReporte(null);
@@ -104,7 +112,7 @@ export function useReportes() {
             setExitoAsign(true);
             setTimeout(() => setExitoAsign(false), 3000);
         } catch (err) {
-            setError('No se pudo asignar el brigadista');
+            setError('No se pudo asignar la brigada');
             console.error(err);
         }
     };
@@ -112,8 +120,9 @@ export function useReportes() {
     return {
         reportes, form, showForm, exito, exitoAsign,
         modalReporte, setModalReporte,
-        reporteDetalle, setReporteDetalle, // ← NUEVO
+        reporteDetalle, setReporteDetalle,
         brigadistaId, setBrigadistaId,
+        brigadas,
         centroMapa, cargando, error,
         handleChange, handleUbicacion, handleArchivos,
         eliminarArchivo, abrirFormulario, usarMiUbicacion,

@@ -72,7 +72,7 @@ public class MonitoreoController {
         return ResponseEntity.ok(monitoreoService.actualizarBrigada(id, datos));
     }
 
-    @PostMapping("/api/asignaciones")
+    @PostMapping({"/api/asignaciones", "/api/asignaciones/crear"})
     public ResponseEntity<AsignacionBrigada> asignarBrigada(
             @RequestBody Map<String, Long> body) {
         return ResponseEntity.ok(
