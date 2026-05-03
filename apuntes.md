@@ -1,190 +1,206 @@
-📚 SIFIRE Backend — Documentación Técnica
-¿Qué es este proyecto?
-SIFIRE es un sistema de información para incendios forestales. El backend está construido como una arquitectura de microservicios — en vez de tener una sola aplicación gigante, hay 5 aplicaciones independientes que se comunican entre sí. Cada una tiene su propia base de datos, su propio servidor y su propia responsabilidad.
+# SIFIRE — Documentación Parcial 2
+**Sistema de Información y Respuesta a Incendios**
+Rama: `dev` | Fecha: 03-05-2026 | Autores: Matías + Sergio
 
-🗺️ Mapa de microservicios
-text
-FRONTEND
-    |
-    ↓
-[ms-bff :8080]          ← Punto de entrada único
-    |
-    ├──→ [ms-usuarios  :8081]   ← Gestión de usuarios
-    ├──→ [ms-reportes  :8082]   ← Reportes de incendios
-    ├──→ [ms-monitoreo :8083]   ← Zonas, brigadas, rutas
-    └──→ [ms-alertas   :8084]   ← Alertas del sistema
-El frontend nunca habla directamente con ms-reportes o ms-monitoreo — siempre pasa por el BFF. Eso simplifica el frontend y centraliza la lógica de agregación.
+---
 
-🔧 Tecnologías usadas (y por qué)
-Tecnología	Para qué sirve
-Spring Boot 3.2.5	Framework base de cada microservicio. Levanta el servidor, maneja las rutas HTTP, inyección de dependencias
-Spring Data JPA	Permite hablar con la base de datos sin escribir SQL manual. Usas métodos como findAll() o findById()
-Hibernate	Se encarga de traducir tus clases Java a tablas SQL automáticamente
-MySQL	Base de datos relacional donde se guardan los datos
-Spring Cloud	Conjunto de herramientas para microservicios: circuit breaker, load balancer, etc
-Resilience4j	Implementa el patrón Circuit Breaker — si un micro cae, el sistema no colapsa
-Lombok	Evita código repetitivo: genera getters, setters, constructores con anotaciones (@Data, @NoArgsConstructor)
-HikariCP	Pool de conexiones a la BD — reutiliza conexiones en vez de crear una nueva por cada request
-📦 Estructura interna de cada microservicio
-Todos los micros siguen la misma estructura en capas:
+## 1. Arquitectura del sistema
 
-text
-src/main/java/cl/sifire/{nombre}/
-    ├── controller/    ← Recibe las peticiones HTTP (GET, POST, etc)
-    ├── service/       ← Lógica de negocio
-    ├── repository/    ← Acceso a la base de datos
-    ├── model/         ← Clases que representan las tablas de la BD
-    └── config/        ← Configuraciones especiales
-¿Por qué estas capas? Cada capa tiene una sola responsabilidad. El controller no sabe nada de SQL, el repository no sabe nada de reglas de negocio. Eso es el patrón de diseño en capas (Layered Architecture).
+```
+[React Frontend :5173]
+         ↓
+  [ms-bff :8080]  ← Circuit Breaker (Resilience4j)
+  ↙    ↓    ↓    ↘
+:8081 :8082 :8083 :8084
+Users Rep.  Mon.  Alert.
+         ↓
+    [MySQL :3306]
+```
 
-🔍 Microservicio por microservicio
-1. ms-usuarios (Puerto 8081)
-Qué hace: Gestiona los usuarios del sistema — ciudadanos, brigadistas y funcionarios.
+El **BFF (Backend For Frontend)** es el único punto de entrada del frontend. Combina datos de múltiples microservicios en una sola respuesta y protege el sistema con Circuit Breaker.
 
-Cómo se configuró:
+---
 
-Spring Boot + JPA conectado a MySQL
+## 2. Microservicios
 
-Registrado en Eureka (service discovery) para que los demás micros lo encuentren por nombre en vez de IP
+| Servicio | Puerto | Responsabilidad |
+|---|---|---|
+| ms-usuarios | 8081 | Autenticación, registro, gestión de cuentas |
+| ms-reportes | 8082 | Creación y seguimiento de reportes de incendio |
+| ms-monitoreo | 8083 | Brigadas, zonas de riesgo, rutas de evacuación |
+| ms-alertas | 8084 | Alertas automáticas y manuales a la comunidad |
+| ms-bff | 8080 | Gateway, orquestación, Circuit Breaker |
 
-Endpoints principales:
+---
 
-text
-GET  /api/usuarios        → lista todos los usuarios
-GET  /api/usuarios/{id}   → un usuario específico
-POST /api/usuarios        → crear usuario
-2. ms-reportes (Puerto 8082)
-Qué hace: Gestiona los reportes de incendios que crean los ciudadanos, brigadistas y funcionarios.
+## 3. Patrones de diseño implementados
 
-Cómo se configuró:
+### 3.1 Factory Method
 
-Hibernate hizo ALTER TABLE automático al arrancar — agregó columnas fecha_creacion, fecha_actualizacion, tipo_reportante sin borrar datos
+**ms-reportes — ReporteFactory**
 
-El campo tipo_reportante es un ENUM en MySQL: solo acepta los valores CIUDADANO, BRIGADISTA, FUNCIONARIO
+Al crear un reporte, `ReporteFactorySelector` elige la fábrica correcta según el tipo de reportante. Cada fábrica aplica sus propias reglas de negocio sin tocar el resto del código:
 
-Endpoints principales:
+- `ReporteCiudadanoFactory` → nivel máximo MEDIO
+- `ReporteBrigadistaFactory` → puede crear hasta ALTO
+- `ReporteFuncionarioFactory` → puede crear cualquier nivel incluyendo CRITICO
 
-text
-GET  /api/reportes              → todos los reportes
-GET  /api/reportes?activos=true → solo reportes activos (EN_PROCESO o PENDIENTE)
-POST /api/reportes              → crear reporte
-Modelo de datos:
+```java
+ReporteFactory factory = factorySelector.seleccionar(dto.getTipoReportante());
+ReporteIncendio reporte = factory.crear(dto);
+```
 
-java
-ReporteIncendio {
-    id, usuarioId, descripcion,
-    latitud, longitud,          // coordenadas del incendio
-    nivelRiesgo,                // BAJO, MEDIO, ALTO
-    estado,                     // PENDIENTE, EN_PROCESO, CERRADO
-    tipoReportante              // CIUDADANO, BRIGADISTA, FUNCIONARIO
-}
-3. ms-monitoreo (Puerto 8083)
-Qué hace: Gestiona las zonas de riesgo, brigadas de bomberos y rutas de evacuación.
+**ms-usuarios — UsuarioFactory** *(trabajo de Sergio)*
 
-Cómo se configuró:
+Crea usuarios con las reglas correctas según su tipo. Agregar un nuevo tipo solo requiere un nuevo caso en el factory, sin tocar el resto del sistema:
 
-Tenía un bug: ZonaRiesgo.java importaba @Id de org.springframework.data.annotation (Spring Data, para MongoDB) en vez de jakarta.persistence (JPA, para MySQL) — eso causaba que Hibernate no reconociera el identificador de la entidad
+```java
+Usuario nuevo = UsuarioFactory.crear(tipo, nombre, username, email, password, telefono);
+```
 
-También faltaba @Service en la clase de servicio
+### 3.2 Observer Pattern
 
-Entidades principales:
+Cuando se crea un reporte, el servicio notifica a dos observers **fuera de la transacción** — si los observers fallan, el reporte igual queda guardado:
 
-text
-ZonaRiesgo    → polígono geográfico con nivel de riesgo (BAJO/MEDIO/ALTO/CRÍTICO)
-Brigada       → equipo de respuesta con ubicación GPS y estado
-RutaEvacuacion → camino seguro para evacuar una zona
-AsignacionBrigada → qué brigada está asignada a qué reporte
-Endpoints principales:
+- `AlertaObserver` → notifica ms-alertas para crear alerta automática
+- `MonitoreoObserver` → notifica ms-monitoreo para sincronizar el foco en el mapa
 
-text
-GET /api/zonas-riesgo      → todas las zonas
-GET /api/brigadas          → todas las brigadas
-GET /api/rutas-evacuacion  → todas las rutas
-4. ms-alertas (Puerto 8084)
-Qué hace: Gestiona las alertas generadas por el sistema cuando se detecta un incendio o situación de riesgo.
+```java
+// ReporteController — la notificación va FUERA de la transacción
+ReporteIncendio guardado = reporteService.crearReporte(dto);
+reporteService.notificarCreacion(guardado); // falla silenciosamente si ms-alertas cae
+```
 
-Endpoints principales:
+### 3.3 Repository Pattern
 
-text
-GET /api/alertas/historial  → historial completo de alertas
-POST /api/alertas           → crear alerta
-5. ms-bff (Puerto 8080) ⭐ El más importante
-Qué hace: Backend For Frontend — es el único punto de contacto con el frontend. Agrega datos de múltiples microservicios en una sola respuesta.
+Todas las operaciones de persistencia van a través de repositorios JPA. Los servicios nunca escriben SQL directo. Implementado en todos los microservicios.
 
-Por qué existe: Sin BFF, el frontend tendría que hacer 4 requests separados para mostrar el mapa (reportes + zonas + brigadas + rutas). Con BFF hace 1 solo request y recibe todo junto.
+### 3.4 Circuit Breaker
 
-Cómo funciona internamente:
+Implementado con **Resilience4j** en ms-bff. Si ms-monitoreo o ms-reportes no responden, el BFF retorna un fallback con datos nulos y mensaje amigable en vez de error 500.
 
-java
-// Cuando el frontend pide GET /bff/mapa:
-public Map<String, Object> getDatosMapa() {
-    datos.put("reportesActivos", llamar a ms-reportes)
-    datos.put("zonas",           llamar a ms-monitoreo)
-    datos.put("rutas",           llamar a ms-monitoreo)
-    datos.put("brigadas",        llamar a ms-monitoreo)
-    return datos  // todo junto en una respuesta
-}
-Patrón Circuit Breaker aplicado aquí:
-
-java
+```java
 @CircuitBreaker(name = "ms-monitoreo", fallbackMethod = "mapaFallback")
 public Map<String, Object> getDatosMapa() { ... }
+```
 
-// Si ms-monitoreo no responde, se ejecuta esto en vez de lanzar error:
-public Map<String, Object> mapaFallback(Exception e) {
-    return Map.of("mensaje", "servicio no disponible, intente mas tarde")
-}
-¿Qué es el Circuit Breaker? Imagina un interruptor eléctrico de la casa — si hay un cortocircuito, se corta automáticamente para no dañar todo. Aquí, si ms-monitoreo tarda mucho o falla, el "interruptor" se abre y en vez de que el BFF también falle, ejecuta el método fallbackMethod devolviendo una respuesta controlada.
+---
 
-Endpoints:
+## 4. Flujo del sistema por rol
 
-text
-GET /bff/mapa        → datos combinados para el mapa (zonas + brigadas + rutas + reportes)
-GET /bff/dashboard   → datos combinados para el dashboard (reportes + alertas)
-🌿 Estrategia de ramas (Git Branching)
-text
-main
- └── dev
-      ├── feature/ms-usuarios
-      ├── feature/ms-reportes
-      ├── feature/ms-monitoreo
-      ├── feature/ms-alertas
-      └── feature/ms-bff     ← rama de integración actual
-La lógica: cada microservicio se desarrolló en su propia rama feature/. Nadie toca el trabajo del otro. Cuando un microservicio está listo, se mergea a dev. Cuando dev está estable y probado, se mergea a main.
+### Flujo completo: desde el reporte hasta la resolución
 
-🏗️ Patrones de diseño aplicados
-1. BFF (Backend For Frontend)
-Problema que resuelve: El frontend necesita datos de múltiples fuentes. Sin BFF haría múltiples requests lentos.
+```
+1. CIUDADANO crea reporte desde /reportes
+   → Factory Method asigna nivel según tipo de reportante
+   → Reporte queda en PENDIENTE
+   → Observer notifica ms-alertas → alerta automática creada
+   → Observer notifica ms-monitoreo → foco aparece en mapa
+   → Círculo de color aparece en mapa para todos
 
-Solución: Un microservicio dedicado que agrega y adapta los datos según lo que necesita el frontend.
+2. FUNCIONARIO ve el reporte en Dashboard (con 🔔 en navbar)
+   → Filtra por PENDIENTE
+   → Selecciona brigada DISPONIBLE
+   → Reporte pasa a EN_PROCESO
+   → Brigada pasa a EN_CAMINO
+   → BFF registra historial del cambio en ms-reportes
 
-2. Circuit Breaker
-Problema que resuelve: Si ms-monitoreo cae, sin Circuit Breaker el BFF también falla, y el frontend queda sin respuesta.
+3. BRIGADISTA ve la asignación en /mis-asignaciones
+   → Se dirige al lugar del foco
+   → Marca el reporte como RESUELTO
+   → Reporte pasa a RESUELTO
+   → BFF automáticamente libera la brigada → vuelve a DISPONIBLE
+   → Círculo en mapa cambia a VERDE en el próximo ciclo (10s)
+```
 
-Solución: Si el servicio falla, se ejecuta un método alternativo (fallback) que devuelve una respuesta parcial pero controlada.
+### Funciones por rol
 
-3. Repository Pattern
-Problema que resuelve: El servicio no debería saber cómo se accede a la BD (si es MySQL, MongoDB, etc).
+| Rol | Rutas disponibles | Funciones principales |
+|---|---|---|
+| CIUDADANO | Reportes, Mapa, Alertas | Crear reportes con foto y coordenadas, ver focos en mapa, leer alertas de la comunidad |
+| BRIGADISTA | Mis Asignaciones, Reportes, Mapa | Ver sus asignaciones activas, marcar resuelto, ver mapa con brigadas |
+| FUNCIONARIO | Dashboard, Reportes, Mapa, Alertas, Brigadistas | Asignar brigadas, emitir alertas manuales, ver mapa completo con zonas y rutas |
+| ADMINISTRADOR | Todo + Usuarios | Crear cuentas de cualquier tipo, gestión completa del sistema |
 
-Solución: Cada micro tiene una interfaz Repository que abstrae el acceso a datos. Spring Data JPA implementa esa interfaz automáticamente.
+### Visibilidad en el mapa
 
-4. Layered Architecture (Capas)
-Problema que resuelve: Código mezclado donde el mismo método recibe el HTTP, valida, procesa y guarda en BD — imposible de mantener.
+| Elemento del mapa | CIUDADANO | BRIGADISTA | FUNCIONARIO |
+|---|---|---|---|
+| Focos de incendio (círculos) | ✅ | ✅ | ✅ |
+| Brigadas activas | ❌ | ✅ | ✅ |
+| Zonas de riesgo | ❌ | ❌ | ✅ |
+| Rutas de evacuación | ❌ | ❌ | ✅ |
 
-Solución: Controller → Service → Repository → Model. Cada capa con una sola responsabilidad.
+---
 
-🚀 Cómo levantar el proyecto
-bash
-# 1. Matar procesos Java anteriores
-taskkill /F /IM java.exe
+## 5. Sistema de alertas
 
-# 2. Entrar a la carpeta del backend
+El sistema tiene dos tipos de alertas:
+
+**Alerta automática:** Se genera sola cuando se crea un reporte. El Observer en ms-reportes notifica ms-alertas sin intervención del funcionario.
+
+**Alerta manual:** El funcionario la emite desde /alertas para comunicar algo específico a la comunidad — evacuaciones, avisos preventivos, situaciones especiales. Estado inicial: `ENVIADA`.
+
+---
+
+## 6. Cómo levantar el sistema
+
+```bash
 cd sifire_back
+taskkill //F //IM java.exe   # Windows: matar procesos Java previos
+sh iniciar_ms.sh             # Levanta los 5 micros en orden
+```
 
-# 3. Levantar todos los microservicios
-bash iniciar_ms.sh
-Verificar que todo levantó:
+El script espera 20 segundos antes de levantar el BFF para que los otros micros estén listos.
 
+```bash
+cd sifire-frontend
+npm run dev                  # Frontend en localhost:5173
+```
 
-http://localhost:8080/bff/mapa        → datos del mapa
-http://localhost:8080/bff/dashboard   → datos del dashboard
+### Cuentas de prueba
+
+| Rol | Email | Contraseña |
+|---|---|---|
+| ADMINISTRADOR | admin@sifire.cl | 1234 |
+| FUNCIONARIO | juan.perez@sifire.cl | 1234 |
+| BRIGADISTA | carlos.rojas@sifire.cl | 1234 |
+| CIUDADANO | pedro.silva@sifire.cl | 1234 |
+
+---
+
+## 7. Base de datos
+
+Ejecutar `sifire_back/db/sifire.sql` en phpMyAdmin. El script crea la base de datos desde cero con todos los datos de prueba incluidos.
+
+---
+
+## 8. Preguntas técnicas frecuentes del profe
+
+**¿Por qué BFF y no API Gateway directo?**
+El BFF combina datos de múltiples micros en una sola respuesta — por ejemplo, el mapa junta reportes + zonas + brigadas + rutas en una llamada. Un API Gateway solo enruta, no combina.
+
+**¿Dónde está el Circuit Breaker?**
+En ms-bff con Resilience4j. Protege las llamadas a ms-reportes y ms-monitoreo. Si caen, devuelve un fallback con null y mensaje amigable.
+
+**¿Por qué Factory Method y no un if/else?**
+Porque agregar un nuevo tipo de reportante (ej: BOMBERO) solo requiere una nueva clase factory sin modificar el código existente. Cumple el principio Open/Closed de SOLID.
+
+**¿Qué pasa si cae un microservicio?**
+El Circuit Breaker del BFF tiene fallbacks para ms-reportes y ms-monitoreo. El login (ms-usuarios) devuelve 401 limpio si las credenciales son incorrectas.
+
+**¿Cómo se actualiza el mapa en tiempo real?**
+El frontend hace polling cada 10 segundos. No es WebSocket — es un `setInterval` que llama a la API y actualiza el estado de React.
+
+**¿Por qué el Observer está fuera de la transacción?**
+Para que si ms-alertas o ms-monitoreo fallan, el reporte igual quede guardado en la BD. Si el Observer estuviera dentro del `@Transactional`, un fallo haría rollback del reporte.
+
+---
+
+## 9. Lo que falta para el Parcial 3
+
+- Pruebas unitarias con JaCoCo (mínimo 60% de cobertura)
+- Pipeline CI/CD en `.github/workflows/`
+- Docker con `docker-compose.yml` para levantar todo con un comando
+- Git Flow con ramas `feature/*`
+- `UsuarioFactoryTest.java` con 5 tests (ya generado, falta pegarlo)
