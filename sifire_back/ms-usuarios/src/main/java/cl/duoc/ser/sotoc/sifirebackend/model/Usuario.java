@@ -16,11 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-<<<<<<< HEAD
-public class Usuario implements UserDetails { // MODIFICADO
-=======
-public class Usuario {
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +25,8 @@ public class Usuario {
     @Column(nullable = false)
     private String nombre;
 
-<<<<<<< HEAD
-    @Column(nullable = false)
-    private String username;
-=======
     @Column(unique = true, nullable = false)
     private String email;
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
 
     @Column(nullable = false)
     private String password;
@@ -43,40 +34,6 @@ public class Usuario {
     @Column(nullable = false)
     private String telefono;
 
-<<<<<<< HEAD
-    // --- MÉTODOS DE USERDETAILS AÑADIDOS ---
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Le decimos a Spring Security que el rol de este usuario es, por ejemplo, "ROLE_BRIGADISTA"
-        return List.of(new SimpleGrantedAuthority("ROLE_" + this.rol));
-    }
-
-    @Override
-    public String getUsername() {
-        // Spring Security usará el email como el "username" único para la autenticación
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true; // La cuenta nunca expira
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true; // La cuenta nunca se bloquea
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true; // Las credenciales nunca expiran
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true; // La cuenta siempre está habilitada
-=======
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
     private TipoUsuario tipo;
@@ -89,6 +46,29 @@ public class Usuario {
 
     public enum TipoUsuario {
         CIUDADANO, BRIGADISTA, FUNCIONARIO, ADMINISTRADOR
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.tipo.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() {
+        return Boolean.TRUE.equals(this.activo);
     }
 }
