@@ -27,6 +27,19 @@ export default function ReporteForm({ form, centroMapa, onChange, onUbicacion, o
               <option value="CRITICO">Crítico</option>
             </select>
           </div>
+          <div>
+            <select name="comuna" value={form.comuna} onChange={onChange}>
+              <option value="">-- Selecciona una comuna --</option>
+              <option value="San Joaquín">San Joaquín</option>
+              <option value="La Granja">La Granja</option>
+              <option value="San Ramón">San Ramón</option>
+              <option value="La Pintana">La Pintana</option>
+              <option value="El Bosque">El Bosque</option>
+              <option value="Pedro Aguirre Cerda">Pedro Aguirre Cerda</option>
+              <option value="San Miguel">San Miguel</option>
+              <option value="Lo Espejo">Lo Espejo</option>
+            </select>
+          </div>
 
           <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-end' }}>
             <div style={{ flex: 1 }}>

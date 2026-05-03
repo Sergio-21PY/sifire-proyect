@@ -71,6 +71,7 @@ CREATE TABLE REPORTE_INCENDIO (
     descripcion         TEXT         NOT NULL,
     latitud             DOUBLE       NOT NULL,
     longitud            DOUBLE       NOT NULL,
+    comuna VARCHAR(100) NULL,
     nivel_riesgo        VARCHAR(20)  NOT NULL
         COMMENT 'BAJO | MEDIO | ALTO | CRITICO',
     estado              VARCHAR(20)  NOT NULL

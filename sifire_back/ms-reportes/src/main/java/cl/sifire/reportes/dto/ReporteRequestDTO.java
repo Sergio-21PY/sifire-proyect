@@ -14,6 +14,7 @@ public class ReporteRequestDTO {
     private Double latitud;
     private Double longitud;
 
+    private String comuna;
     // opcional, cada tipo de usuario lo maneja distinto, esto para que el service sepa como armar el reporte segun quien lo envia
     private ReporteIncendio.TipoReportante tipoReportante;
 

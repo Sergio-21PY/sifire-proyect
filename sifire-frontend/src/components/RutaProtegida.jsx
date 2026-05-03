@@ -6,14 +6,10 @@ import { useAuth } from '../context/AuthContext';
 // Si no se pasa rolesPermitidos, solo requiere estar autenticado
 export default function RutaProtegida({ element, rolesPermitidos }) {
   const { usuario, estaAutenticado } = useAuth();
-console.log('USUARIO COMPLETO:', usuario);
 
   if (!estaAutenticado) {
     return <Navigate to="/login" replace />;
   }
-console.log('TIPO:', usuario.tipo);
-console.log('ROLES PERMITIDOS:', rolesPermitidos);
-console.log('INCLUYE?:', rolesPermitidos?.includes(usuario.tipo));
   if (rolesPermitidos && !rolesPermitidos.includes(usuario.tipo)) {
     return <Navigate to="/no-autorizado" replace />;
   }

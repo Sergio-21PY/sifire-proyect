@@ -75,6 +75,9 @@ public class ReporteIncendio {
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion;
 
+    @Column(name = "comuna")
+    private String comuna;
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "reporte_id")
     private List<ReporteMultimedia> multimedia;
