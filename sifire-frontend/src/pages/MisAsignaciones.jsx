@@ -18,20 +18,34 @@ export default function MisAsignaciones() {
     const [error, setError]               = useState(null);
 
     useEffect(() => {
-        const cargar = async () => {
-            try {
-                const data = await listarAsignaciones();
-                const activas = data.filter(a => !a.fechaFin);
-                setAsignaciones(activas);
-            } catch (err) {
-                setError('No se pudieron cargar las asignaciones');
-                console.error(err);
-            } finally {
-                setCargando(false);
-            }
-        };
-        cargar();
-    }, [usuario]);
+    const cargar = async () => {
+        try {
+            const data = await listarAsignaciones();
+
+            // Filtrar por el brigadista logueado y sin fechaFin
+            const activas = data.filter(a =>
+                !a.fechaFin &&
+                (a.usuarioId === usuario?.id || a.brigadaId === usuario?.brigadaId)
+            );
+
+            // Deduplicar por reporteId por si el backend repite
+            const seen = new Set();
+            const unicas = activas.filter(a => {
+                if (seen.has(a.reporteId)) return false;
+                seen.add(a.reporteId);
+                return true;
+            });
+
+            setAsignaciones(unicas);
+        } catch (err) {
+            setError('No se pudieron cargar las asignaciones');
+            console.error(err);
+        } finally {
+            setCargando(false);
+        }
+    };
+    cargar();
+}, [usuario]);
 
     const cambiarEstado = async (reporteId, nuevoEstado) => {
         try {
