@@ -6,14 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.5</version>
-<<<<<<< HEAD
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>cl.duoc.ser.sotoc</groupId>
-    <artifactId>ms-reportes</artifactId> <!-- CAMBIADO -->
+    <artifactId>ms-reportes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ms-reportes</name> <!-- CAMBIADO -->
-    <description>Microservicio para la generacion de reportes</description> <!-- CAMBIADO -->
+    <name>ms-reportes</name>
+    <description>Microservicio para la generacion de reportes</description>
     <url/>
     <licenses>
         <license/>
@@ -27,27 +26,12 @@
         <tag/>
         <url/>
     </scm>
-=======
-        <relativePath/>
-    </parent>
-    <groupId>cl.sifire</groupId>
-    <artifactId>ms-reportes</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>ms-reportes</name>
-    <description>Microservicio de reportes de incendio - SIFIRE</description>
-
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
     <properties>
         <java.version>21</java.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<<<<<<< HEAD
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
-=======
-    </properties>
-
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,10 +45,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
         </dependency>
-<<<<<<< HEAD
-
-=======
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -84,17 +64,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<<<<<<< HEAD
-
-=======
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -105,10 +80,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-<<<<<<< HEAD
-
     </dependencyManagement>
-
     <build>
         <plugins>
             <plugin>
@@ -122,26 +94,6 @@
                     </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-=======
-    </dependencyManagement>
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
-
-    <build>
-        <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
