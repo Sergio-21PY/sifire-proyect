@@ -188,26 +188,26 @@ INSERT INTO brigada (nombre, tipo, estado, latitud, longitud) VALUES
 
 -- Reportes de incendio
 INSERT INTO REPORTE_INCENDIO
-    (usuario_id, titulo, descripcion, latitud, longitud, nivel_riesgo, estado, tipo_reportante, fecha_creacion, fecha_actualizacion)
+    (usuario_id, titulo, descripcion, latitud, longitud, comuna, nivel_riesgo, estado, tipo_reportante, fecha_creacion, fecha_actualizacion)
 VALUES
     (5, 'Incendio sector Duoc San Joaquín',
         'Veo humo saliendo desde el sector industrial frente al campus. Lleva unos 10 minutos.',
-        -33.4969, -70.6168, 'MEDIO', 'PENDIENTE', 'CIUDADANO',
+        -33.4969, -70.6168, 'San Joaquín', 'MEDIO', 'PENDIENTE', 'CIUDADANO',
         NOW() - INTERVAL 2 HOUR, NOW() - INTERVAL 2 HOUR),
 
     (3, 'Foco activo Walker Martínez',
         'Foco confirmado en Walker Martínez, viento sur moderado, peligro de expansión.',
-        -33.4975, -70.6140, 'ALTO', 'EN_PROCESO', 'BRIGADISTA',
+        -33.4975, -70.6140, 'San Joaquín', 'ALTO', 'EN_PROCESO', 'BRIGADISTA',
         NOW() - INTERVAL 5 HOUR, NOW() - INTERVAL 3 HOUR),
 
     (2, 'Incendio crítico sector industrial San Joaquín',
         'Incendio de gran magnitud en bodega industrial, riesgo de expansión a sectores habitados.',
-        -33.4980, -70.6155, 'CRITICO', 'EN_PROCESO', 'FUNCIONARIO',
+        -33.4980, -70.6155, 'San Joaquín', 'CRITICO', 'EN_PROCESO', 'FUNCIONARIO',
         NOW() - INTERVAL 8 HOUR, NOW() - INTERVAL 6 HOUR),
 
     (6, 'Quema de pastizales Parque Camiroaga',
         'Pequeño foco de quema de pastizales en el parque, controlado por vecinos.',
-        -33.5010, -70.6180, 'BAJO', 'RESUELTO', 'CIUDADANO',
+        -33.5010, -70.6180, 'Pedro Aguirre Cerda', 'BAJO', 'RESUELTO', 'CIUDADANO',
         NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 1 DAY);
 
 -- Historial de cambios de estado

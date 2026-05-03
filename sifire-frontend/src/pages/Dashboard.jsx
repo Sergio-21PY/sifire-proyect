@@ -188,6 +188,44 @@ export default function Dashboard() {
                             </div>
                         ))
                     }
+
+                    <hr style={{ border:'none', borderTop:'1px solid #e2e8f0', margin:'12px 0' }} />
+
+                    <p style={{ fontSize:'0.75rem', color:'#94a3b8', margin:'0 0 8px', fontWeight:600, textTransform:'uppercase' }}>🏘 Comunas más afectadas</p>
+                    {(() => {
+                        const porComuna = reportes
+                            .filter(r => r.comuna)
+                            .reduce((acc, r) => {
+                                acc[r.comuna] = (acc[r.comuna] || 0) + 1;
+                                return acc;
+                            }, {});
+                        const ranking = Object.entries(porComuna)
+                            .sort((a, b) => b[1] - a[1])
+                            .slice(0, 4);
+                        const maxVal = ranking[0]?.[1] || 1;
+
+                        return ranking.length === 0
+                            ? <p style={{ fontSize:12, color:'#94a3b8' }}>Sin datos de comuna aún</p>
+                            : ranking.map(([comuna, cant], i) => (
+                                <div key={comuna} style={{ marginBottom:10 }}>
+                                    <div style={{ display:'flex', justifyContent:'space-between', marginBottom:3 }}>
+                                        <span style={{ fontSize:12, color:'#334155', fontWeight: i===0 ? 700 : 400 }}>
+                                            {i===0 ? '🔥 ' : ''}{comuna}
+                                        </span>
+                                        <span style={{ fontSize:12, fontWeight:700, color: i===0 ? '#dc2626' : '#64748b' }}>
+                                            {cant} reporte{cant>1?'s':''}
+                                        </span>
+                                    </div>
+                                    <div style={{ height:5, background:'#f1f5f9', borderRadius:99, overflow:'hidden' }}>
+                                        <div style={{
+                                            height:'100%', borderRadius:99,
+                                            width:`${Math.round((cant/maxVal)*100)}%`,
+                                            background: i===0 ? '#dc2626' : i===1 ? '#f97316' : '#d97706',
+                                        }} />
+                                    </div>
+                                </div>
+                            ));
+                    })()}
                 </div>
 
                 {/* Tabla reportes */}

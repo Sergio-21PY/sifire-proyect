@@ -131,7 +131,8 @@ export default function MapaIncendios() {
                         <Circle
                             center={[reporte.latitud, reporte.longitud]}
                             radius={300}
-                            pathOptions={styles.focoCirclePathOptions(reporte.nivelRiesgo || reporte.nivel)}
+                            pathOptions={styles.focoCirclePathOptions(reporte.nivelRiesgo || reporte.nivel, reporte.estado)}
+
                         />
                         <Marker
                             position={[reporte.latitud, reporte.longitud]}
