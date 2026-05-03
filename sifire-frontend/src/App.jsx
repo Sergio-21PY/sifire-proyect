@@ -44,7 +44,7 @@ function App() {
             <RutaProtegida rolesPermitidos={['FUNCIONARIO', 'ADMINISTRADOR']} element={<GestionBrigadistas />} />
           } />
           <Route path="/alertas" element={
-            <RutaProtegida rolesPermitidos={['FUNCIONARIO', 'ADMINISTRADOR']} element={<Alertas />} />
+            <RutaProtegida rolesPermitidos={['FUNCIONARIO', 'ADMINISTRADOR', 'CIUDADANO']} element={<Alertas />} />
           } />
 
           {/* Solo Admin */}

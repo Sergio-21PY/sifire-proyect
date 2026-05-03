@@ -29,6 +29,7 @@ const RUTAS_POR_ROL = {
   CIUDADANO: [
     { to: '/reportes', label: 'Reportes' },
     { to: '/monitoreo', label: 'Mapa' },
+    { to: '/alertas',   label: 'Alertas' },
   ],
 };
 

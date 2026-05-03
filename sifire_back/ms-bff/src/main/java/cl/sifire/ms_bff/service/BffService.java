@@ -203,7 +203,12 @@ public class BffService {
         public Object crearAlerta(Map<String, Object> alerta) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                HttpEntity<Map<String, Object>> request = new HttpEntity<>(alerta, headers);
+
+                // Las alertas manuales del funcionario se marcan como ENVIADA directamente
+                Map<String, Object> alertaConEstado = new HashMap<>(alerta);
+                alertaConEstado.put("estado", "ENVIADA");
+
+                HttpEntity<Map<String, Object>> request = new HttpEntity<>(alertaConEstado, headers);
                 return restTemplate.postForObject(
                                 config.getAlertasUrl() + "/api/alertas/crear", request, Object.class);
         }
