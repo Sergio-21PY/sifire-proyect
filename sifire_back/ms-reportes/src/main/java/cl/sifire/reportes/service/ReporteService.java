@@ -186,12 +186,16 @@ public class ReporteService {
     public ReporteMultimedia guardarFoto(Long reporteId, MultipartFile archivo) throws IOException {
         ReporteIncendio reporte = obtenerPorId(reporteId);
 
-        File dir = new File(uploadDir);
+        // Ruta absoluta desde donde corre el proceso — evita el problema con el directorio temporal de Tomcat
+        String rutaBase = System.getProperty("user.dir") + File.separator + uploadDir;
+        File dir = new File(rutaBase);
         if (!dir.exists()) dir.mkdirs();
 
         String nombreArchivo = System.currentTimeMillis() + "_" + archivo.getOriginalFilename();
         File destino = new File(dir, nombreArchivo);
-        archivo.transferTo(destino);
+        archivo.transferTo(destino.getAbsoluteFile());
+
+        log.info("[ReporteService] Foto guardada en: {}", destino.getAbsolutePath());
 
         ReporteMultimedia multimedia = new ReporteMultimedia();
         multimedia.setReporteId(reporte.getId());

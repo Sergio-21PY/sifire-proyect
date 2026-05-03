@@ -28,9 +28,13 @@ public class ReporteController {
     }
 
     // crea un reporte nuevo, el service decide como armarlo segun quien reporta
+    // la notificacion al observer va DESPUES del save, separada de la transaccion
+    // asi si ms-alertas o ms-monitoreo fallan, el reporte igual queda guardado
     @PostMapping("/crear")
     public ResponseEntity<ReporteIncendio> crearReporte(@RequestBody ReporteRequestDTO dto) {
-        return ResponseEntity.ok(reporteService.crearReporte(dto));
+        ReporteIncendio guardado = reporteService.crearReporte(dto);
+        reporteService.notificarCreacion(guardado);
+        return ResponseEntity.ok(guardado);
     }
 
     @PostMapping("/{id}/subir-foto")
