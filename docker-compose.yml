@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # --- Base de Datos Unificada ---
+  db:
+    image: mysql:8.0
+    container_name: sifire-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: sifire_usuarios # DB por defecto, las otras se crean por script
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Script para crear las otras bases de datos
+
+  # --- Microservicio de Usuarios ---
+  ms-usuarios:
+    build: ./sifire_back/ms-usuarios
+    container_name: ms-usuarios
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire_usuarios?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  # --- Microservicio de Alertas ---
+  ms-alertas:
+    build: ./sifire_back/ms-alertas
+    container_name: ms-alertas
+    restart: on-failure
+    depends_on:
+      - db
+      - ms-usuarios
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire_alertas?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      MS_USUARIOS_URL: http://ms-usuarios:8080 # Comunicación interna de Docker
+
+  # --- Microservicio de Reportes ---
+  ms-reportes:
+    build: ./sifire_back/ms-reportes
+    container_name: ms-reportes
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - "8083:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire_reportes?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  # --- Microservicio de Monitoreo ---
+  ms-monitoreo:
+    build: ./sifire_back/ms-monitoreo
+    container_name: ms-monitoreo
+    restart: on-failure
+    depends_on:
+      - ms-usuarios
+      - ms-alertas
+      - ms-reportes
+    ports:
+      - "8084:8080"
+    environment:
+      MS_USUARIOS_URL: http://ms-usuarios:8080
+      MS_ALERTAS_URL: http://ms-alertas:8080
+      MS_REPORTES_URL: http://ms-reportes:8080
+
+volumes:
+  mysql-data:

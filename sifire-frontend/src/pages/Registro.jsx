@@ -37,7 +37,7 @@ export default function Registro() {
     setLoading(true);
     setRegistroError('');
     try {
-<<<<<<< HEAD
+
       // Creamos el objeto de usuario para enviar al backend
       const nuevoUsuario = {
         username: form.nombre, // CORREGIDO: Se envía 'username' en lugar de 'nombre'
@@ -49,9 +49,9 @@ export default function Registro() {
       await registrarUsuario(nuevoUsuario);
 
       // Si el registro es exitoso, redirigimos al login con un mensaje
-=======
+
       await registrarUsuario({ username: form.nombre, email: form.email, telefono: form.telefono || null, password: form.password, tipo: 'CIUDADANO' });
->>>>>>> 85a9dbf486bcdf169200f6edc28efb2e605a1c90
+
       navigate('/login', { state: { registrado: true } });
     } catch (error) {
       setRegistroError(error.message || 'No se pudo completar el registro. Inténtelo de nuevo.');

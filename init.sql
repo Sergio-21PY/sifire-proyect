@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS sifire_alertas;
+CREATE DATABASE IF NOT EXISTS sifire_reportes;
