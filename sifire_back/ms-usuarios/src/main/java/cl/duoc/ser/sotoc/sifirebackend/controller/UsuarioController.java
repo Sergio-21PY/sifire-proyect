@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "*")
@@ -38,6 +39,22 @@ public class UsuarioController {
         return usuarioService.buscarPorEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Endpoint diseñado por Sergio — permite consultar usuarios por tipo de rol.
+     * Usado por ms-alertas para obtener brigadistas disponibles.
+     * Ejemplo: GET /api/usuarios/por-tipo/BRIGADISTA
+     */
+    @GetMapping("/por-tipo/{tipo}")
+    public ResponseEntity<List<Usuario>> listarPorTipo(@PathVariable String tipo) {
+        try {
+            Usuario.TipoUsuario tipoEnum = Usuario.TipoUsuario.valueOf(tipo.toUpperCase());
+            List<Usuario> usuarios = usuarioService.listarPorTipo(tipoEnum);
+            return ResponseEntity.ok(usuarios);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/registro")

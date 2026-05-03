@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cl.duoc.ser.sotoc.sifirebackend.factory.UsuarioFactory;
 import cl.duoc.ser.sotoc.sifirebackend.model.Usuario;
 import cl.duoc.ser.sotoc.sifirebackend.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
+
     private final UsuarioRepository usuarioRepository;
 
     @Autowired
@@ -18,37 +20,40 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    // metodo para registrar un nuevo usuario, asignando un tipo por defecto si no
-    // se especifica
+    /**
+     * Registra un nuevo usuario usando el Factory Method (UsuarioFactory).
+     * La fábrica se encarga de asignar el tipo correcto y las reglas de negocio.
+     * Integración del patrón Factory Method desarrollado por Sergio.
+     */
     public Usuario registrar(Usuario usuario) {
-        if (usuario.getTipo() == null) {
-            usuario.setTipo(Usuario.TipoUsuario.CIUDADANO);
-        }
-        if (usuario.getUsername() == null || usuario.getUsername().isEmpty()) {
-            usuario.setUsername(usuario.getEmail().split("@")[0]);
-        }
-        usuario.setActivo(true);
-        return usuarioRepository.save(usuario);
+        String tipo = usuario.getTipo() != null
+            ? usuario.getTipo().name()
+            : "CIUDADANO";
+
+        String username = (usuario.getUsername() == null || usuario.getUsername().isEmpty())
+            ? usuario.getEmail().split("@")[0]
+            : usuario.getUsername();
+
+        // Factory Method — delega la creación al factory según el tipo
+        Usuario nuevo = UsuarioFactory.crear(
+            tipo,
+            usuario.getNombre(),
+            username,
+            usuario.getEmail(),
+            usuario.getPassword(),
+            usuario.getTelefono()
+        );
+
+        return usuarioRepository.save(nuevo);
     }
 
-    // metodo para autenticar un usuario por email y password, solo si está activo
+    // Autenticar usuario por email y password, solo si está activo
     public Optional<Usuario> login(String email, String password) {
-        System.out.println("[LOGIN] email recibido: '" + email + "'");
-        System.out.println("[LOGIN] password recibido: '" + password + "'");
-
-        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
-        System.out.println("[LOGIN] usuario encontrado: " + usuario.isPresent());
-        if (usuario.isPresent()) {
-            System.out.println("[LOGIN] password en BD: '" + usuario.get().getPassword() + "'");
-            System.out.println("[LOGIN] activo: " + usuario.get().getActivo());
-        }
-
-        return usuario
+        return usuarioRepository.findByEmail(email)
                 .filter(u -> u.getPassword().equals(password))
                 .filter(u -> Boolean.TRUE.equals(u.getActivo()));
     }
 
-    // otros metodos
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
@@ -63,17 +68,22 @@ public class UsuarioService {
 
     public Optional<Usuario> actualizar(Long id, Usuario datos) {
         return usuarioRepository.findById(id).map(u -> {
-            if (datos.getNombre() != null)
-                u.setNombre(datos.getNombre());
-            if (datos.getTelefono() != null)
-                u.setTelefono(datos.getTelefono());
-            if (datos.getTipo() != null)
-                u.setTipo(datos.getTipo());
+            if (datos.getNombre() != null)   u.setNombre(datos.getNombre());
+            if (datos.getTelefono() != null) u.setTelefono(datos.getTelefono());
+            if (datos.getTipo() != null)     u.setTipo(datos.getTipo());
             return usuarioRepository.save(u);
         });
     }
 
     public void eliminar(Long id) {
         usuarioRepository.deleteById(id);
+    }
+
+    /**
+     * Endpoint diseñado por Sergio — lista usuarios por tipo de rol.
+     * Permite a otros microservicios (como ms-alertas) consultar brigadistas disponibles.
+     */
+    public List<Usuario> listarPorTipo(Usuario.TipoUsuario tipo) {
+        return usuarioRepository.findByTipo(tipo);
     }
 }
