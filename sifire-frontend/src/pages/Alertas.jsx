@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import * as styles from '../styles/Alertas.styles';
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8080';
 
 export default function Alertas() {
   const { usuario } = useAuth();
-  const [alertas, setAlertas]     = useState([]);
-  const [exito, setExito]         = useState('');
-  const [error, setError]         = useState('');
-  const [form, setForm]           = useState({
-    titulo: '', mensaje: '', canal: 'EMAIL',
-    tipo: '', descripcion: '', latitud: '', longitud: ''
+  const [alertas, setAlertas]   = useState([]);
+  const [filtro, setFiltro]     = useState('TODOS');
+  const [exito, setExito]       = useState('');
+  const [error, setError]       = useState('');
+  const [cargando, setCargando] = useState(true);
+  const [form, setForm]         = useState({
+    titulo: '', mensaje: '', tipo: '', descripcion: '',
+    latitud: '', longitud: '', canal: 'EMAIL',
   });
 
-  const esFuncionario  = usuario?.tipo === 'FUNCIONARIO';
-  const esAdmin        = usuario?.tipo === 'ADMINISTRADOR';
+  const esFuncionario = usuario?.tipo === 'FUNCIONARIO';
+  const esAdmin       = usuario?.tipo === 'ADMINISTRADOR';
 
   useEffect(() => { cargarAlertas(); }, []);
 
@@ -23,120 +26,154 @@ export default function Alertas() {
     try {
       const res = await axios.get(`${BASE_URL}/bff/alertas`);
       setAlertas(res.data || []);
-    } catch { setError('No se pudieron cargar las alertas'); }
+    } catch {
+      setError('No se pudieron cargar las alertas.');
+    } finally {
+      setCargando(false);
+    }
   };
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleEmitir = async (e) => {
     e.preventDefault();
+    setError('');
     try {
       await axios.post(`${BASE_URL}/bff/alertas/crear`, form);
       setExito('✓ Alerta emitida correctamente');
-      setForm({ titulo: '', mensaje: '', canal: 'EMAIL', tipo: '', descripcion: '', latitud: '', longitud: '' });
+      setForm({ titulo: '', mensaje: '', tipo: '', descripcion: '', latitud: '', longitud: '', canal: 'EMAIL' });
       setTimeout(() => setExito(''), 3000);
       cargarAlertas();
-    } catch { setError('No se pudo emitir la alerta'); }
+    } catch { setError('No se pudo emitir la alerta.'); }
   };
 
   const handleAsignarBrigadistas = async (id) => {
+    setError('');
     try {
       await axios.post(`${BASE_URL}/bff/alertas/${id}/asignar-brigadistas`);
       setExito('✓ Brigadistas asignados correctamente');
       setTimeout(() => setExito(''), 3000);
       cargarAlertas();
-    } catch { setError('No se pudo asignar brigadistas'); }
+    } catch { setError('No se pudo asignar brigadistas.'); }
   };
 
-  const estadoColor = (estado) => ({
-    NUEVA:    { background: '#e0f2fe', color: '#0369a1' },
-    ASIGNADA: { background: '#dcfce7', color: '#166534' },
-    PENDIENTE:{ background: '#fef3c7', color: '#92400e' },
-    ENVIADA:  { background: '#f0fdf4', color: '#15803d' },
-    FALLIDA:  { background: '#fee2e2', color: '#991b1b' },
-  }[estado] || { background: '#f1f5f9', color: '#475569' });
+  // Normaliza estado para los estilos de Sergio
+  // (Sergio usa ENVIADA/PENDIENTE/FALLIDA, dev usa NUEVA/ASIGNADA)
+  const estadoVisual = (estado) => {
+    const mapa = { NUEVA: 'PENDIENTE', ASIGNADA: 'ENVIADA', ENVIADA: 'ENVIADA', PENDIENTE: 'PENDIENTE', FALLIDA: 'FALLIDA' };
+    return mapa[estado] || 'PENDIENTE';
+  };
+
+  const alertasFiltradas = filtro === 'TODOS'
+    ? alertas
+    : alertas.filter(a => estadoVisual(a.estado) === filtro);
 
   return (
-    <div style={{ padding: '2rem', maxWidth: 900, margin: '0 auto' }}>
-      <h1 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '0.25rem' }}>
-        Gestión de Alertas
-      </h1>
-      <p style={{ color: '#64748b', marginBottom: '1.5rem' }}>
-        {esAdmin ? 'Administración y asignación de brigadas' : 'Emisión y seguimiento de alertas'}
-      </p>
+    <div style={styles.mainContainer}>
 
-      {exito && <div style={{ background: '#dcfce7', color: '#166534', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem' }}>{exito}</div>}
-      {error && <div style={{ background: '#fee2e2', color: '#991b1b', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem' }}>{error}</div>}
+      {/* Header */}
+      <div style={styles.headerContainer}>
+        <h1 style={styles.headerTitle}>Alertas a la Comunidad</h1>
+        <p style={styles.headerSubtitle}>
+          {esFuncionario
+            ? 'Emite alertas oficiales hacia la comunidad ante incendios activos'
+            : esAdmin
+            ? 'Administración de alertas y asignación de brigadistas'
+            : 'Alertas oficiales emitidas por funcionarios del sistema'}
+        </p>
+      </div>
 
-      {/* Formulario solo para FUNCIONARIO */}
+      {/* Mensajes */}
+      {exito && <div style={{ background:'#dcfce7', color:'#166534', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem', fontWeight:600 }}>{exito}</div>}
+      {error && <div style={{ background:'#fee2e2', color:'#991b1b', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem' }}>{error}</div>}
+
+      {/* Formulario — solo FUNCIONARIO */}
       {esFuncionario && (
-        <form onSubmit={handleEmitir} style={{ background: 'white', borderRadius: 12, padding: '1.5rem', marginBottom: '2rem', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-          <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1rem' }}>Emitir nueva alerta</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-            <input name="titulo"      placeholder="Título"      value={form.titulo}      onChange={handleChange} required style={input} />
-            <input name="tipo"        placeholder="Tipo"        value={form.tipo}        onChange={handleChange} style={input} />
-            <input name="descripcion" placeholder="Descripción" value={form.descripcion} onChange={handleChange} style={{ ...input, gridColumn: '1 / -1' }} />
-            <input name="mensaje"     placeholder="Mensaje"     value={form.mensaje}     onChange={handleChange} required style={{ ...input, gridColumn: '1 / -1' }} />
-            <input name="latitud"     placeholder="Latitud"     value={form.latitud}     onChange={handleChange} style={input} />
-            <input name="longitud"    placeholder="Longitud"    value={form.longitud}    onChange={handleChange} style={input} />
-            <select name="canal" value={form.canal} onChange={handleChange} style={input}>
+        <form onSubmit={handleEmitir} style={{ background:'#fff', borderRadius:12, padding:'1.5rem', marginBottom:'2rem', boxShadow:'0 1px 4px rgba(0,0,0,0.08)', border:'1px solid #e2e8f0' }}>
+          <h2 style={{ fontSize:'1rem', fontWeight:700, marginBottom:'1rem', color:'#1e293b' }}>📢 Emitir nueva alerta</h2>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0.75rem' }}>
+            <input name="titulo"      placeholder="Título de la alerta *" value={form.titulo}      onChange={handleChange} required style={inputStyle} />
+            <input name="tipo"        placeholder="Tipo (ej: EVACUACIÓN)"  value={form.tipo}        onChange={handleChange} style={inputStyle} />
+            <input name="descripcion" placeholder="Descripción"            value={form.descripcion} onChange={handleChange} style={{ ...inputStyle, gridColumn:'1 / -1' }} />
+            <input name="mensaje"     placeholder="Mensaje para la comunidad *" value={form.mensaje} onChange={handleChange} required style={{ ...inputStyle, gridColumn:'1 / -1' }} />
+            <input name="latitud"     placeholder="Latitud"                value={form.latitud}     onChange={handleChange} style={inputStyle} />
+            <input name="longitud"    placeholder="Longitud"               value={form.longitud}    onChange={handleChange} style={inputStyle} />
+            <select name="canal" value={form.canal} onChange={handleChange} style={inputStyle}>
               <option value="EMAIL">EMAIL</option>
               <option value="SMS">SMS</option>
               <option value="PUSH">PUSH</option>
             </select>
           </div>
-          <button type="submit" style={{ marginTop: '1rem', background: '#ef4444', color: 'white', border: 'none', borderRadius: 8, padding: '0.6rem 1.5rem', fontWeight: 600, cursor: 'pointer' }}>
-            Emitir Alerta
+          <button type="submit" style={{ marginTop:'1rem', background:'#dc2626', color:'white', border:'none', borderRadius:8, padding:'0.6rem 1.5rem', fontWeight:700, cursor:'pointer', fontSize:'0.9rem' }}>
+            🚨 Emitir Alerta
           </button>
         </form>
       )}
 
-      {/* Tabla de alertas */}
-      <div style={{ background: 'white', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: '#f8fafc' }}>
-              {['#', 'Título', 'Tipo', 'Canal', 'Estado', 'Fecha', ...(esAdmin ? ['Acción'] : [])].map(h => (
-                <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.8rem', fontWeight: 600, color: '#64748b' }}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {alertas.length === 0 ? (
-              <tr><td colSpan={esAdmin ? 7 : 6} style={{ padding: '2rem', textAlign: 'center', color: '#94a3b8' }}>No hay alertas registradas</td></tr>
-            ) : alertas.map((a, i) => (
-              <tr key={a.id} style={{ borderTop: '1px solid #f1f5f9' }}>
-                <td style={cell}>#{a.id}</td>
-                <td style={cell}>{a.titulo || a.tipo || '—'}</td>
-                <td style={cell}>{a.tipo || '—'}</td>
-                <td style={cell}>{a.canal || '—'}</td>
-                <td style={cell}>
-                  <span style={{ ...estadoColor(a.estado), padding: '2px 10px', borderRadius: 999, fontSize: '0.78rem', fontWeight: 600 }}>
-                    {a.estado}
-                  </span>
-                </td>
-                <td style={cell}>{a.createdAt ? new Date(a.createdAt).toLocaleDateString() : a.fechaHora ? new Date(a.fechaHora).toLocaleDateString() : '—'}</td>
-                {esAdmin && (
-                  <td style={cell}>
-                    {a.estado !== 'ASIGNADA' && (
-                      <button onClick={() => handleAsignarBrigadistas(a.id)}
-                        style={{ background: '#3b82f6', color: 'white', border: 'none', borderRadius: 6, padding: '4px 12px', fontSize: '0.8rem', cursor: 'pointer', fontWeight: 600 }}>
-                        Asignar Brigada
-                      </button>
-                    )}
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Filtros — diseño de Sergio */}
+      <div style={styles.filterContainer}>
+        {['TODOS', 'ENVIADA', 'PENDIENTE', 'FALLIDA'].map(f => (
+          <button key={f} onClick={() => setFiltro(f)} style={styles.filterButton(filtro === f)}>
+            {f}
+            {f !== 'TODOS' && (
+              <span style={{ marginLeft:6, opacity:.7 }}>
+                ({alertas.filter(a => estadoVisual(a.estado) === f).length})
+              </span>
+            )}
+          </button>
+        ))}
       </div>
+
+      {/* Lista de alertas — diseño de Sergio */}
+      {cargando ? (
+        <p style={{ color:'#64748b', textAlign:'center', padding:'2rem' }}>Cargando alertas...</p>
+      ) : alertasFiltradas.length === 0 ? (
+        <p style={{ color:'#94a3b8', textAlign:'center', padding:'2rem' }}>No hay alertas para mostrar.</p>
+      ) : (
+        <div style={styles.alertsListContainer}>
+          {alertasFiltradas.map(alerta => (
+            <div key={alerta.id} style={styles.alertCard(estadoVisual(alerta.estado))}>
+              <div style={{ flex: 1 }}>
+                <strong style={styles.alertTitle}>
+                  {alerta.titulo || alerta.tipo || `Alerta #${alerta.id}`}
+                </strong>
+                <p style={styles.alertMessage}>
+                  {alerta.mensaje || alerta.descripcion || '—'}
+                </p>
+                <div style={styles.alertMetaContainer}>
+                  <span>
+                    🕐 {alerta.createdAt
+                      ? new Date(alerta.createdAt).toLocaleString('es-CL')
+                      : alerta.fechaHora
+                      ? new Date(alerta.fechaHora).toLocaleString('es-CL')
+                      : '—'}
+                  </span>
+                  {alerta.canal && <span>📡 {alerta.canal}</span>}
+                  {alerta.latitud && <span>📍 {alerta.latitud}, {alerta.longitud}</span>}
+                </div>
+              </div>
+
+              <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:8 }}>
+                <span style={styles.alertStatusBadge(estadoVisual(alerta.estado))}>
+                  {alerta.estado}
+                </span>
+                {/* Botón asignar brigadistas — solo ADMIN y solo si no está asignada */}
+                {esAdmin && alerta.estado !== 'ASIGNADA' && (
+                  <button onClick={() => handleAsignarBrigadistas(alerta.id)}
+                    style={{ background:'#3b82f6', color:'#fff', border:'none', borderRadius:6, padding:'4px 12px', fontSize:'0.8rem', cursor:'pointer', fontWeight:600, whiteSpace:'nowrap' }}>
+                    👥 Asignar Brigada
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
-const input = {
+const inputStyle = {
   padding: '0.5rem 0.75rem', borderRadius: 8,
-  border: '1px solid #e2e8f0', fontSize: '0.9rem', width: '100%'
+  border: '1px solid #e2e8f0', fontSize: '0.9rem', width: '100%',
 };
-const cell = { padding: '0.75rem 1rem', fontSize: '0.85rem', color: '#334155' };
