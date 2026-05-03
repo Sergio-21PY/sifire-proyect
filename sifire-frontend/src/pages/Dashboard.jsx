@@ -1,40 +1,39 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { listarReportes } from '../services/reporte.service';
+import { listarBrigadas, crearAsignacion } from '../services/monitoreo.service';
+import { cambiarEstadoReporte } from '../services/reporte.service';
 import * as styles from '../styles/Dashboard.styles';
-
-const API_MONITOREO = 'http://localhost:8083';
 
 export default function Dashboard() {
     const { usuario } = useAuth();
     const [reportes, setReportes] = useState([]);
     const [brigadas, setBrigadas] = useState([]);
     const [cargando, setCargando] = useState(true);
-    const [modal, setModal] = useState(null); // reporteId seleccionado
+    const [modal, setModal] = useState(null);
     const [brigadaId, setBrigadaId] = useState('');
     const [kpis, setKpis] = useState([
         { label: 'Reportes Activos', valor: 0, color: '#ef4444', icono: '🔥' },
         { label: 'En Proceso', valor: 0, color: '#f97316', icono: '🔄' },
         { label: 'Brigadas Activas', valor: 0, color: '#3b82f6', icono: '🚒' },
-        { label: 'Controlados Hoy', valor: 0, color: '#22c55e', icono: '✔️' },
+        { label: 'Resueltos Hoy', valor: 0, color: '#22c55e', icono: '✔️' },
     ]);
 
     useEffect(() => {
         const cargar = async () => {
             try {
-                const data = await listarReportes();
+                const [data, b] = await Promise.all([
+                    listarReportes(),
+                    listarBrigadas(),
+                ]);
                 setReportes(data.slice(0, 5));
+                setBrigadas(b);
                 setKpis([
                     { label: 'Reportes Activos', valor: data.filter(r => r.estado === 'PENDIENTE').length, color: '#ef4444', icono: '🔥' },
                     { label: 'En Proceso', valor: data.filter(r => r.estado === 'EN_PROCESO').length, color: '#f97316', icono: '🔄' },
-                    { label: 'Brigadas Activas', valor: 0, color: '#3b82f6', icono: '🚒' },
-                    { label: 'Controlados Hoy', valor: data.filter(r => r.estado === 'CONTROLADO').length, color: '#22c55e', icono: '✔️' },
+                    { label: 'Brigadas Activas', valor: b.filter(br => br.estado === 'DISPONIBLE' || br.estado === 'EN_CAMINO').length, color: '#3b82f6', icono: '🚒' },
+                    { label: 'Resueltos Hoy', valor: data.filter(r => r.estado === 'RESUELTO').length, color: '#22c55e', icono: '✔️' },
                 ]);
-
-                // Cargar brigadas desde ms-monitoreo
-                const res = await fetch(`${API_MONITOREO}/api/brigadas`);
-                const b = await res.json();
-                setBrigadas(b);
             } catch (err) {
                 console.error('Error al cargar el dashboard:', err);
             } finally {
@@ -47,32 +46,16 @@ export default function Dashboard() {
     const asignarBrigada = async () => {
         if (!brigadaId) return alert('Selecciona una brigada');
         try {
-            const res = await fetch(`${API_MONITOREO}/api/asignaciones`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ reporteId: modal, brigadaId: Number(brigadaId) }),
-            });
-            if (!res.ok) throw new Error('Error al asignar');
-
-            // Actualizar estado del reporte en ms-reportes vía BFF
-            await fetch(`http://localhost:8080/bff/reportes/${modal}/estado`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ estado: 'EN_PROCESO' }),
-            });
-
-            // Actualizar la lista local sin recargar
+            await crearAsignacion({ reporteId: modal, brigadaId: Number(brigadaId) });
+            await cambiarEstadoReporte(modal, 'EN_PROCESO');
             setReportes(prev => prev.map(r =>
                 r.id === modal ? { ...r, estado: 'EN_PROCESO' } : r
             ));
-
-            // Actualizar KPIs localmente
             setKpis(prev => prev.map(k => {
                 if (k.label === 'Reportes Activos') return { ...k, valor: k.valor - 1 };
                 if (k.label === 'En Proceso') return { ...k, valor: k.valor + 1 };
                 return k;
             }));
-
             setModal(null);
             setBrigadaId('');
         } catch (err) {
@@ -85,7 +68,7 @@ export default function Dashboard() {
             <div style={styles.headerContainer}>
                 <h1 style={styles.headerTitle}>🏛️ Panel de Control SIFIRE</h1>
                 <p style={styles.headerSubtitle}>
-                    Bienvenido, <strong>{usuario?.username || usuario?.nombre}</strong> — {usuario?.rol}
+                    Bienvenido, <strong>{usuario?.username || usuario?.nombre}</strong> — {usuario?.tipo}
                 </p>
             </div>
 
@@ -129,14 +112,20 @@ export default function Dashboard() {
                                             {r.estado?.replace('_', ' ')}
                                         </span>
                                     </td>
-                                    <td style={styles.tableCell}>{r.fechaCreacion || r.fecha || r.hora}</td>
                                     <td style={styles.tableCell}>
-                                        <button
-                                            onClick={() => { setModal(r.id); setBrigadaId(''); }}
-                                            style={{ padding: '4px 10px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
-                                        >
-                                            🚒 Asignar
-                                        </button>
+                                        {r.fechaCreacion
+                                            ? new Date(r.fechaCreacion).toLocaleDateString('es-CL')
+                                            : '—'}
+                                    </td>
+                                    <td style={styles.tableCell}>
+                                        {r.estado === 'PENDIENTE' && (
+                                            <button
+                                                onClick={() => { setModal(r.id); setBrigadaId(''); }}
+                                                style={{ padding: '4px 10px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
+                                            >
+                                                🚒 Asignar
+                                            </button>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
@@ -145,19 +134,18 @@ export default function Dashboard() {
                 )}
             </div>
 
-            {/* Modal asignar brigada */}
             {modal && (
                 <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 999 }}>
                     <div style={{ background: '#fff', padding: '2rem', borderRadius: '12px', minWidth: '320px' }}>
-                        <h3>Asignar brigada al reporte #{modal}</h3>
+                        <h3 style={{ marginBottom: '1rem' }}>Asignar brigada al reporte #{modal}</h3>
                         <select
                             value={brigadaId}
                             onChange={e => setBrigadaId(e.target.value)}
                             style={{ width: '100%', padding: '8px', marginBottom: '1rem', borderRadius: '6px', border: '1px solid #ccc' }}
                         >
                             <option value="">-- Selecciona una brigada --</option>
-                            {brigadas.map(b => (
-                                <option key={b.id} value={b.id}>{b.nombre} ({b.estado})</option>
+                            {brigadas.filter(b => b.estado === 'DISPONIBLE').map(b => (
+                                <option key={b.id} value={b.id}>{b.nombre} — {b.tipo}</option>
                             ))}
                         </select>
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>

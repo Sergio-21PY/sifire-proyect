@@ -15,6 +15,13 @@ export const listarBrigadas = async () => {
     return await response.json();
 };
 
+// Trae las rutas de evacuación para mostrar en el mapa
+export const listarRutas = async () => {
+    const response = await fetch(`${API_URL}/rutas`);
+    if (!response.ok) throw new Error("Error al listar las rutas de evacuación");
+    return await response.json();
+};
+
 // Trae las asignaciones activas de brigadas a reportes
 export const listarAsignaciones = async () => {
     const response = await fetch(`${API_URL}/asignaciones`);

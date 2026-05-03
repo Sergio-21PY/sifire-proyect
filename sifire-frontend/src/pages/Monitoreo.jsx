@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Circle, Polygon, Polyline, Popup } from 'react-leaflet';
 import FooterComponent from '../components/FooterComponent';
 import { useAuth } from '../context/AuthContext';
-import { listarZonas, listarBrigadas } from '../services/monitoreo.service';
+import { listarZonas, listarBrigadas, listarRutas } from '../services/monitoreo.service';
 import { listarReportes } from '../services/reporte.service';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -14,29 +14,17 @@ import * as styles from '../styles/Monitoreo.styles';
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({ iconRetinaUrl, iconUrl, shadowUrl });
 
-const rutasEvacuacion = [
-  {
-    id: 1,
-    nombre: 'Ruta Evacuacion Principal',
-    puntos: [
-      [-33.4969, -70.6168],
-      [-33.4953, -70.6169],
-      [-33.4939, -70.6171],
-      [-33.4918, -70.6172],
-    ],
-  },
-];
-
 export default function MapaIncendios() {
     const { usuario } = useAuth();
-    const [centro, setCentro]                       = useState([-33.4944, -70.6170]);
-    const [reportes, setReportes]                   = useState([]);
-    const [brigadas, setBrigadas]                   = useState([]);
-    const [zonas, setZonas]                         = useState([]);
-    const [reporteSeleccionado, setReporteSeleccionado] = useState(null); // ← nuevo
+    const [centro, setCentro]                           = useState([-33.4944, -70.6170]);
+    const [reportes, setReportes]                       = useState([]);
+    const [brigadas, setBrigadas]                       = useState([]);
+    const [zonas, setZonas]                             = useState([]);
+    const [rutas, setRutas]                             = useState([]);
+    const [reporteSeleccionado, setReporteSeleccionado] = useState(null);
 
-    const esFuncionario = usuario?.rol === 'FUNCIONARIO';
-    const esBrigadista  = usuario?.rol === 'BRIGADISTA';
+    const esFuncionario = usuario?.tipo === 'FUNCIONARIO';
+    const esBrigadista  = usuario?.tipo === 'BRIGADISTA';
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
@@ -48,14 +36,16 @@ export default function MapaIncendios() {
 
     const cargarDatos = async () => {
         try {
-            const [dataReportes, dataBrigadas, dataZonas] = await Promise.all([
+            const [dataReportes, dataBrigadas, dataZonas, dataRutas] = await Promise.all([
                 listarReportes(),
                 listarBrigadas(),
                 listarZonas(),
+                listarRutas(),
             ]);
             setReportes(dataReportes.filter(r => r.latitud && r.longitud));
             setBrigadas(dataBrigadas);
             setZonas(dataZonas);
+            setRutas(dataRutas);
         } catch (err) {
             console.error('Error al cargar datos del mapa:', err);
         }
@@ -63,7 +53,7 @@ export default function MapaIncendios() {
 
     useEffect(() => {
         cargarDatos();
-        const intervalo = setInterval(cargarDatos, 10000); // polling cada 10s
+        const intervalo = setInterval(cargarDatos, 10000);
         return () => clearInterval(intervalo);
     }, []);
 
@@ -95,7 +85,7 @@ export default function MapaIncendios() {
                 {esFuncionario && (
                     <div style={styles.leyendaItem}>
                         <span style={styles.leyendaRuta} />
-                        <span style={styles.leyendaLabel}>Ruta evacuacion</span>
+                        <span style={styles.leyendaLabel}>Ruta evacuación</span>
                     </div>
                 )}
             </div>
@@ -116,9 +106,9 @@ export default function MapaIncendios() {
                     </Polygon>
                 ))}
 
-                {esFuncionario && rutasEvacuacion.map(ruta => (
-                    <Polyline key={`ruta-${ruta.id}`} positions={ruta.puntos} pathOptions={styles.rutaPathOptions}>
-                        <Popup><strong>{ruta.nombre}</strong></Popup>
+                {esFuncionario && rutas.map(ruta => (
+                    <Polyline key={`ruta-${ruta.id}`} positions={ruta.trazado || ruta.puntos} pathOptions={styles.rutaPathOptions}>
+                        <Popup><strong>{ruta.nombre}</strong>{ruta.descripcion && <><br />{ruta.descripcion}</>}</Popup>
                     </Polyline>
                 ))}
 
@@ -137,17 +127,18 @@ export default function MapaIncendios() {
                 ))}
 
                 {(esFuncionario || esBrigadista) && brigadas.map(b => (
-                    <Marker key={`brigada-${b.id}`} position={[b.latitud || b.lat, b.longitud || b.lng]} icon={styles.iconoBrigada}>
-                        <Popup>
-                            <strong>{b.nombre}</strong><br />
-                            Tipo: {b.tipo}<br />
-                            Estado: {b.disponible ? 'Disponible' : 'En operacion'}
-                        </Popup>
-                    </Marker>
+                    b.latitud && b.longitud ? (
+                        <Marker key={`brigada-${b.id}`} position={[b.latitud, b.longitud]} icon={styles.iconoBrigada}>
+                            <Popup>
+                                <strong>{b.nombre}</strong><br />
+                                Tipo: {b.tipo}<br />
+                                Estado: {b.estado}
+                            </Popup>
+                        </Marker>
+                    ) : null
                 ))}
             </MapContainer>
 
-            {/* Modal detalle reporte */}
             {reporteSeleccionado && (
                 <div style={{
                     position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
@@ -164,7 +155,6 @@ export default function MapaIncendios() {
                             background: 'none', border: 'none', color: '#fff',
                             fontSize: '20px', cursor: 'pointer'
                         }}>✕</button>
-
                         <h2 style={{ marginBottom: '16px', fontSize: '1.2rem' }}>
                             🔥 {reporteSeleccionado.titulo}
                         </h2>
