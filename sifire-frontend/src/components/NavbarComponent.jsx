@@ -76,7 +76,7 @@ function NavbarComponent() {
           {estaAutenticado && (
             <div className="d-flex align-items-center gap-3">
               <span className="text-muted small">
-                {usuario?.username || usuario?.nombre} — <strong>{usuario?.rol}</strong>
+                {usuario?.username || usuario?.nombre} — <strong>{usuario?.tipo}</strong>
               </span>
               <button
                 onClick={handleLogout}

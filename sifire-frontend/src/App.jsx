@@ -6,6 +6,7 @@ import Monitoreo from './pages/Monitoreo';
 import Alertas from './pages/Alertas';
 import Dashboard from './pages/Dashboard';
 import GestionBrigadistas from './pages/GestionBrigadistas';
+import GestionUsuarios from './pages/GestionUsuarios';
 import MisAsignaciones from './pages/MisAsignaciones';
 import NotFound from './pages/404';
 import NoAutorizado from './pages/NoAutorizado';
@@ -35,27 +36,25 @@ function App() {
             <RutaProtegida rolesPermitidos={['CIUDADANO', 'FUNCIONARIO', 'BRIGADISTA', 'ADMINISTRADOR']} element={<Monitoreo />} />
           } />
 
-          {/* Solo Funcionario */}
+          {/* Solo Funcionario / Admin */}
           <Route path="/dashboard" element={
             <RutaProtegida rolesPermitidos={['FUNCIONARIO', 'ADMINISTRADOR']} element={<Dashboard />} />
           } />
           <Route path="/brigadistas" element={
             <RutaProtegida rolesPermitidos={['FUNCIONARIO', 'ADMINISTRADOR']} element={<GestionBrigadistas />} />
           } />
+          <Route path="/alertas" element={
+            <RutaProtegida rolesPermitidos={['FUNCIONARIO', 'ADMINISTRADOR']} element={<Alertas />} />
+          } />
+
+          {/* Solo Admin */}
+          <Route path="/usuarios" element={
+            <RutaProtegida rolesPermitidos={['ADMINISTRADOR']} element={<GestionUsuarios />} />
+          } />
+
           {/* Brigadista */}
           <Route path="/mis-asignaciones" element={
             <RutaProtegida rolesPermitidos={['BRIGADISTA']} element={<MisAsignaciones />} />
-          } />
-
-          {/* Solo Funcionario */}
-          <Route path="/dashboard" element={
-            <RutaProtegida rolesPermitidos={['FUNCIONARIO']} element={<Dashboard />} />
-          } />
-          <Route path="/brigadistas" element={
-            <RutaProtegida rolesPermitidos={['FUNCIONARIO']} element={<GestionBrigadistas />} />
-          } />
-          <Route path="/alertas" element={
-            <RutaProtegida rolesPermitidos={['FUNCIONARIO', 'ADMINISTRADOR']} element={<Alertas />} />
           } />
 
           <Route path="*" element={<NotFound />} />

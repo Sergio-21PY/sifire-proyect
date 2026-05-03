@@ -89,8 +89,13 @@ public class BffService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 HttpEntity<Map<String, String>> request = new HttpEntity<>(credenciales, headers);
-                return restTemplate.postForObject(
-                                config.getUsuariosUrl() + "/api/usuarios/login", request, Object.class);
+                try {
+                        return restTemplate.postForObject(
+                                        config.getUsuariosUrl() + "/api/usuarios/login", request, Object.class);
+                } catch (org.springframework.web.client.HttpClientErrorException.Unauthorized e) {
+                        throw new org.springframework.web.server.ResponseStatusException(
+                                        org.springframework.http.HttpStatus.UNAUTHORIZED, "Credenciales incorrectas");
+                }
         }
 
         public Object registrarUsuario(Map<String, Object> usuario) {

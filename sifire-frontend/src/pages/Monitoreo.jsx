@@ -14,6 +14,12 @@ import * as styles from '../styles/Monitoreo.styles';
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({ iconRetinaUrl, iconUrl, shadowUrl });
 
+const parseCoords = (valor) => {
+    if (!valor) return null;
+    if (Array.isArray(valor)) return valor;
+    try { return JSON.parse(valor); } catch { return null; }
+};
+
 export default function MapaIncendios() {
     const { usuario } = useAuth();
     const [centro, setCentro]                           = useState([-33.4944, -70.6170]);
@@ -40,7 +46,7 @@ export default function MapaIncendios() {
                 listarReportes(),
                 listarBrigadas(),
                 listarZonas(),
-                listarRutas(),
+                listarRutas().catch(() => []),
             ]);
             setReportes(dataReportes.filter(r => r.latitud && r.longitud));
             setBrigadas(dataBrigadas);
@@ -100,17 +106,25 @@ export default function MapaIncendios() {
                     attribution="&copy; Esri"
                 />
 
-                {esFuncionario && zonas.map(zona => (
-                    <Polygon key={`zona-${zona.id}`} positions={zona.coords || zona.coordenadas} pathOptions={styles.zonaPathOptions(zona.nivel || zona.nivelRiesgo)}>
-                        <Popup><strong>{zona.nombre}</strong><br />Zona de riesgo: {zona.nivel || zona.nivelRiesgo}</Popup>
-                    </Polygon>
-                ))}
+                {esFuncionario && zonas.map(zona => {
+                    const positions = parseCoords(zona.coordenadas || zona.coords);
+                    if (!positions) return null;
+                    return (
+                        <Polygon key={`zona-${zona.id}`} positions={positions} pathOptions={styles.zonaPathOptions(zona.nivel || zona.nivelRiesgo)}>
+                            <Popup><strong>{zona.nombre}</strong><br />Zona de riesgo: {zona.nivel || zona.nivelRiesgo}</Popup>
+                        </Polygon>
+                    );
+                })}
 
-                {esFuncionario && rutas.map(ruta => (
-                    <Polyline key={`ruta-${ruta.id}`} positions={ruta.trazado || ruta.puntos} pathOptions={styles.rutaPathOptions}>
-                        <Popup><strong>{ruta.nombre}</strong>{ruta.descripcion && <><br />{ruta.descripcion}</>}</Popup>
-                    </Polyline>
-                ))}
+                {esFuncionario && rutas.map(ruta => {
+                    const positions = parseCoords(ruta.trazado || ruta.puntos);
+                    if (!positions) return null;
+                    return (
+                        <Polyline key={`ruta-${ruta.id}`} positions={positions} pathOptions={styles.rutaPathOptions}>
+                            <Popup><strong>{ruta.nombre}</strong>{ruta.descripcion && <><br />{ruta.descripcion}</>}</Popup>
+                        </Polyline>
+                    );
+                })}
 
                 {reportes.map((reporte) => (
                     <React.Fragment key={reporte.id}>
