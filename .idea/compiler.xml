@@ -2,10 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ms-reportes" />
+        <module name="ms-monitoreo" />
         <module name="ms-usuario" />
         <module name="ms-alertas" />
       </profile>
@@ -14,6 +17,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ms-alertas" options="-parameters" />
+      <module name="ms-monitoreo" options="-parameters" />
+      <module name="ms-reportes" options="-parameters" />
       <module name="ms-usuario" options="-parameters" />
     </option>
   </component>
