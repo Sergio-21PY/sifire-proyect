@@ -24,10 +24,12 @@ public class SifireBackendApplication {
         return args -> {
             usuarioRepository.deleteAll();
 
-            Usuario user1 = UsuarioFactory.createUsuario(Usuario.TipoUsuario.FUNCIONARIO, "Ana Martínez", "ana.martinez", "funcionario@demo.cl", "12345678", passwordEncoder);
-            Usuario user2 = UsuarioFactory.createUsuario(Usuario.TipoUsuario.BRIGADISTA, "Carlos Rojas", "carlos.rojas", "brigadista@demo.cl", "12345678", passwordEncoder);
-            Usuario user3 = UsuarioFactory.createUsuario(Usuario.TipoUsuario.CIUDADANO, "María González", "maria.gonzalez", "ciudadano@demo.cl", "12345678", passwordEncoder);
-
+            Usuario user1 = UsuarioFactory.createUsuario(Usuario.TipoUsuario.FUNCIONARIO, "Ana Martínez",
+                    "ana.martinez", "funcionario@demo.cl", "12345678", passwordEncoder, "+56911111111");
+            Usuario user2 = UsuarioFactory.createUsuario(Usuario.TipoUsuario.BRIGADISTA, "Carlos Rojas", "carlos.rojas",
+                    "brigadista@demo.cl", "12345678", passwordEncoder, "+56922222222");
+            Usuario user3 = UsuarioFactory.createUsuario(Usuario.TipoUsuario.CIUDADANO, "María González",
+                    "maria.gonzalez", "ciudadano@demo.cl", "12345678", passwordEncoder, "+56933333333");
             List<Usuario> usuarios = Arrays.asList(user1, user2, user3);
             usuarioRepository.saveAll(usuarios);
 

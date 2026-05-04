@@ -32,13 +32,24 @@ public class UsuarioService {
             : usuario.getUsername();
 
         // Usar el factory correcto, que ahora se encarga de hashear la contraseña
+        /*
+              Usuario usuario = new Usuario();
+        usuario.setTipo(tipo);
+        usuario.setNombre(nombre);
+        usuario.setUsername(username);
+        usuario.setEmail(email);
+        usuario.setPassword(passwordEncoder.encode(rawPassword)); // Hashea la contraseña
+        usuario.setTelefono(telefono);
+        usuario.setActivo(true);
+        */
         Usuario nuevo = UsuarioFactory.createUsuario(
             tipo,
             usuario.getNombre(),
             username,
             usuario.getEmail(),
             usuario.getPassword(), // Se pasa la contraseña en texto plano
-            passwordEncoder      // Se pasa el encoder
+            passwordEncoder,     // Se pasa el encoder
+            usuario.getTelefono() // Se pasa el teléfono
         );
 
         return usuarioRepository.save(nuevo);

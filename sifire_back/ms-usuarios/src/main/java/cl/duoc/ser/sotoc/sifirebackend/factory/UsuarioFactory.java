@@ -21,7 +21,8 @@ public class UsuarioFactory {
         String username, 
         String email, 
         String rawPassword, 
-        PasswordEncoder passwordEncoder
+        PasswordEncoder passwordEncoder,
+        String telefono
     ) {
         Usuario usuario = new Usuario();
         usuario.setTipo(tipo);
@@ -29,6 +30,7 @@ public class UsuarioFactory {
         usuario.setUsername(username);
         usuario.setEmail(email);
         usuario.setPassword(passwordEncoder.encode(rawPassword)); // Hashea la contraseña
+        usuario.setTelefono(telefono);
         usuario.setActivo(true);
 
         return usuario;

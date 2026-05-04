@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -95,6 +94,13 @@ public class BffService {
                 } catch (org.springframework.web.client.HttpClientErrorException.Unauthorized e) {
                         throw new org.springframework.web.server.ResponseStatusException(
                                         org.springframework.http.HttpStatus.UNAUTHORIZED, "Credenciales incorrectas");
+                } catch (org.springframework.web.client.HttpStatusCodeException e) {
+                        throw new org.springframework.web.server.ResponseStatusException(
+                                        e.getStatusCode(), "Error en ms-usuarios: " + e.getResponseBodyAsString());
+                } catch (org.springframework.web.client.ResourceAccessException e) {
+                        throw new org.springframework.web.server.ResponseStatusException(
+                                        org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE,
+                                        "ms-usuarios no disponible");
                 }
         }
 
@@ -147,14 +153,18 @@ public class BffService {
         // Cambia el estado de un reporte (PENDIENTE → EN_PROCESO → CONTROLADO →
         // CERRADO)
         // ms-reportes se encarga de registrar el historial del cambio
-        public Object cambiarEstadoReporte(Long id, Map<String, String> body) {
+        public Object cambiarEstadoReporte(Long id, Map<String, ?> body) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
 
                 Map<String, Object> payload = new HashMap<>();
-                String nuevoEstado = body.get("nuevoEstado") != null ? body.get("nuevoEstado") : body.get("estado");
+                String nuevoEstado = body.get("nuevoEstado") != null ? body.get("nuevoEstado").toString() : body.get("estado").toString();
+                // Si no viene el ID del usuario en el body, lanzamos error o usamos el del token
+                Object usuarioId = body.get("usuarioId");
+                if (usuarioId == null) throw new RuntimeException("Se requiere usuarioId para el historial");
+
                 payload.put("nuevoEstado", nuevoEstado);
-                payload.put("usuarioId", 1L);
+                payload.put("usuarioId", usuarioId);
                 payload.put("observacion", "Cambio desde dashboard");
 
                 HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);

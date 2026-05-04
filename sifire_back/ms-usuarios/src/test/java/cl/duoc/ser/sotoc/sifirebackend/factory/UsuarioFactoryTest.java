@@ -1,6 +1,8 @@
 package cl.duoc.ser.sotoc.sifirebackend.factory;
 
 import cl.duoc.ser.sotoc.sifirebackend.model.Usuario;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,72 +12,87 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class UsuarioFactoryTest {
 
+    // Instancia de PasswordEncoder para hashear contraseñas en los tests
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Test
     void testCreateFuncionario() {
         // model
-        String rol = "FUNCIONARIO";
+        Usuario.TipoUsuario tipo = Usuario.TipoUsuario.FUNCIONARIO;
+        String nombre = "Ana Martínez";
         String username = "ana.martinez";
         String email = "ana.martinez@demo.cl";
         String password = "password123";
+        String telefono = "+56911111111";
 
         // 2. Act (Actuar): Llamamos al método que vamos a probar.
-        Usuario usuario = UsuarioFactory.createUsuario(rol, username, email, password);
+        Usuario usuario = UsuarioFactory.createUsuario(tipo, nombre, username, email, password, passwordEncoder, telefono);
 
         // 3. Assert (Afirmar): Verificamos que el resultado es el esperado.
         assertNotNull(usuario, "El usuario no debería ser nulo");
-        assertEquals(rol, usuario.getRol(), "El rol del usuario debe ser FUNCIONARIO");
+        assertEquals(tipo, usuario.getTipo(), "El tipo de usuario debe ser FUNCIONARIO");
         assertEquals(username, usuario.getUsername(), "El username no coincide");
         assertEquals(email, usuario.getEmail(), "El email no coincide");
-        assertEquals(password, usuario.getPassword(), "La contraseña no coincide");
+        assertTrue(passwordEncoder.matches(password, usuario.getPassword()), "La contraseña debería estar hasheada y coincidir");
+        assertEquals(telefono, usuario.getTelefono(), "El teléfono no coincide");
+        assertTrue(usuario.getActivo(), "El usuario debe estar activo por defecto");
     }
 
     @Test
     void testCreateBrigadista() {
         // model
-        String rol = "BRIGADISTA";
+        Usuario.TipoUsuario tipo = Usuario.TipoUsuario.BRIGADISTA;
+        String nombre = "Carlos Rojas";
         String username = "carlos.rojas";
         String email = "carlos.rojas@demo.cl";
         String password = "password456";
+        String telefono = "+56922222222";
 
         // Act
-        Usuario usuario = UsuarioFactory.createUsuario(rol, username, email, password);
+        Usuario usuario = UsuarioFactory.createUsuario(tipo, nombre, username, email, password, passwordEncoder, telefono);
 
         // Assert
         assertNotNull(usuario);
-        assertEquals(rol, usuario.getRol(), "El rol del usuario debe ser BRIGADISTA");
-        assertEquals(password, usuario.getPassword(), "La contraseña no coincide");
+        assertEquals(tipo, usuario.getTipo(), "El tipo de usuario debe ser BRIGADISTA");
+        assertTrue(passwordEncoder.matches(password, usuario.getPassword()), "La contraseña debería estar hasheada y coincidir");
+        assertEquals(telefono, usuario.getTelefono(), "El teléfono no coincide");
+        assertTrue(usuario.getActivo(), "El usuario debe estar activo por defecto");
     }
 
     @Test
     void testCreateCiudadanoCaseInsensitive() {
         // Probamos que la fábrica funciona incluso si el rol viene en minúsculas.
-        String rol = "ciudadano"; // en minusculas
+        Usuario.TipoUsuario tipo = Usuario.TipoUsuario.CIUDADANO; // Usamos el enum directamente
+        String nombre = "María González";
         String username = "maria.gonzalez";
         String email = "maria.gonzalez@demo.cl";
         String password = "password789";
+        String telefono = "+56933333333";
 
         // Act
-        Usuario usuario = UsuarioFactory.createUsuario(rol, username, email, password);
+        Usuario usuario = UsuarioFactory.createUsuario(tipo, nombre, username, email, password, passwordEncoder, telefono);
 
         // Assert
         assertNotNull(usuario);
-        assertEquals("CIUDADANO", usuario.getRol(), "El rol debería convertirse a mayúsculas");
+        assertEquals(tipo, usuario.getTipo(), "El tipo de usuario debe ser CIUDADANO");
+        assertTrue(passwordEncoder.matches(password, usuario.getPassword()), "La contraseña debería estar hasheada y coincidir");
+        assertEquals(telefono, usuario.getTelefono(), "El teléfono no coincide");
+        assertTrue(usuario.getActivo(), "El usuario debe estar activo por defecto");
     }
 
     @Test
     void testCreateUsuarioWithInvalidRol() {
-        // Probamos que la fábrica lanza una excepción si el rol es desconocido.
-        String rol = "ADMINISTRADOR"; // Rol no válido
         String username = "test.user";
+        String nombre = "Test User";
         String email = "test@demo.cl";
         String password = "password";
 
         // Act & Assert
-        // Verificamos que se lanza la excepción esperada.
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            UsuarioFactory.createUsuario(rol, username, email, password);
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+            UsuarioFactory.createUsuario(null, nombre, username, email, password, passwordEncoder, null);
         });
 
-        assertEquals("Rol de usuario desconocido: " + rol, exception.getMessage());
+        // El factory espera un TipoUsuario no nulo, si se pasa null, debería lanzar NPE
+        assertNotNull(exception);
     }
 }

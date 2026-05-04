@@ -25,19 +25,16 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String nombre;
 
-<<<<<<< HEAD
     @Column(nullable = false, unique = true)
     private String username;
 
-=======
->>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
     @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = true)
     private String telefono;
 
     @Enumerated(EnumType.STRING)
@@ -51,31 +48,22 @@ public class Usuario implements UserDetails {
         CIUDADANO, BRIGADISTA, FUNCIONARIO, ADMINISTRADOR
     }
 
-<<<<<<< HEAD
     // --- MÉTODOS DE USERDETAILS ---
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Usamos el enum para darle el rol a Spring Security
-=======
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
->>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.tipo.name()));
     }
 
     @Override
     public String getUsername() {
-<<<<<<< HEAD
         // Para Spring Security, el "username" de login será el email.
         // El campo `username` de la clase se puede usar para un alias o nombre de usuario visible.
-=======
->>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
         return this.email;
     }
 
     @Override
-<<<<<<< HEAD
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -93,18 +81,5 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.activo;
-=======
-    public boolean isAccountNonExpired() { return true; }
-
-    @Override
-    public boolean isAccountNonLocked() { return true; }
-
-    @Override
-    public boolean isCredentialsNonExpired() { return true; }
-
-    @Override
-    public boolean isEnabled() {
-        return Boolean.TRUE.equals(this.activo);
->>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
     }
 }

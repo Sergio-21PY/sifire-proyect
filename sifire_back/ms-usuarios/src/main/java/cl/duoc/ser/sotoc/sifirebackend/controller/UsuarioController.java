@@ -1,18 +1,13 @@
 package cl.duoc.ser.sotoc.sifirebackend.controller;
 
 import cl.duoc.ser.sotoc.sifirebackend.model.Usuario;
-<<<<<<< HEAD
-import cl.duoc.ser.sotoc.sifirebackend.repository.UsuarioRepository;
 import cl.duoc.ser.sotoc.sifirebackend.service.JwtService;
+import cl.duoc.ser.sotoc.sifirebackend.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-=======
-import cl.duoc.ser.sotoc.sifirebackend.service.UsuarioService;
-
->>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,11 +26,7 @@ import java.util.Map;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-<<<<<<< HEAD
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UsuarioService usuarioService;
 
     @Autowired
     private JwtService jwtService;
@@ -50,9 +41,8 @@ public class UsuarioController {
     })
     @PostMapping("/registro")
     public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario){
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        Usuario nuevoUsuario = usuarioRepository.save(usuario);
-        return ResponseEntity.ok(nuevoUsuario);
+        Usuario nuevo = usuarioService.registrar(usuario);
+        return ResponseEntity.ok(nuevo);
     }
 
     @Operation(summary = "Autenticar un usuario y obtener un token JWT")
@@ -66,7 +56,7 @@ public class UsuarioController {
             new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword())
         );
 
-        UserDetails user = usuarioRepository.findByEmail(loginReq.getEmail()).orElseThrow();
+        UserDetails user = usuarioService.buscarPorEmail(loginReq.getEmail()).orElseThrow();
         String token = jwtService.generateToken(user);
 
         return ResponseEntity.ok(Map.of("token", token));
@@ -80,7 +70,7 @@ public class UsuarioController {
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/listar")
     public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
+        return usuarioService.listarTodos();
     }
 
     @Operation(summary = "Listar usuarios por tipo (protegido)")
@@ -89,32 +79,11 @@ public class UsuarioController {
         @ApiResponse(responseCode = "403", description = "Acceso denegado, se requiere token")
     })
     @SecurityRequirement(name = "bearerAuth")
-=======
-    @GetMapping("/listar")
-    public List<Usuario> listarUsuarios() {
-        return usuarioService.listarTodos();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerPorId(@PathVariable Long id) {
-        return usuarioService.buscarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/email/{email}")
-    public ResponseEntity<Usuario> obtenerPorEmail(@PathVariable String email) {
-        return usuarioService.buscarPorEmail(email)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
->>>>>>> 0b24b7cbe439910071b62b1306c0d243655ca1b8
     @GetMapping("/por-tipo/{tipo}")
     public ResponseEntity<List<Usuario>> listarUsuariosPorTipo(@PathVariable String tipo) {
         try {
             Usuario.TipoUsuario tipoEnum = Usuario.TipoUsuario.valueOf(tipo.toUpperCase());
-            return ResponseEntity.ok(usuarioRepository.findByTipo(tipoEnum));
+            return ResponseEntity.ok(usuarioService.listarPorTipo(tipoEnum));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build(); // Devuelve 400 si el tipo no es válido
         }
@@ -129,7 +98,7 @@ public class UsuarioController {
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id){
-        return usuarioRepository.findById(id)
+        return usuarioService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -142,7 +111,7 @@ public class UsuarioController {
     @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id){
-        usuarioRepository.deleteById(id);
+        usuarioService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
 }
