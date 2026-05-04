@@ -137,7 +137,7 @@ public class BffService {
         // Lista todos los reportes registrados en el sistema
         public Object listarReportes() {
                 return restTemplate.getForObject(
-                                config.getReportesUrl() + "/api/reportes", Object.class);
+                                config.getReportesUrl() + "/api/reportes/listar", Object.class);
         }
 
         // Envía un nuevo reporte a ms-reportes, que aplica el Factory Method
