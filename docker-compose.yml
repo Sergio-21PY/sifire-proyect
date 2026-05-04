@@ -1,4 +1,5 @@
 services:
+
   db:
     image: mysql:8.0
     container_name: sifire-db
@@ -7,11 +8,121 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: sifire
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./sifire_back/db/sifire.sql:/docker-entrypoint-initdb.d/sifire.sql
     networks:
       - sifire-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  ms-usuarios:
+    build: ./sifire_back/ms-usuarios
+    container_name: ms-usuarios
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    networks:
+      - sifire-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Santiago
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 8080
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  ms-reportes:
+    build: ./sifire_back/ms-reportes
+    container_name: ms-reportes
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8082:8080"
+    networks:
+      - sifire-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Santiago
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 8080
+      APP_UPLOAD_DIR: uploads
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  ms-alertas:
+    build: ./sifire_back/ms-alertas
+    container_name: ms-alertas
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+      ms-usuarios:
+        condition: service_healthy
+    ports:
+      - "8084:8080"
+    networks:
+      - sifire-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Santiago
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 8080
+      MS_USUARIOS_URL: http://ms-usuarios:8080
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  ms-monitoreo:
+    build: ./sifire_back/ms-monitoreo
+    container_name: ms-monitoreo
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8083:8080"
+    networks:
+      - sifire-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Santiago
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 8080
+      MS_ALERTAS_URL: http://ms-alertas:8080
+      MS_REPORTES_URL: http://ms-reportes:8080
+      MS_USUARIOS_URL: http://ms-usuarios:8080
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
 
   ms-bff:
     build:
@@ -23,7 +134,7 @@ services:
       - "8080:8080"
     networks:
       - sifire-network
-    depends_on: # Asegura que el BFF espere a que todos los microservicios estén saludables
+    depends_on:
       ms-usuarios:
         condition: service_healthy
       ms-alertas:
@@ -33,88 +144,11 @@ services:
       ms-monitoreo:
         condition: service_healthy
     environment:
-      MS_USUARIOS_URL: http://ms-usuarios:8081
+      SERVER_PORT: 8080
+      MS_USUARIOS_URL: http://ms-usuarios:8080
       MS_REPORTES_URL: http://ms-reportes:8080
       MS_ALERTAS_URL: http://ms-alertas:8080
       MS_MONITOREO_URL: http://ms-monitoreo:8080
-
-  ms-usuarios:
-    build: ./sifire_back/ms-usuarios
-    container_name: ms-usuarios
-    restart: on-failure
-    depends_on:
-      sifire-db:
-        condition: service_healthy
-    ports:
-      - "8081:8081"
-    networks:
-      - sifire-network
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: rootpassword
-      SERVER_PORT: 8081
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-
-  ms-alertas:
-    build: ./sifire_back/ms-alertas
-    container_name: ms-alertas
-    restart: on-failure
-    depends_on:
-      sifire-db:
-        condition: service_healthy
-      ms-usuarios: # Mantener la dependencia si ms-alertas necesita ms-usuarios
-        condition: service_healthy
-    ports:
-      - "8082:8080"
-    networks:
-      - sifire-network
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: rootpassword
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      MS_USUARIOS_URL: http://ms-usuarios:8081
-
-  ms-reportes:
-    build: ./sifire_back/ms-reportes
-    container_name: ms-reportes
-    restart: on-failure
-    depends_on:
-      sifire-db:
-        condition: service_healthy
-    ports:
-      - "8083:8080"
-    networks:
-      - sifire-network
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: rootpassword
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-
-  ms-monitoreo:
-    build: ./sifire_back/ms-monitoreo
-    container_name: ms-monitoreo
-    restart: on-failure
-    depends_on:
-      sifire-db:
-        condition: service_healthy
-      ms-usuarios:
-        condition: service_healthy
-      ms-alertas:
-        condition: service_healthy
-    ports:
-      - "8084:8080"
-    networks:
-      - sifire-network
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sifire?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: rootpassword
-      MS_USUARIOS_URL: http://ms-usuarios:8081
-      MS_ALERTAS_URL: http://ms-alertas:8080
-      MS_REPORTES_URL: http://ms-reportes:8080
 
 volumes:
   mysql-data:
