@@ -41,7 +41,7 @@ public class AlertaController {
                 .orElseThrow(() -> new RuntimeException("Alerta no encontrada"));
 
         // 2. Llamar a ms-usuarios para obtener los brigadistas
-        List<UsuarioDTO> brigadistas = usuarioClient.listarUsuariosPorRol("BRIGADISTA");
+        List<UsuarioDTO> brigadistas = usuarioClient.listarUsuariosPorTipo("BRIGADISTA");
 
         // 3. Extraer los IDs
         if (brigadistas != null && !brigadistas.isEmpty()) {

@@ -10,6 +10,6 @@ import java.util.List;
 @FeignClient(name = "ms-usuarios", url = "${ms-usuarios.url}")
 public interface UsuarioClient {
 
-    @GetMapping("/api/usuarios/por-rol/{rol}")
-    List<UsuarioDTO> listarUsuariosPorRol(@PathVariable("rol") String rol);
+    @GetMapping("/api/usuarios/por-tipo/{tipo}")
+    List<UsuarioDTO> listarUsuariosPorTipo(@PathVariable("tipo") String tipo);
 }
