@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ import cl.sifire.monitoreo.model.ZonaRiesgo;
 import cl.sifire.monitoreo.service.MonitoreoService;
 
 @RestController
+@RequestMapping("/api/monitoreo")
 @CrossOrigin(origins = "*")
 public class MonitoreoController {
 
@@ -31,17 +33,16 @@ public class MonitoreoController {
         this.monitoreoService = monitoreoService;
     }
 
-    @PostMapping("/api/focos/sincronizar")
+    @PostMapping("/focos/sincronizar")
     public ResponseEntity<Void> sincronizarFoco(@RequestBody Map<String, Object> payload) {
         Long reporteId = Long.valueOf(payload.get("reporteId").toString());
         String estado = payload.get("estado").toString();
         String nivelRiesgo = payload.get("nivelRiesgo").toString();
-
         monitoreoService.sincronizarFoco(reporteId, estado, nivelRiesgo);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/api/zonas-riesgo")
+    @GetMapping("/zonas")
     public ResponseEntity<List<ZonaRiesgo>> obtenerZonasRiesgo(
             @RequestParam(required = false, defaultValue = "true") Boolean soloActivas) {
         List<ZonaRiesgo> zonas = soloActivas
@@ -50,29 +51,29 @@ public class MonitoreoController {
         return ResponseEntity.ok(zonas);
     }
 
-    @GetMapping("/api/asignaciones")
+    @GetMapping("/asignaciones")
     public ResponseEntity<List<AsignacionBrigada>> obtenerTodasLasAsignaciones() {
         return ResponseEntity.ok(monitoreoService.obtenerTodasLasAsignaciones());
     }
 
-    @GetMapping("/api/rutas-evacuacion")
+    @GetMapping("/rutas")
     public ResponseEntity<List<RutaEvacuacion>> obtenerRutasEvacuacion() {
         return ResponseEntity.ok(monitoreoService.obtenerRutasActivas());
     }
 
-    @GetMapping("/api/brigadas")
+    @GetMapping("/brigadas")
     public ResponseEntity<List<Brigada>> obtenerBrigadas() {
         return ResponseEntity.ok(monitoreoService.obtenerTodasLasBrigadas());
     }
 
-    @PutMapping("/api/brigadas/{id}")
+    @PutMapping("/brigadas/{id}")
     public ResponseEntity<Brigada> actualizarBrigada(
             @PathVariable Long id,
             @RequestBody Brigada datos) {
         return ResponseEntity.ok(monitoreoService.actualizarBrigada(id, datos));
     }
 
-    @PostMapping({"/api/asignaciones", "/api/asignaciones/crear"})
+    @PostMapping({"/asignaciones", "/asignaciones/crear"})
     public ResponseEntity<AsignacionBrigada> asignarBrigada(
             @RequestBody Map<String, Long> body) {
         return ResponseEntity.ok(
@@ -81,14 +82,14 @@ public class MonitoreoController {
                         body.get("brigadaId")));
     }
 
-    @GetMapping("/api/asignaciones/{reporteId}")
+    @GetMapping("/asignaciones/{reporteId}")
     public ResponseEntity<List<AsignacionBrigada>> obtenerAsignaciones(
             @PathVariable Long reporteId) {
         return ResponseEntity.ok(
                 monitoreoService.obtenerAsignacionesPorReporte(reporteId));
     }
 
-    @PostMapping("/api/brigadas")
+    @PostMapping("/brigadas")
     public ResponseEntity<Brigada> crearBrigada(@RequestBody Brigada brigada) {
         return ResponseEntity.ok(monitoreoService.crearBrigada(brigada));
     }
