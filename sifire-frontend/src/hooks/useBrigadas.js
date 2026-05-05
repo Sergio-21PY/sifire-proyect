@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_MONITOREO = 'http://localhost:8083';
+const API_MONITOREO = import.meta.env.VITE_MS_MONITOREO_URL || 'http://localhost:8083';
 const initialForm = { nombre: '', tipo: 'FORESTAL', estado: 'DISPONIBLE', latitud: '', longitud: '' };
 
 export function useBrigadas() {
@@ -16,10 +16,13 @@ export function useBrigadas() {
 
   const cargar = async () => {
     try {
-      const res = await fetch(`${API_MONITOREO}/api/brigadas`);
-      setBrigadas(await res.json());
+      const res = await fetch(`${API_MONITOREO}/api/monitoreo/brigadas`);
+      if (!res.ok) throw new Error('Error al cargar brigadas');
+      const data = await res.json();
+      setBrigadas(Array.isArray(data) ? data : []);
     } catch (e) {
       console.error('Error al cargar brigadas:', e);
+      setBrigadas([]);
     } finally {
       setLoadingData(false);
     }
@@ -43,12 +46,12 @@ export function useBrigadas() {
     if (Object.keys(validationErrors).length > 0) return setErrors(validationErrors);
     setLoading(true);
     try {
-      const res = await fetch(`${API_MONITOREO}/api/brigadas`, {
+      const res = await fetch(`${API_MONITOREO}/api/monitoreo/brigadas`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nombre:   form.nombre,
-            tipo:     form.tipo,
+          tipo:     form.tipo,
           estado:   form.estado,
           latitud:  parseFloat(form.latitud)  || null,
           longitud: parseFloat(form.longitud) || null,
