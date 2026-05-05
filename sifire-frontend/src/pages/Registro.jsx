@@ -37,7 +37,14 @@ export default function Registro() {
     setLoading(true);
     setRegistroError('');
     try {
-      await registrarUsuario({ username: form.nombre, email: form.email, telefono: form.telefono || null, password: form.password, tipo: 'CIUDADANO' });
+      await registrarUsuario({
+        nombre: form.nombre,
+        username: form.nombre,
+        email: form.email,
+        telefono: form.telefono || null,
+        password: form.password,
+        tipo: 'CIUDADANO'
+      });
       navigate('/login', { state: { registrado: true } });
     } catch (error) {
       setRegistroError(error.message || 'No se pudo completar el registro. Inténtelo de nuevo.');
@@ -74,7 +81,6 @@ export default function Registro() {
                 {errors.nombre && <span style={s.error}>{errors.nombre}</span>}
               </div>
 
-
               <div style={{ ...s.mb, ...s.formGridFull }}>
                 <label htmlFor="email" style={s.label}>Correo electrónico</label>
                 <input id="email" name="email" type="email" autoComplete="email"
@@ -82,7 +88,6 @@ export default function Registro() {
                   value={form.email} onChange={handleChange} style={field('email')} />
                 {errors.email && <span style={s.error}>{errors.email}</span>}
               </div>
-
 
               <div style={{ ...s.mb, ...s.formGridFull }}>
                 <label htmlFor="telefono" style={s.label}>
