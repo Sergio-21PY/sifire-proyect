@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import * as styles from '../styles/Alertas.styles';
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = (import.meta.env.VITE_MS_ALERTAS_URL || 'http://localhost:8084') + '/api/alertas';
 
 export default function Alertas() {
   const { usuario } = useAuth();
@@ -24,8 +24,8 @@ export default function Alertas() {
 
   const cargarAlertas = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/bff/alertas`);
-      setAlertas(res.data || []);
+      const res = await axios.get(BASE_URL);
+      setAlertas(Array.isArray(res.data) ? res.data : []);
     } catch {
       setError('No se pudieron cargar las alertas.');
     } finally {
@@ -39,7 +39,7 @@ export default function Alertas() {
     e.preventDefault();
     setError('');
     try {
-      await axios.post(`${BASE_URL}/bff/alertas/crear`, form);
+      await axios.post(`${BASE_URL}/crear`, form);
       setExito('✓ Alerta emitida correctamente');
       setForm({ titulo: '', mensaje: '', tipo: '', descripcion: '', latitud: '', longitud: '', canal: 'EMAIL' });
       setTimeout(() => setExito(''), 3000);
@@ -50,15 +50,13 @@ export default function Alertas() {
   const handleAsignarBrigadistas = async (id) => {
     setError('');
     try {
-      await axios.post(`${BASE_URL}/bff/alertas/${id}/asignar-brigadistas`);
+      await axios.post(`${BASE_URL}/${id}/asignar-brigadistas`);
       setExito('✓ Brigadistas asignados correctamente');
       setTimeout(() => setExito(''), 3000);
       cargarAlertas();
     } catch { setError('No se pudo asignar brigadistas.'); }
   };
 
-  // Normaliza estado para los estilos de Sergio
-  // (Sergio usa ENVIADA/PENDIENTE/FALLIDA, dev usa NUEVA/ASIGNADA)
   const estadoVisual = (estado) => {
     const mapa = { NUEVA: 'PENDIENTE', ASIGNADA: 'ENVIADA', ENVIADA: 'ENVIADA', PENDIENTE: 'PENDIENTE', FALLIDA: 'FALLIDA' };
     return mapa[estado] || 'PENDIENTE';
@@ -71,7 +69,6 @@ export default function Alertas() {
   return (
     <div style={styles.mainContainer}>
 
-      {/* Header */}
       <div style={styles.headerContainer}>
         <h1 style={styles.headerTitle}>Alertas a la Comunidad</h1>
         <p style={styles.headerSubtitle}>
@@ -83,11 +80,9 @@ export default function Alertas() {
         </p>
       </div>
 
-      {/* Mensajes */}
       {exito && <div style={{ background:'#dcfce7', color:'#166534', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem', fontWeight:600 }}>{exito}</div>}
       {error && <div style={{ background:'#fee2e2', color:'#991b1b', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem' }}>{error}</div>}
 
-      {/* Formulario — solo FUNCIONARIO */}
       {esFuncionario && (
         <form onSubmit={handleEmitir} style={{ background:'#fff', borderRadius:12, padding:'1.5rem', marginBottom:'2rem', boxShadow:'0 1px 4px rgba(0,0,0,0.08)', border:'1px solid #e2e8f0' }}>
           <h2 style={{ fontSize:'1rem', fontWeight:700, marginBottom:'1rem', color:'#1e293b' }}>📢 Emitir nueva alerta</h2>
@@ -110,7 +105,6 @@ export default function Alertas() {
         </form>
       )}
 
-      {/* Filtros — diseño de Sergio */}
       <div style={styles.filterContainer}>
         {['TODOS', 'ENVIADA', 'PENDIENTE', 'FALLIDA'].map(f => (
           <button key={f} onClick={() => setFiltro(f)} style={styles.filterButton(filtro === f)}>
@@ -124,7 +118,6 @@ export default function Alertas() {
         ))}
       </div>
 
-      {/* Lista de alertas — diseño de Sergio */}
       {cargando ? (
         <p style={{ color:'#64748b', textAlign:'center', padding:'2rem' }}>Cargando alertas...</p>
       ) : alertasFiltradas.length === 0 ? (
@@ -157,7 +150,6 @@ export default function Alertas() {
                 <span style={styles.alertStatusBadge(estadoVisual(alerta.estado))}>
                   {alerta.estado}
                 </span>
-                {/* Botón asignar brigadistas — solo ADMIN y solo si no está asignada */}
                 {esAdmin && alerta.estado !== 'ASIGNADA' && (
                   <button onClick={() => handleAsignarBrigadistas(alerta.id)}
                     style={{ background:'#3b82f6', color:'#fff', border:'none', borderRadius:6, padding:'4px 12px', fontSize:'0.8rem', cursor:'pointer', fontWeight:600, whiteSpace:'nowrap' }}>
