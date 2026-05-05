@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import * as styles from '../styles/Alertas.styles';
+import MapaSelector from '../components/reportes/MapaSelector';
 import axios from 'axios';
 
 const BASE_URL = (import.meta.env.VITE_MS_ALERTAS_URL || 'http://localhost:8084') + '/api/alertas';
@@ -34,6 +35,11 @@ export default function Alertas() {
   };
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+
+  // Cuando el funcionario hace clic en el mapa
+  const handleMapaSeleccionar = (lat, lng) => {
+    setForm(prev => ({ ...prev, latitud: lat, longitud: lng }));
+  };
 
   const handleEmitir = async (e) => {
     e.preventDefault();
@@ -83,6 +89,7 @@ export default function Alertas() {
       {exito && <div style={{ background:'#dcfce7', color:'#166534', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem', fontWeight:600 }}>{exito}</div>}
       {error && <div style={{ background:'#fee2e2', color:'#991b1b', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem' }}>{error}</div>}
 
+      {/* Formulario — solo FUNCIONARIO */}
       {esFuncionario && (
         <form onSubmit={handleEmitir} style={{ background:'#fff', borderRadius:12, padding:'1.5rem', marginBottom:'2rem', boxShadow:'0 1px 4px rgba(0,0,0,0.08)', border:'1px solid #e2e8f0' }}>
           <h2 style={{ fontSize:'1rem', fontWeight:700, marginBottom:'1rem', color:'#1e293b' }}>📢 Emitir nueva alerta</h2>
@@ -91,14 +98,38 @@ export default function Alertas() {
             <input name="tipo"        placeholder="Tipo (ej: EVACUACIÓN)"  value={form.tipo}        onChange={handleChange} style={inputStyle} />
             <input name="descripcion" placeholder="Descripción"            value={form.descripcion} onChange={handleChange} style={{ ...inputStyle, gridColumn:'1 / -1' }} />
             <input name="mensaje"     placeholder="Mensaje para la comunidad *" value={form.mensaje} onChange={handleChange} required style={{ ...inputStyle, gridColumn:'1 / -1' }} />
-            <input name="latitud"     placeholder="Latitud"                value={form.latitud}     onChange={handleChange} style={inputStyle} />
-            <input name="longitud"    placeholder="Longitud"               value={form.longitud}    onChange={handleChange} style={inputStyle} />
+
+            {/* Coordenadas — solo lectura, se llenan desde el mapa */}
+            <input name="latitud"  placeholder="Latitud (clic en el mapa ↓)"  value={form.latitud}  readOnly style={{ ...inputStyle, background:'#f8fafc', cursor:'not-allowed' }} />
+            <input name="longitud" placeholder="Longitud (clic en el mapa ↓)" value={form.longitud} readOnly style={{ ...inputStyle, background:'#f8fafc', cursor:'not-allowed' }} />
+
             <select name="canal" value={form.canal} onChange={handleChange} style={inputStyle}>
               <option value="EMAIL">EMAIL</option>
               <option value="SMS">SMS</option>
               <option value="PUSH">PUSH</option>
             </select>
           </div>
+
+          {/* Mapa selector */}
+          <div style={{ marginTop:'1rem' }}>
+            <label style={{ fontSize:'14px', fontWeight:'500', display:'block', marginBottom:'6px' }}>
+              📍 Ubicación de la alerta — <span style={{ color:'#6b7280', fontWeight:400 }}>haz clic en el mapa para marcar</span>
+            </label>
+            <div style={{ height:'260px', borderRadius:'10px', overflow:'hidden', border:'1px solid #e5e7eb' }}>
+              <MapaSelector
+                centro={[-33.4969, -70.6168]}
+                latitud={form.latitud}
+                longitud={form.longitud}
+                onSeleccionar={handleMapaSeleccionar}
+              />
+            </div>
+            {form.latitud && form.longitud && (
+              <p style={{ fontSize:'12px', color:'#6b7280', marginTop:'4px' }}>
+                📌 Seleccionado: {form.latitud}, {form.longitud}
+              </p>
+            )}
+          </div>
+
           <button type="submit" style={{ marginTop:'1rem', background:'#dc2626', color:'white', border:'none', borderRadius:8, padding:'0.6rem 1.5rem', fontWeight:700, cursor:'pointer', fontSize:'0.9rem' }}>
             🚨 Emitir Alerta
           </button>
