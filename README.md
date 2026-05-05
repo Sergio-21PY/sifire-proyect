@@ -3,7 +3,7 @@
 > **Asignatura:** DSY1106 — Desarrollo Fullstack III  
 > **Institución:** Duoc UC  
 > **Contexto:** Plataforma web desarrollada para la Municipalidad Valle del Sol, orientada a la gestión, monitoreo y respuesta ante incendios forestales y urbanos.
-
+> DEVELOPERS: Keiton Chaves - Sergio Soto - Matias Chavez
 ---
 
 ## ¿Qué es SIFIRE?
