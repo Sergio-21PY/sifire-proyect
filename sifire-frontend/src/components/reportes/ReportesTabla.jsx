@@ -11,7 +11,7 @@ export default function ReportesTabla({ reportes, esFuncionario, onAsignar, onVe
 
   return (
     <div style={styles.tableWrapper}>
-      <table style={styles.table}>
+      <table style={styles.table} cellPadding="0" cellSpacing="0" >
         <thead>
           <tr style={styles.tableHeadRow}>
             {headers.map(h => <th key={h} style={styles.tableHeadCell}>{h}</th>)}
