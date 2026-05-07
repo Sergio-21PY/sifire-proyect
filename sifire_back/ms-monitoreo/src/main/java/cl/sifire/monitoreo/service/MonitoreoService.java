@@ -33,30 +33,22 @@ public class MonitoreoService {
         this.asignacionRepository = asignacionRepository;
     }
 
-    // devuelve solo las zonas activas para renderizar en el mapa
     public List<ZonaRiesgo> obtenerZonasActivas() {
         return zonaRiesgoRepository.findByActivoTrue();
     }
 
-    // devuelve todas las zonas, incluso las inactivas, para la sección de
-    // administración
     public List<ZonaRiesgo> obtenerTodasLasZonas() {
         return zonaRiesgoRepository.findAll();
     }
 
-    /** Retorna todas las rutas activas para renderizar en el mapa */
     public List<RutaEvacuacion> obtenerRutasActivas() {
         return rutaEvacuacionRepository.findByActivoTrue();
     }
 
-    // devuelve todas las brigadas, incluso las inactivas, para la sección de
-    // administración
     public List<Brigada> obtenerTodasLasBrigadas() {
         return brigadaRepository.findAll();
     }
 
-    // esto es para actualizar la ubicación GPS y estado de una brigada en tiempo
-    // real
     public Brigada actualizarBrigada(Long id, Brigada datos) {
         Brigada brigada = brigadaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Brigada no encontrada: " + id));
@@ -75,7 +67,6 @@ public class MonitoreoService {
         Brigada brigada = brigadaRepository.findById(brigadaId)
                 .orElseThrow(() -> new RuntimeException("Brigada no encontrada: " + brigadaId));
 
-        // Cambia estado de la brigada automáticamente
         brigada.setEstado(Brigada.EstadoBrigada.EN_CAMINO);
         brigadaRepository.save(brigada);
 
@@ -86,13 +77,12 @@ public class MonitoreoService {
         return asignacionRepository.save(asignacion);
     }
 
-    // devuelve todas las brigadas asignadas a un reporte específico
     public List<AsignacionBrigada> obtenerAsignacionesPorReporte(Long reporteId) {
         return asignacionRepository.findByReporteId(reporteId);
     }
 
     public void sincronizarFoco(Long reporteId, String estado, String nivelRiesgo) {
-        System.out.println("[MonitoreoService] Foco sincronizado → reporteId=" +
+        System.out.println("[MonitoreoService] Foco sincronizado \u2192 reporteId=" +
                 reporteId + " | estado=" + estado + " | nivel=" + nivelRiesgo);
     }
 
@@ -102,5 +92,23 @@ public class MonitoreoService {
 
     public Brigada crearBrigada(Brigada brigada) {
         return brigadaRepository.save(brigada);
+    }
+
+    /**
+     * Libera todas las brigadas asignadas a un reporte cuando este se marca
+     * RESUELTO o DESCARTADO. Llamado desde MonitoreoObserver en ms-reportes.
+     */
+    public void liberarBrigadaPorReporte(Long reporteId) {
+        List<AsignacionBrigada> asignaciones = asignacionRepository.findByReporteId(reporteId);
+        if (asignaciones.isEmpty()) {
+            System.out.println("[MonitoreoService] No hay brigada asignada al reporte: " + reporteId);
+            return;
+        }
+        for (AsignacionBrigada asignacion : asignaciones) {
+            Brigada brigada = asignacion.getBrigada();
+            brigada.setEstado(Brigada.EstadoBrigada.DISPONIBLE);
+            brigadaRepository.save(brigada);
+            System.out.println("[MonitoreoService] Brigada ID=" + brigada.getId() + " liberada (reporte " + reporteId + " cerrado).");
+        }
     }
 }

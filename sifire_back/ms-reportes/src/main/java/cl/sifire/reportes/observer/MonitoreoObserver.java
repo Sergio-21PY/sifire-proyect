@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-// este observer se encarga de notificar a ms-monitoreo cada vez que un reporte cambia de estado o se crea, para que el equipo de monitoreo tenga siempre la info actualizada en su dashboard
 @Component
 public class MonitoreoObserver implements ReporteObserver {
 
@@ -30,6 +29,7 @@ public class MonitoreoObserver implements ReporteObserver {
         log.info("[MonitoreoObserver] Notificando foco ID={} | Evento={} | Estado={}",
             reporte.getId(), evento, reporte.getEstado());
 
+        // Siempre sincroniza el foco en el mapa
         try {
             Map<String, Object> payload = new HashMap<>();
             payload.put("reporteId", reporte.getId());
@@ -40,13 +40,29 @@ public class MonitoreoObserver implements ReporteObserver {
             payload.put("evento", evento);
 
             restTemplate.postForEntity(
-                msMonitoreoUrl + "/api/focos/sincronizar",
+                msMonitoreoUrl + "/api/monitoreo/focos/sincronizar",
                 payload,
                 Object.class
             );
             log.info("[MonitoreoObserver] Foco sincronizado con ms-monitoreo.");
         } catch (Exception e) {
-            log.error("[MonitoreoObserver] No se pudo notificar a ms-monitoreo: {}", e.getMessage());
+            log.error("[MonitoreoObserver] No se pudo sincronizar foco: {}", e.getMessage());
+        }
+
+        // Si el reporte se cerró, liberar la brigada asignada
+        String estadoActual = reporte.getEstado().name();
+        if ("ESTADO_ACTUALIZADO".equals(evento) &&
+                ("RESUELTO".equals(estadoActual) || "DESCARTADO".equals(estadoActual))) {
+            try {
+                restTemplate.put(
+                    msMonitoreoUrl + "/api/monitoreo/brigadas/liberar-por-reporte/" + reporte.getId(),
+                    null
+                );
+                log.info("[MonitoreoObserver] Brigada liberada para reporte ID={}", reporte.getId());
+            } catch (Exception e) {
+                log.error("[MonitoreoObserver] No se pudo liberar brigada del reporte {}: {}",
+                    reporte.getId(), e.getMessage());
+            }
         }
     }
 }

@@ -93,4 +93,14 @@ public class MonitoreoController {
     public ResponseEntity<Brigada> crearBrigada(@RequestBody Brigada brigada) {
         return ResponseEntity.ok(monitoreoService.crearBrigada(brigada));
     }
+
+    /**
+     * Llamado por ms-reportes (MonitoreoObserver) cuando un reporte se cierra.
+     * Libera automáticamente la brigada asignada a ese reporte.
+     */
+    @PutMapping("/brigadas/liberar-por-reporte/{reporteId}")
+    public ResponseEntity<Void> liberarBrigadaPorReporte(@PathVariable Long reporteId) {
+        monitoreoService.liberarBrigadaPorReporte(reporteId);
+        return ResponseEntity.ok().build();
+    }
 }
