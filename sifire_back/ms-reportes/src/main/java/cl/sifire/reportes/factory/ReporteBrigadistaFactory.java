@@ -17,16 +17,15 @@ public class ReporteBrigadistaFactory implements ReporteFactory {
         reporte.setTitulo(dto.getTitulo());
         reporte.setLatitud(dto.getLatitud());
         reporte.setLongitud(dto.getLongitud());
+        reporte.setComuna(dto.getComuna());                          // ← agregar
         reporte.setTipoReportante(ReporteIncendio.TipoReportante.BRIGADISTA);
 
-        // Regla de negocio: usa el nivel que evaluó el brigadista.
-        // Si no envía nivel, se asigna ALTO por defecto (está en terreno).
+        // Respeta el nivel evaluado por el brigadista en terreno
         ReporteIncendio.NivelRiesgo nivel = dto.getNivelRiesgo() != null
             ? dto.getNivelRiesgo()
             : ReporteIncendio.NivelRiesgo.ALTO;
         reporte.setNivelRiesgo(nivel);
 
-        // El brigadista ya está interviniendo → estado EN_PROCESO directamente
         reporte.setEstado(ReporteIncendio.EstadoReporte.EN_PROCESO);
 
         return reporte;

@@ -17,11 +17,18 @@ public class ReporteCiudadanoFactory implements ReporteFactory {
         reporte.setTitulo(dto.getTitulo());
         reporte.setLatitud(dto.getLatitud());
         reporte.setLongitud(dto.getLongitud());
+        reporte.setComuna(dto.getComuna());
         reporte.setTipoReportante(ReporteIncendio.TipoReportante.CIUDADANO);
-
-        // Regla de negocio: ciudadanos siempre inician en nivel MEDIO
-        reporte.setNivelRiesgo(ReporteIncendio.NivelRiesgo.MEDIO);
         reporte.setEstado(ReporteIncendio.EstadoReporte.PENDIENTE);
+
+        // Ciudadanos pueden elegir BAJO, MEDIO o ALTO — nunca CRITICO
+        // CRITICO está reservado para FUNCIONARIO/BRIGADISTA
+        ReporteIncendio.NivelRiesgo solicitado = dto.getNivelRiesgo();
+        reporte.setNivelRiesgo(
+            solicitado != null && solicitado != ReporteIncendio.NivelRiesgo.CRITICO
+                ? solicitado
+                : ReporteIncendio.NivelRiesgo.MEDIO
+        );
 
         return reporte;
     }
@@ -32,7 +39,7 @@ public class ReporteCiudadanoFactory implements ReporteFactory {
                 "[CiudadanoFactory] Las coordenadas GPS son obligatorias para reportes ciudadanos."
             );
         }
-        if (dto.getLatitud() < -90 || dto.getLatitud() > 90 ||
+        if (dto.getLatitud() < -90  || dto.getLatitud() > 90 ||
             dto.getLongitud() < -180 || dto.getLongitud() > 180) {
             throw new IllegalArgumentException(
                 "[CiudadanoFactory] Coordenadas GPS fuera de rango válido."

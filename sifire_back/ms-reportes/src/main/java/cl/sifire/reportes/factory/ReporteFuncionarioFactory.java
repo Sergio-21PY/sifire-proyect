@@ -15,10 +15,10 @@ public class ReporteFuncionarioFactory implements ReporteFactory {
         reporte.setTitulo(dto.getTitulo());
         reporte.setLatitud(dto.getLatitud());
         reporte.setLongitud(dto.getLongitud());
+        reporte.setComuna(dto.getComuna());                              // ← agregar
         reporte.setTipoReportante(ReporteIncendio.TipoReportante.FUNCIONARIO);
 
-        // Regla de negocio: el funcionario sólo puede reportar ALTO o CRITICO.
-        // Si envía un nivel menor, el sistema lo eleva automáticamente a ALTO.
+        // Regla de negocio: funcionario solo puede reportar ALTO o CRITICO
         ReporteIncendio.NivelRiesgo nivel = dto.getNivelRiesgo();
         if (nivel == null ||
             nivel == ReporteIncendio.NivelRiesgo.BAJO ||
@@ -26,7 +26,7 @@ public class ReporteFuncionarioFactory implements ReporteFactory {
             nivel = ReporteIncendio.NivelRiesgo.ALTO;
         }
         reporte.setNivelRiesgo(nivel);
-        reporte.setEstado(ReporteIncendio.EstadoReporte.EN_PROCESO);
+        reporte.setEstado(ReporteIncendio.EstadoReporte.EN_PROCESO);    // ← correcto, funcionario va directo a EN_PROCESO
 
         return reporte;
     }

@@ -1,6 +1,7 @@
 # Manual de Usuario y Operación — SIFIRE
 ## Sistema Inteligente de Fiscalización y Respuesta ante Emergencias
 ## Autor: Equipo CCS
+taskkill /IM java.exe /F -> para matar los puertos
 **Versión del documento:** Ambiente de pruebas universitario v1
 
 **Proyecto:** SIFIRE  

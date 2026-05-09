@@ -4,6 +4,7 @@ import cl.sifire.reportes.model.ReporteIncendio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,9 +20,11 @@ public class MonitoreoObserver implements ReporteObserver {
     private String msMonitoreoUrl;
 
     private final RestTemplate restTemplate;
+    private final CircuitBreakerFactory<?, ?> circuitBreakerFactory;
 
-    public MonitoreoObserver(RestTemplate restTemplate) {
+    public MonitoreoObserver(RestTemplate restTemplate, CircuitBreakerFactory<?, ?> circuitBreakerFactory) {
         this.restTemplate = restTemplate;
+        this.circuitBreakerFactory = circuitBreakerFactory;
     }
 
     @Override
@@ -29,8 +32,7 @@ public class MonitoreoObserver implements ReporteObserver {
         log.info("[MonitoreoObserver] Notificando foco ID={} | Evento={} | Estado={}",
             reporte.getId(), evento, reporte.getEstado());
 
-        // Siempre sincroniza el foco en el mapa
-        try {
+        circuitBreakerFactory.create("monitoreoService").run(() -> {
             Map<String, Object> payload = new HashMap<>();
             payload.put("reporteId", reporte.getId());
             payload.put("latitud", reporte.getLatitud());
@@ -38,31 +40,27 @@ public class MonitoreoObserver implements ReporteObserver {
             payload.put("nivelRiesgo", reporte.getNivelRiesgo().name());
             payload.put("estado", reporte.getEstado().name());
             payload.put("evento", evento);
-
             restTemplate.postForEntity(
-                msMonitoreoUrl + "/api/monitoreo/focos/sincronizar",
-                payload,
-                Object.class
-            );
+                msMonitoreoUrl + "/api/monitoreo/focos/sincronizar", payload, Object.class);
             log.info("[MonitoreoObserver] Foco sincronizado con ms-monitoreo.");
-        } catch (Exception e) {
-            log.error("[MonitoreoObserver] No se pudo sincronizar foco: {}", e.getMessage());
-        }
+            return null;
+        }, throwable -> {
+            log.warn("[MonitoreoObserver] ms-monitoreo no disponible (circuit open): {}", throwable.getMessage());
+            return null;
+        });
 
-        // Si el reporte se cerró, liberar la brigada asignada
         String estadoActual = reporte.getEstado().name();
         if ("ESTADO_ACTUALIZADO".equals(evento) &&
                 ("RESUELTO".equals(estadoActual) || "DESCARTADO".equals(estadoActual))) {
-            try {
+            circuitBreakerFactory.create("monitoreoService").run(() -> {
                 restTemplate.put(
-                    msMonitoreoUrl + "/api/monitoreo/brigadas/liberar-por-reporte/" + reporte.getId(),
-                    null
-                );
+                    msMonitoreoUrl + "/api/monitoreo/brigadas/liberar-por-reporte/" + reporte.getId(), null);
                 log.info("[MonitoreoObserver] Brigada liberada para reporte ID={}", reporte.getId());
-            } catch (Exception e) {
-                log.error("[MonitoreoObserver] No se pudo liberar brigada del reporte {}: {}",
-                    reporte.getId(), e.getMessage());
-            }
+                return null;
+            }, throwable -> {
+                log.warn("[MonitoreoObserver] No se pudo liberar brigada (circuit open): {}", throwable.getMessage());
+                return null;
+            });
         }
     }
 }

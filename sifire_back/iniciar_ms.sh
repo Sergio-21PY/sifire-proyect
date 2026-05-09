@@ -21,7 +21,7 @@ echo "[5/5] Iniciando ..."
 echo "[5/5] Iniciando ...."
 echo "[5/5] Iniciando ....."
 echo "[5/5] Iniciando ......"
-echo "[5/5] Iniciando .......
+echo "[5/5] Iniciando ......."
 
 
 echo "Todos los microservicios iniciando... espera ~30 segundos"

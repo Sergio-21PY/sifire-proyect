@@ -20,4 +20,5 @@ public class ReporteRequestDTO {
 
     // opcional, cada tipo de usuario lo maneja distinto, esto para que el service sepa como armar el reporte segun quien lo envia
     private ReporteIncendio.NivelRiesgo nivelRiesgo;
+    
 }

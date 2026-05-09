@@ -24,6 +24,7 @@ export default function Alertas() {
   useEffect(() => { cargarAlertas(); }, []);
 
   const cargarAlertas = async () => {
+    setCargando(true);
     try {
       const res = await axios.get(BASE_URL);
       setAlertas(Array.isArray(res.data) ? res.data : []);
@@ -36,7 +37,6 @@ export default function Alertas() {
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
-  // Cuando el funcionario hace clic en el mapa
   const handleMapaSeleccionar = (lat, lng) => {
     setForm(prev => ({ ...prev, latitud: lat, longitud: lng }));
   };
@@ -44,33 +44,56 @@ export default function Alertas() {
   const handleEmitir = async (e) => {
     e.preventDefault();
     setError('');
+    setExito('');
     try {
-      await axios.post(`${BASE_URL}/crear`, form);
+      await axios.post(`${BASE_URL}/emitir`, {
+        ...form,
+        canal: form.canal.toUpperCase(),          // garantiza mayúscula al enviar
+        latitud:  form.latitud  ? Number(form.latitud)  : null,
+        longitud: form.longitud ? Number(form.longitud) : null,
+      });
       setExito('✓ Alerta emitida correctamente');
       setForm({ titulo: '', mensaje: '', tipo: '', descripcion: '', latitud: '', longitud: '', canal: 'EMAIL' });
       setTimeout(() => setExito(''), 3000);
       cargarAlertas();
-    } catch { setError('No se pudo emitir la alerta.'); }
+    } catch {
+      setError('No se pudo emitir la alerta.');
+    }
   };
 
   const handleAsignarBrigadistas = async (id) => {
     setError('');
+    setExito('');
     try {
       await axios.post(`${BASE_URL}/${id}/asignar-brigadistas`);
       setExito('✓ Brigadistas asignados correctamente');
       setTimeout(() => setExito(''), 3000);
       cargarAlertas();
-    } catch { setError('No se pudo asignar brigadistas.'); }
+    } catch {
+      setError('No se pudo asignar brigadistas.');
+    }
   };
 
+  // Mapea estado real de BD → estado visual para filtros y badges
   const estadoVisual = (estado) => {
-    const mapa = { NUEVA: 'PENDIENTE', ASIGNADA: 'ENVIADA', ENVIADA: 'ENVIADA', PENDIENTE: 'PENDIENTE', FALLIDA: 'FALLIDA' };
-    return mapa[estado] || 'PENDIENTE';
+    const mapa = {
+      NUEVA:     'PENDIENTE',
+      PENDIENTE: 'PENDIENTE',
+      ENVIADA:   'ENVIADA',
+      ASIGNADA:  'ENVIADA',
+      RESUELTA:  'ENVIADA',
+      FALLIDA:   'FALLIDA',
+    };
+    return mapa[estado] ?? 'PENDIENTE';
   };
 
   const alertasFiltradas = filtro === 'TODOS'
     ? alertas
     : alertas.filter(a => estadoVisual(a.estado) === filtro);
+
+  // El botón "Asignar Brigada" solo aparece si la alerta aún no fue procesada
+  const puedeAsignar = (estado) =>
+    !['ASIGNADA', 'RESUELTA', 'ENVIADA'].includes(estado);
 
   return (
     <div style={styles.mainContainer}>
@@ -86,18 +109,26 @@ export default function Alertas() {
         </p>
       </div>
 
-      {exito && <div style={{ background:'#dcfce7', color:'#166534', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem', fontWeight:600 }}>{exito}</div>}
-      {error && <div style={{ background:'#fee2e2', color:'#991b1b', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem' }}>{error}</div>}
+      {exito && (
+        <div style={{ background:'#dcfce7', color:'#166534', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem', fontWeight:600 }}>
+          {exito}
+        </div>
+      )}
+      {error && (
+        <div style={{ background:'#fee2e2', color:'#991b1b', padding:'0.75rem 1rem', borderRadius:8, marginBottom:'1rem' }}>
+          {error}
+        </div>
+      )}
 
       {/* Formulario — solo FUNCIONARIO */}
       {esFuncionario && (
         <form onSubmit={handleEmitir} style={{ background:'#fff', borderRadius:12, padding:'1.5rem', marginBottom:'2rem', boxShadow:'0 1px 4px rgba(0,0,0,0.08)', border:'1px solid #e2e8f0' }}>
           <h2 style={{ fontSize:'1rem', fontWeight:700, marginBottom:'1rem', color:'#1e293b' }}>📢 Emitir nueva alerta</h2>
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0.75rem' }}>
-            <input name="titulo"      placeholder="Título de la alerta *" value={form.titulo}      onChange={handleChange} required style={inputStyle} />
-            <input name="tipo"        placeholder="Tipo (ej: EVACUACIÓN)"  value={form.tipo}        onChange={handleChange} style={inputStyle} />
-            <input name="descripcion" placeholder="Descripción"            value={form.descripcion} onChange={handleChange} style={{ ...inputStyle, gridColumn:'1 / -1' }} />
-            <input name="mensaje"     placeholder="Mensaje para la comunidad *" value={form.mensaje} onChange={handleChange} required style={{ ...inputStyle, gridColumn:'1 / -1' }} />
+            <input name="titulo"      placeholder="Título de la alerta *"      value={form.titulo}      onChange={handleChange} required style={inputStyle} />
+            <input name="tipo"        placeholder="Tipo (ej: EVACUACIÓN)"      value={form.tipo}        onChange={handleChange} style={inputStyle} />
+            <input name="descripcion" placeholder="Descripción"                value={form.descripcion} onChange={handleChange} style={{ ...inputStyle, gridColumn:'1 / -1' }} />
+            <input name="mensaje"     placeholder="Mensaje para la comunidad *" value={form.mensaje}    onChange={handleChange} required style={{ ...inputStyle, gridColumn:'1 / -1' }} />
 
             {/* Coordenadas — solo lectura, se llenan desde el mapa */}
             <input name="latitud"  placeholder="Latitud (clic en el mapa ↓)"  value={form.latitud}  readOnly style={{ ...inputStyle, background:'#f8fafc', cursor:'not-allowed' }} />
@@ -113,7 +144,8 @@ export default function Alertas() {
           {/* Mapa selector */}
           <div style={{ marginTop:'1rem' }}>
             <label style={{ fontSize:'14px', fontWeight:'500', display:'block', marginBottom:'6px' }}>
-              📍 Ubicación de la alerta — <span style={{ color:'#6b7280', fontWeight:400 }}>haz clic en el mapa para marcar</span>
+              📍 Ubicación de la alerta —{' '}
+              <span style={{ color:'#6b7280', fontWeight:400 }}>haz clic en el mapa para marcar</span>
             </label>
             <div style={{ height:'260px', borderRadius:'10px', overflow:'hidden', border:'1px solid #e5e7eb' }}>
               <MapaSelector
@@ -130,12 +162,16 @@ export default function Alertas() {
             )}
           </div>
 
-          <button type="submit" style={{ marginTop:'1rem', background:'#dc2626', color:'white', border:'none', borderRadius:8, padding:'0.6rem 1.5rem', fontWeight:700, cursor:'pointer', fontSize:'0.9rem' }}>
+          <button
+            type="submit"
+            style={{ marginTop:'1rem', background:'#dc2626', color:'white', border:'none', borderRadius:8, padding:'0.6rem 1.5rem', fontWeight:700, cursor:'pointer', fontSize:'0.9rem' }}
+          >
             🚨 Emitir Alerta
           </button>
         </form>
       )}
 
+      {/* Filtros */}
       <div style={styles.filterContainer}>
         {['TODOS', 'ENVIADA', 'PENDIENTE', 'FALLIDA'].map(f => (
           <button key={f} onClick={() => setFiltro(f)} style={styles.filterButton(filtro === f)}>
@@ -149,6 +185,7 @@ export default function Alertas() {
         ))}
       </div>
 
+      {/* Lista de alertas */}
       {cargando ? (
         <p style={{ color:'#64748b', textAlign:'center', padding:'2rem' }}>Cargando alertas...</p>
       ) : alertasFiltradas.length === 0 ? (
@@ -172,7 +209,7 @@ export default function Alertas() {
                       ? new Date(alerta.fechaHora).toLocaleString('es-CL')
                       : '—'}
                   </span>
-                  {alerta.canal && <span>📡 {alerta.canal}</span>}
+                  {alerta.canal  && <span>📡 {alerta.canal}</span>}
                   {alerta.latitud && <span>📍 {alerta.latitud}, {alerta.longitud}</span>}
                 </div>
               </div>
@@ -181,9 +218,11 @@ export default function Alertas() {
                 <span style={styles.alertStatusBadge(estadoVisual(alerta.estado))}>
                   {alerta.estado}
                 </span>
-                {esAdmin && alerta.estado !== 'ASIGNADA' && (
-                  <button onClick={() => handleAsignarBrigadistas(alerta.id)}
-                    style={{ background:'#3b82f6', color:'#fff', border:'none', borderRadius:6, padding:'4px 12px', fontSize:'0.8rem', cursor:'pointer', fontWeight:600, whiteSpace:'nowrap' }}>
+                {esAdmin && puedeAsignar(alerta.estado) && (
+                  <button
+                    onClick={() => handleAsignarBrigadistas(alerta.id)}
+                    style={{ background:'#3b82f6', color:'#fff', border:'none', borderRadius:6, padding:'4px 12px', fontSize:'0.8rem', cursor:'pointer', fontWeight:600, whiteSpace:'nowrap' }}
+                  >
                     👥 Asignar Brigada
                   </button>
                 )}
@@ -197,6 +236,9 @@ export default function Alertas() {
 }
 
 const inputStyle = {
-  padding: '0.5rem 0.75rem', borderRadius: 8,
-  border: '1px solid #e2e8f0', fontSize: '0.9rem', width: '100%',
+  padding: '0.5rem 0.75rem',
+  borderRadius: 8,
+  border: '1px solid #e2e8f0',
+  fontSize: '0.9rem',
+  width: '100%',
 };
