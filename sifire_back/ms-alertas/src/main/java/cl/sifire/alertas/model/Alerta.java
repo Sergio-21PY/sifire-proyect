@@ -57,7 +57,7 @@ public class Alerta {
     private LocalDateTime createdAt;
 
     public enum Canal { EMAIL, SMS, PUSH }
-    public enum Estado { ENVIADA, FALLIDA, PENDIENTE, ASIGNADA }
+    public enum Estado { ENVIADA, FALLIDA, PENDIENTE, ASIGNADA, ASIGNACION_PENDIENTE }
 
     @PrePersist
     public void prePersist() {

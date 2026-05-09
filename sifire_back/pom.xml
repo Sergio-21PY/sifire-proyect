@@ -19,4 +19,6 @@
         <module>ms-reportes</module>
         <!-- ms-bff excluido intencionalmente: se comunica directo por REST -->
     </modules>
+
+
 </project>
