@@ -1,28 +1,62 @@
 #!/bin/bash
-echo "Levantando SIFIRE Backend..."
 
 BASE="$(cd "$(dirname "$0")" && pwd)"
+PIDS=()
 
-echo "[1/5] Iniciando ms-usuarios (8081)..."
-cd "$BASE/ms-usuarios" && ./mvnw spring-boot:run &
+# ─── Limpia puertos ocupados antes de iniciar ─────────────────────
+limpiar_puerto() {
+    local puerto=$1
+    local pid=$(lsof -ti tcp:$puerto 2>/dev/null)
+    if [ -n "$pid" ]; then
+        echo "  ⚠ Puerto $puerto ocupado (PID $pid), cerrando..."
+        kill -9 $pid 2>/dev/null
+        sleep 0.5
+    fi
+}
 
-echo "[2/5] Iniciando ms-reportes (8082)..."
-cd "$BASE/ms-reportes" && ./mvnw spring-boot:run &
+# ─── Al hacer Ctrl+C, mata todo ───────────────────────────────────
+cleanup() {
+    echo ""
+    echo "⏹ Deteniendo microservicios..."
+    for pid in "${PIDS[@]}"; do
+        kill $pid 2>/dev/null && echo "  ✓ PID $pid detenido"
+    done
+    exit 0
+}
+trap cleanup SIGINT SIGTERM
 
-echo "[3/5] Iniciando ms-monitoreo (8083)..."
-cd "$BASE/ms-monitoreo" && ./mvnw spring-boot:run &
+# ─── Función de inicio ────────────────────────────────────────────
+start_ms() {
+    local nombre=$1
+    local puerto=$2
+    local dir=$3
 
-echo "[4/5] Iniciando ms-alertas (8084)..."
-cd "$BASE/ms-alertas" && ./mvnw spring-boot:run &
+    limpiar_puerto $puerto
+    echo "▶ Iniciando $nombre (puerto $puerto)..."
+    cd "$BASE/$dir" && ./mvnw spring-boot:run > "$BASE/logs/${nombre}.log" 2>&1 &
+    PIDS+=($!)
+    echo "  PID: ${PIDS[-1]} → logs/${nombre}.log"
+}
 
-echo "[5/5] Iniciando ."
-echo "[5/5] Iniciando .."
-echo "[5/5] Iniciando ..."
-echo "[5/5] Iniciando ...."
-echo "[5/5] Iniciando ....."
-echo "[5/5] Iniciando ......"
-echo "[5/5] Iniciando ......."
+mkdir -p "$BASE/logs"
 
+echo "=============================="
+echo "  SIFIRE Backend - Iniciando  "
+echo "=============================="
 
-echo "Todos los microservicios iniciando... espera ~30 segundos"
+start_ms "ms-usuarios"  8081 "ms-usuarios"
+start_ms "ms-reportes"  8082 "ms-reportes"
+start_ms "ms-monitoreo" 8083 "ms-monitoreo"
+start_ms "ms-alertas"   8084 "ms-alertas"
+
+echo ""
+echo "4 microservicios levantando en background."
+echo "Logs disponibles en: $BASE/logs/"
+echo ""
+echo "Para ver un log en tiempo real:"
+echo "  tail -f $BASE/logs/ms-alertas.log"
+echo ""
+echo "Ctrl+C para detener todo."
+echo ""
+
 wait

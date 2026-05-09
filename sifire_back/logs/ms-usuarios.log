@@ -1,0 +1,75 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< cl.duoc.ser.sotoc:ms-usuario >--------------------
+[INFO] Building sifire-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ ms-usuario >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ms-usuario ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ ms-usuario ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ ms-usuario ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ ms-usuario ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ ms-usuario <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ ms-usuario ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-05-09T14:20:47.482-04:00  INFO 60720 --- [ms-usuarios] [           main] c.d.s.s.s.SifireBackendApplication       : Starting SifireBackendApplication using Java 21.0.10 with PID 60720 (C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-usuarios\target\classes started by MatiDroid in C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-usuarios)
+2026-05-09T14:20:47.485-04:00  INFO 60720 --- [ms-usuarios] [           main] c.d.s.s.s.SifireBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-09T14:20:48.521-04:00  INFO 60720 --- [ms-usuarios] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-09T14:20:48.689-04:00  INFO 60720 --- [ms-usuarios] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 161 ms. Found 1 JPA repository interface.
+2026-05-09T14:20:49.043-04:00  INFO 60720 --- [ms-usuarios] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=ab2a1130-10c9-3060-bce5-9363e793a069
+2026-05-09T14:20:49.340-04:00  WARN 60720 --- [ms-usuarios] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-05-09T14:20:49.345-04:00  WARN 60720 --- [ms-usuarios] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-05-09T14:20:49.693-04:00  INFO 60720 --- [ms-usuarios] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-09T14:20:49.705-04:00  INFO 60720 --- [ms-usuarios] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-09T14:20:49.705-04:00  INFO 60720 --- [ms-usuarios] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-09T14:20:49.798-04:00  INFO 60720 --- [ms-usuarios] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-09T14:20:49.799-04:00  INFO 60720 --- [ms-usuarios] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2265 ms
+2026-05-09T14:20:49.969-04:00  INFO 60720 --- [ms-usuarios] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-09T14:20:50.135-04:00  INFO 60720 --- [ms-usuarios] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32b112a1
+2026-05-09T14:20:50.137-04:00  INFO 60720 --- [ms-usuarios] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-09T14:20:50.224-04:00  INFO 60720 --- [ms-usuarios] [           main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.22.3 by Redgate
+2026-05-09T14:20:50.224-04:00  INFO 60720 --- [ms-usuarios] [           main] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2026-05-09T14:20:50.224-04:00  INFO 60720 --- [ms-usuarios] [           main] o.f.c.internal.license.VersionPrinter    : 
+2026-05-09T14:20:50.286-04:00  INFO 60720 --- [ms-usuarios] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/sifire_usuarios (MySQL 5.5)
+2026-05-09T14:20:50.339-04:00  INFO 60720 --- [ms-usuarios] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.033s)
+2026-05-09T14:20:50.352-04:00  INFO 60720 --- [ms-usuarios] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `sifire_usuarios`: 1
+2026-05-09T14:20:50.354-04:00  INFO 60720 --- [ms-usuarios] [           main] o.f.core.internal.command.DbMigrate      : Schema `sifire_usuarios` is up to date. No migration necessary.
+2026-05-09T14:20:50.493-04:00  INFO 60720 --- [ms-usuarios] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-09T14:20:50.553-04:00  INFO 60720 --- [ms-usuarios] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-09T14:20:50.599-04:00  INFO 60720 --- [ms-usuarios] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-09T14:20:50.847-04:00  INFO 60720 --- [ms-usuarios] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-09T14:20:50.899-04:00  WARN 60720 --- [ms-usuarios] [           main] org.hibernate.dialect.Dialect            : HHH000511: The 5.5.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2026-05-09T14:20:50.902-04:00  WARN 60720 --- [ms-usuarios] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-09T14:20:51.768-04:00  INFO 60720 --- [ms-usuarios] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-09T14:20:51.813-04:00  INFO 60720 --- [ms-usuarios] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-09T14:20:52.470-04:00  WARN 60720 --- [ms-usuarios] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-09T14:20:53.768-04:00  INFO 60720 --- [ms-usuarios] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2026-05-09T14:20:53.867-04:00  WARN 60720 --- [ms-usuarios] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-05-09T14:20:53.909-04:00  INFO 60720 --- [ms-usuarios] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-05-09T14:20:53.928-04:00  INFO 60720 --- [ms-usuarios] [           main] c.d.s.s.s.SifireBackendApplication       : Started SifireBackendApplication in 6.953 seconds (process running for 7.582)
+2026-05-09T14:22:25.665-04:00  INFO 60720 --- [ms-usuarios] [nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-09T14:22:25.666-04:00  INFO 60720 --- [ms-usuarios] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-09T14:22:25.666-04:00  INFO 60720 --- [ms-usuarios] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+Hibernate: select u1_0.id,u1_0.activo,u1_0.email,u1_0.nombre,u1_0.password,u1_0.telefono,u1_0.tipo,u1_0.username from usuario u1_0 where u1_0.email=?

@@ -1,0 +1,116 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< cl.sifire:alertas >--------------------------
+[INFO] Building ms-alertas 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ alertas >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ alertas ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ alertas ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ alertas ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ alertas ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ alertas <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ alertas ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-05-09T14:20:48.253-04:00  INFO 61368 --- [ms-alertas] [           main] cl.sifire.alertas.AlertasApplication     : Starting AlertasApplication using Java 21.0.10 with PID 61368 (C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-alertas\target\classes started by MatiDroid in C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-alertas)
+2026-05-09T14:20:48.257-04:00  INFO 61368 --- [ms-alertas] [           main] cl.sifire.alertas.AlertasApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-05-09T14:20:49.230-04:00  INFO 61368 --- [ms-alertas] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-09T14:20:49.401-04:00  INFO 61368 --- [ms-alertas] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 156 ms. Found 1 JPA repository interface.
+2026-05-09T14:20:49.704-04:00  INFO 61368 --- [ms-alertas] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=acf5514e-35d0-3463-a2a2-bde2d00b7b15
+2026-05-09T14:20:49.964-04:00  WARN 61368 --- [ms-alertas] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-05-09T14:20:49.968-04:00  WARN 61368 --- [ms-alertas] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-05-09T14:20:50.314-04:00  INFO 61368 --- [ms-alertas] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8084 (http)
+2026-05-09T14:20:50.356-04:00  INFO 61368 --- [ms-alertas] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-09T14:20:50.369-04:00  INFO 61368 --- [ms-alertas] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-09T14:20:50.480-04:00  INFO 61368 --- [ms-alertas] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-09T14:20:50.481-04:00  INFO 61368 --- [ms-alertas] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2170 ms
+2026-05-09T14:20:50.668-04:00  INFO 61368 --- [ms-alertas] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-09T14:20:50.837-04:00  INFO 61368 --- [ms-alertas] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44eb2452
+2026-05-09T14:20:50.838-04:00  INFO 61368 --- [ms-alertas] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-09T14:20:50.933-04:00  INFO 61368 --- [ms-alertas] [           main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.22.3 by Redgate
+2026-05-09T14:20:50.933-04:00  INFO 61368 --- [ms-alertas] [           main] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2026-05-09T14:20:50.933-04:00  INFO 61368 --- [ms-alertas] [           main] o.f.c.internal.license.VersionPrinter    : 
+2026-05-09T14:20:50.992-04:00  INFO 61368 --- [ms-alertas] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/sifire_alertas (MySQL 5.5)
+2026-05-09T14:20:51.044-04:00  INFO 61368 --- [ms-alertas] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 5 migrations (execution time 00:00.028s)
+2026-05-09T14:20:51.055-04:00  INFO 61368 --- [ms-alertas] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `sifire_alertas`: 5
+2026-05-09T14:20:51.058-04:00  INFO 61368 --- [ms-alertas] [           main] o.f.core.internal.command.DbMigrate      : Schema `sifire_alertas` is up to date. No migration necessary.
+2026-05-09T14:20:51.176-04:00  INFO 61368 --- [ms-alertas] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-09T14:20:51.242-04:00  INFO 61368 --- [ms-alertas] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-09T14:20:51.283-04:00  INFO 61368 --- [ms-alertas] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-09T14:20:51.526-04:00  INFO 61368 --- [ms-alertas] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-09T14:20:51.578-04:00  WARN 61368 --- [ms-alertas] [           main] org.hibernate.dialect.Dialect            : HHH000511: The 5.5.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2026-05-09T14:20:51.582-04:00  WARN 61368 --- [ms-alertas] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-09T14:20:52.531-04:00  INFO 61368 --- [ms-alertas] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-09T14:20:52.575-04:00  INFO 61368 --- [ms-alertas] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-09T14:20:53.280-04:00  WARN 61368 --- [ms-alertas] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-09T14:20:54.568-04:00  INFO 61368 --- [ms-alertas] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2026-05-09T14:20:54.638-04:00  WARN 61368 --- [ms-alertas] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-05-09T14:20:54.705-04:00  INFO 61368 --- [ms-alertas] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8084 (http) with context path ''
+2026-05-09T14:20:54.718-04:00  INFO 61368 --- [ms-alertas] [           main] cl.sifire.alertas.AlertasApplication     : Started AlertasApplication in 6.946 seconds (process running for 7.449)
+2026-05-09T14:22:17.331-04:00  INFO 61368 --- [ms-alertas] [nio-8084-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-09T14:22:17.331-04:00  INFO 61368 --- [ms-alertas] [nio-8084-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-09T14:22:17.332-04:00  INFO 61368 --- [ms-alertas] [nio-8084-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
