@@ -46,7 +46,11 @@ public class Alerta {
     @Column(nullable = false)
     private Estado estado;
 
-    // Asignaciones de Sergio
+    // ID del brigadista al que va dirigida esta alerta
+    @Column(name = "brigadista_id")
+    private Long brigadistaId;
+
+    // Asignaciones (set para compatibilidad existente)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "alerta_asignaciones",
         joinColumns = @JoinColumn(name = "alerta_id"))
@@ -56,8 +60,11 @@ public class Alerta {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "resolved_at")
+    private LocalDateTime resolvedAt;
+
     public enum Canal { EMAIL, SMS, PUSH }
-    public enum Estado { ENVIADA, FALLIDA, PENDIENTE, ASIGNADA }
+    public enum Estado { ENVIADA, FALLIDA, PENDIENTE, ASIGNADA, RESUELTA }
 
     @PrePersist
     public void prePersist() {

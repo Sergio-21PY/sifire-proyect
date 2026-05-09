@@ -11,4 +11,8 @@ import cl.sifire.alertas.model.Alerta;
 public interface AlertaRepository extends JpaRepository<Alerta, Long> {
     List<Alerta> findByReporteId(Long reporteId);
     List<Alerta> findByEstado(Alerta.Estado estado);
+
+    // Consultas para brigadistas
+    List<Alerta> findByBrigadistaId(Long brigadistaId);
+    List<Alerta> findByBrigadistaIdAndEstadoIn(Long brigadistaId, List<Alerta.Estado> estados);
 }
