@@ -1,7 +1,43 @@
+import { useEffect, useRef } from 'react';
 import * as styles from '../../styles/Reportes.styles';
 import MapaSelector from './MapaSelector';
+import TomSelect from 'tom-select';
+import 'tom-select/dist/css/tom-select.bootstrap5.css';
 
 export default function ReporteForm({ form, centroMapa, onChange, onUbicacion, onArchivos, onEliminarArchivo, onUbicacionActual, onSubmit, onCancelar }) {
+
+  const comunaRef = useRef(null);
+  const tomSelectComunaRef = useRef(null);
+  const nivelRef = useRef(null);
+  const tomSelectNivelRef = useRef(null);
+
+  useEffect(() => {
+    tomSelectComunaRef.current = new TomSelect(comunaRef.current, {
+      placeholder: '-- Selecciona una comuna --',
+      allowEmptyOption: true,
+    });
+    return () => tomSelectComunaRef.current.destroy();
+  }, []);
+
+  useEffect(() => {
+    if (tomSelectComunaRef.current) {
+      tomSelectComunaRef.current.setValue(form.comuna, true);
+    }
+  }, [form.comuna]);
+
+  useEffect(() => {
+    tomSelectNivelRef.current = new TomSelect(nivelRef.current, {
+      allowEmptyOption: false,
+    });
+    return () => tomSelectNivelRef.current.destroy();
+  }, []);
+
+  useEffect(() => {
+    if (tomSelectNivelRef.current) {
+      tomSelectNivelRef.current.setValue(form.nivel, true);
+    }
+  }, [form.nivel]);
+
   return (
     <div style={styles.formContainer}>
       <h2 style={styles.formTitle}>Nuevo Reporte</h2>
@@ -20,20 +56,30 @@ export default function ReporteForm({ form, centroMapa, onChange, onUbicacion, o
 
           <div>
             <label style={styles.label}>Nivel de Riesgo *</label>
-            <select name="nivel" value={form.nivel} onChange={onChange} style={styles.input}>
+            <select
+              ref={nivelRef}
+              name="nivel"
+              defaultValue={form.nivel}
+              onChange={onChange}
+              style={styles.input}
+              placeholder="Selecciona el nivel de riesgo"
+            >
               <option value="BAJO">Bajo</option>
               <option value="MEDIO">Medio</option>
               <option value="ALTO">Alto</option>
               <option value="CRITICO">Crítico</option>
             </select>
           </div>
+
           <div className="mb-3">
             <label className="form-label fw-semibold">Comuna</label>
             <select
+              ref={comunaRef}
               name="comuna"
-              value={form.comuna}
+              defaultValue={form.comuna}
               onChange={onChange}
               className="form-select"
+              placeholder="-- Selecciona una comuna --"
             >
               <option value="">-- Selecciona una comuna --</option>
               <option value="San Joaquín">San Joaquín</option>
