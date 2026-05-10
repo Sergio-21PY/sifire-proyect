@@ -106,3 +106,49 @@ Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_
 Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
 Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
 Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+[MonitoreoService] Foco sincronizado ? reporteId=11 | estado=PENDIENTE | nivel=MEDIO
+2026-05-09T17:01:25.002-04:00  WARN 60620 --- [ms-monitoreo] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h53m3s577ms582µs600ns).
+2026-05-09T18:02:04.431-04:00  WARN 60620 --- [ms-monitoreo] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m9s332ms469µs100ns).
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select zr1_0.id,zr1_0.activo,zr1_0.coordenadas,zr1_0.nivel_riesgo,zr1_0.nombre from zona_riesgo zr1_0 where zr1_0.activo
+Hibernate: select re1_0.id,re1_0.activo,re1_0.descripcion,re1_0.nombre,re1_0.trazado from ruta_evacuacion re1_0 where re1_0.activo
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+Hibernate: select b1_0.id,b1_0.estado,b1_0.latitud,b1_0.longitud,b1_0.nombre,b1_0.tipo from brigada b1_0
+2026-05-09T18:44:39.311-04:00  WARN 60620 --- [ms-monitoreo] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m4s497ms538µs500ns).
+2026-05-09T19:43:25.167-04:00  WARN 60620 --- [ms-monitoreo] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53m45s789ms530µs900ns).
+2026-05-09T19:43:35.220-04:00  INFO 60620 --- [ms-monitoreo] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-09T19:43:35.228-04:00  INFO 60620 --- [ms-monitoreo] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-09T19:43:35.405-04:00  INFO 60620 --- [ms-monitoreo] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:22 h
+[INFO] Finished at: 2026-05-09T19:43:35-04:00
+[INFO] ------------------------------------------------------------------------

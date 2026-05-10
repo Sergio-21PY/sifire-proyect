@@ -114,3 +114,30 @@ Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones ua
 Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
 Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
 Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+2026-05-09T17:01:25.285-04:00  WARN 61368 --- [ms-alertas] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h53m3s577ms440µs700ns).
+2026-05-09T18:02:04.701-04:00  WARN 61368 --- [ms-alertas] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m9s331ms106µs700ns).
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select a1_0.id,a1_0.brigadista_id,a1_0.canal,a1_0.created_at,a1_0.descripcion,a1_0.estado,a1_0.latitud,a1_0.longitud,a1_0.mensaje,a1_0.reporte_id,a1_0.resolved_at,a1_0.tipo,a1_0.titulo from alerta a1_0
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+Hibernate: select uai1_0.alerta_id,uai1_0.usuario_id from alerta_asignaciones uai1_0 where uai1_0.alerta_id=?
+2026-05-09T18:44:39.531-04:00  WARN 61368 --- [ms-alertas] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m4s504ms369µs400ns).
+2026-05-09T19:43:25.403-04:00  WARN 61368 --- [ms-alertas] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53m45s786ms198µs800ns).
+2026-05-09T19:43:35.267-04:00  INFO 61368 --- [ms-alertas] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-09T19:43:35.277-04:00  INFO 61368 --- [ms-alertas] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-09T19:43:35.679-04:00  INFO 61368 --- [ms-alertas] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:22 h
+[INFO] Finished at: 2026-05-09T19:43:35-04:00
+[INFO] ------------------------------------------------------------------------

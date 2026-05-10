@@ -234,3 +234,474 @@ Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1
 Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
 Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
 Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+2026-05-09T14:46:25.483-04:00 ERROR 60604 --- [ms-reportes] [nio-8082-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null
+	at cl.sifire.reportes.factory.ReporteFactorySelector.seleccionar(ReporteFactorySelector.java:26) ~[classes/:na]
+	at cl.sifire.reportes.service.ReporteService.crearReporte(ReporteService.java:86) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:392) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720) ~[spring-aop-6.1.6.jar:6.1.6]
+	at cl.sifire.reportes.service.ReporteService$$SpringCGLIB$$0.crearReporte(<generated>) ~[classes/:na]
+	at cl.sifire.reportes.controller.ReporteController.crearReporte(ReporteController.java:46) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-05-09T14:46:38.526-04:00 ERROR 60604 --- [ms-reportes] [nio-8082-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null
+	at cl.sifire.reportes.factory.ReporteFactorySelector.seleccionar(ReporteFactorySelector.java:26) ~[classes/:na]
+	at cl.sifire.reportes.service.ReporteService.crearReporte(ReporteService.java:86) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:392) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720) ~[spring-aop-6.1.6.jar:6.1.6]
+	at cl.sifire.reportes.service.ReporteService$$SpringCGLIB$$0.crearReporte(<generated>) ~[classes/:na]
+	at cl.sifire.reportes.controller.ReporteController.crearReporte(ReporteController.java:46) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-05-09T14:47:09.769-04:00 ERROR 60604 --- [ms-reportes] [nio-8082-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null
+	at cl.sifire.reportes.factory.ReporteFactorySelector.seleccionar(ReporteFactorySelector.java:26) ~[classes/:na]
+	at cl.sifire.reportes.service.ReporteService.crearReporte(ReporteService.java:86) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:392) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720) ~[spring-aop-6.1.6.jar:6.1.6]
+	at cl.sifire.reportes.service.ReporteService$$SpringCGLIB$$0.crearReporte(<generated>) ~[classes/:na]
+	at cl.sifire.reportes.controller.ReporteController.crearReporte(ReporteController.java:46) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-05-09T14:47:14.818-04:00 ERROR 60604 --- [ms-reportes] [nio-8082-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "cl.sifire.reportes.model.ReporteIncendio$TipoReportante.ordinal()" because "tipo" is null
+	at cl.sifire.reportes.factory.ReporteFactorySelector.seleccionar(ReporteFactorySelector.java:26) ~[classes/:na]
+	at cl.sifire.reportes.service.ReporteService.crearReporte(ReporteService.java:86) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:392) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720) ~[spring-aop-6.1.6.jar:6.1.6]
+	at cl.sifire.reportes.service.ReporteService$$SpringCGLIB$$0.crearReporte(<generated>) ~[classes/:na]
+	at cl.sifire.reportes.controller.ReporteController.crearReporte(ReporteController.java:46) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+Hibernate: insert into reporte_incendio (comuna,descripcion,estado,fecha_actualizacion,fecha_creacion,latitud,longitud,nivel_riesgo,tipo_reportante,titulo,usuario_id) values (?,?,?,?,?,?,?,?,?,?,?)
+2026-05-09T14:48:39.332-04:00  INFO 60604 --- [ms-reportes] [nio-8082-exec-8] c.s.reportes.service.ReporteService      : [ReporteService] Reporte ID=11 guardado correctamente.
+2026-05-09T14:48:39.342-04:00  INFO 60604 --- [ms-reportes] [nio-8082-exec-8] c.s.reportes.observer.MonitoreoObserver  : [MonitoreoObserver] Notificando foco ID=11 | Evento=CREADO | Estado=PENDIENTE
+2026-05-09T14:48:39.433-04:00  INFO 60604 --- [ms-reportes] [pool-2-thread-1] c.s.reportes.observer.MonitoreoObserver  : [MonitoreoObserver] Foco sincronizado con ms-monitoreo.
+2026-05-09T17:01:24.882-04:00  WARN 60604 --- [ms-reportes] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h53m3s581ms422µs).
+2026-05-09T18:02:04.305-04:00  WARN 60604 --- [ms-reportes] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m9s344ms602µs399ns).
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+2026-05-09T18:44:39.161-04:00  WARN 60604 --- [ms-reportes] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m4s501ms479µs500ns).
+2026-05-09T19:43:25.010-04:00  WARN 60604 --- [ms-reportes] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53m45s791ms78µs400ns).
+2026-05-09T19:43:35.202-04:00  INFO 60604 --- [ms-reportes] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-09T19:43:35.211-04:00  INFO 60604 --- [ms-reportes] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-09T19:43:35.305-04:00  INFO 60604 --- [ms-reportes] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:22 h
+[INFO] Finished at: 2026-05-09T19:43:35-04:00
+[INFO] ------------------------------------------------------------------------

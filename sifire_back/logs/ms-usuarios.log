@@ -73,3 +73,20 @@
 2026-05-09T14:22:25.666-04:00  INFO 60720 --- [ms-usuarios] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2026-05-09T14:22:25.666-04:00  INFO 60720 --- [ms-usuarios] [nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
 Hibernate: select u1_0.id,u1_0.activo,u1_0.email,u1_0.nombre,u1_0.password,u1_0.telefono,u1_0.tipo,u1_0.username from usuario u1_0 where u1_0.email=?
+Hibernate: select u1_0.id,u1_0.activo,u1_0.email,u1_0.nombre,u1_0.password,u1_0.telefono,u1_0.tipo,u1_0.username from usuario u1_0 where u1_0.email=?
+Hibernate: select u1_0.id,u1_0.activo,u1_0.email,u1_0.nombre,u1_0.password,u1_0.telefono,u1_0.tipo,u1_0.username from usuario u1_0 where u1_0.email=?
+Hibernate: select u1_0.id,u1_0.activo,u1_0.email,u1_0.nombre,u1_0.password,u1_0.telefono,u1_0.tipo,u1_0.username from usuario u1_0 where u1_0.tipo=?
+Hibernate: select u1_0.id,u1_0.activo,u1_0.email,u1_0.nombre,u1_0.password,u1_0.telefono,u1_0.tipo,u1_0.username from usuario u1_0 where u1_0.tipo=?
+2026-05-09T17:01:24.507-04:00  WARN 60720 --- [ms-usuarios] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h53m3s582ms468µs).
+2026-05-09T18:02:03.941-04:00  WARN 60720 --- [ms-usuarios] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m9s342ms929µs300ns).
+2026-05-09T18:44:38.780-04:00  WARN 60720 --- [ms-usuarios] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m4s504ms27µs700ns).
+2026-05-09T19:43:24.640-04:00  WARN 60720 --- [ms-usuarios] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53m45s799ms200µs400ns).
+2026-05-09T19:43:35.177-04:00  INFO 60720 --- [ms-usuarios] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-09T19:43:35.180-04:00  INFO 60720 --- [ms-usuarios] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-09T19:43:39.973-04:00  INFO 60720 --- [ms-usuarios] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:22 h
+[INFO] Finished at: 2026-05-09T19:43:40-04:00
+[INFO] ------------------------------------------------------------------------
