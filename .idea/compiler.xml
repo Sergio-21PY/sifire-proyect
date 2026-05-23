@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -12,7 +13,6 @@
     <bytecodeTargetLevel>
       <module name="ms-monitoreo" target="21" />
       <module name="ms-reportes" target="21" />
-      <module name="ms-usuario" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
