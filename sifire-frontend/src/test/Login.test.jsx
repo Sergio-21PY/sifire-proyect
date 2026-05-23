@@ -1,96 +1,170 @@
-// render  -> función que monta el componente en un DOM simulado (jsdom)
-// screen  -> objeto que representa lo que el "usuario ve" en pantalla,
-//           expone métodos para buscar elementos: getByRole, getByText, etc.
-import { render, screen } from '@testing-library/react'
-
-// userEvent -> simula interacciones reales del usuario (tipear, hacer click, etc.)
-// Es más fiel al comportamiento real que fireEvent (dispara eventos completos)
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-
-// describe -> agrupa tests relacionados bajo un mismo nombre
-// it       -> define un test individual (alias de "test")
-// expect   -> hace una aserción: "espero que esto sea verdad"
-import { describe, it, expect } from 'vitest'
-// MemoryRouter -> versión de React Router que no usa el navegador real,
-// simula la navegación en memoria. Necesario porque Login usa <Link> o useNavigate()
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
-// El contexto de autenticación que envuelve la app en producción.
-// Login llama useAuth() internamente, así que necesita este provider presente
 import { AuthProvider } from '../context/AuthContext'
-// El componente que vamos a testear
 import Login from '../pages/Login'
 
-// Función auxiliar reutilizable en todos los tests de este archivo.
-// Evita repetir los 3 wrappers (AuthProvider + MemoryRouter) en cada test.
-// Simula el árbol de componentes que Login tendría en producción real.
-function renderLogin() {
+vi.mock('../services/usuario.service', () => ({
+  login: vi.fn(),
+  registrarUsuario: vi.fn(),
+  listarUsuarios: vi.fn(),
+}))
+import { login as loginMock } from '../services/usuario.service'
+
+// MemoryRouter SIEMPRE afuera — Login usa useNavigate() y useLocation()
+function renderLogin(state = {}) {
   return render(
-    <AuthProvider>       {/* provee el contexto de autenticación */}
-      <MemoryRouter>     {/* provee el contexto de routing sin navegador */}
-        <Login />        {/* el componente bajo prueba */}
-      </MemoryRouter>
-    </AuthProvider>
+    <MemoryRouter initialEntries={[{ pathname: '/login', state }]}>
+      <AuthProvider>
+        <Login />
+      </AuthProvider>
+    </MemoryRouter>
   )
 }
 
-// Parte de Testeo XD
+describe('Login — renderizado inicial', () => {
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 
-// describe() agrupa los tests del componente Login.
-// El string es el nombre que aparece en el reporte cuando corres "npm run test"
-describe('Login component', () => {
-
-  // ── TEST 1 
-  // Verifica que el formulario tenga todos sus elementos esenciales al cargar
-  it('muestra el formulario de login', () => {
-    renderLogin() // monta el componente
-    // getByRole busca por rol ARIA semántico — la forma más accesible de buscar
-    // { name: /SIFIRE/i } → el texto del elemento debe coincidir (sin importar mayúsculas)
+  it('muestra el titulo SIFIRE', () => {
+    renderLogin()
     expect(screen.getByRole('heading', { name: /SIFIRE/i })).toBeInTheDocument()
-    // getByLabelText busca el <input> asociado a un <label> con ese texto
-    // Es la mejor forma de buscar inputs: verifica que el label esté correctamente vinculado
-    expect(screen.getByLabelText(/correo electrónico/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/contraseña/i)).toBeInTheDocument()
-    // Busca el botón por su texto visible
-    expect(screen.getByRole('button', { name: /ingresar/i })).toBeInTheDocument()
-    // toBeInTheDocument() → matcher de jest-dom, confirma que el elemento existe en el DOM
   })
 
+  it('muestra el campo correo electronico', () => {
+    renderLogin()
+    expect(screen.getByLabelText(/correo electrónico/i)).toBeInTheDocument()
+  })
 
-  // ── TEST 2
-  // Verifica que el link de registro esté presente y sea clickeable
+  it('muestra el campo contraseña', () => {
+    renderLogin()
+    expect(screen.getByLabelText(/contraseña/i)).toBeInTheDocument()
+  })
+
+  it('muestra el boton Ingresar', () => {
+    renderLogin()
+    expect(screen.getByRole('button', { name: /ingresar/i })).toBeInTheDocument()
+  })
+
   it('muestra el link de registro', () => {
     renderLogin()
-    // getByRole('link') busca etiquetas <a>
-    // { name: /regístrate/i } → el texto visible del enlace
     expect(screen.getByRole('link', { name: /regístrate/i })).toBeInTheDocument()
   })
 
-
-  // ── TEST 3 
-  // Verifica que el campo email responde correctamente al tipeo del usuario
-  it('permite escribir en el campo email', async () => {
-    // async porque userEvent.type() es una promesa (simula tecla por tecla)
+  it('muestra el link de terminos y condiciones', () => {
     renderLogin()
-    // Obtiene referencia al input de email
-    const emailInput = screen.getByLabelText(/correo electrónico/i)
-    // userEvent.type() simula que el usuario escribe caracter por caracter
-    // Más realista que .value = '...' porque dispara keydown, keypress, keyup, change
-    await userEvent.type(emailInput, 'mati@sifire.cl')
-    // toHaveValue() → matcher de jest-dom, verifica el valor actual del input
-    expect(emailInput).toHaveValue('mati@sifire.cl')
+    expect(screen.getByRole('link', { name: /términos y condiciones/i })).toBeInTheDocument()
   })
 
-
-  // ── TEST 4
-  // Verifica que el campo contraseña responde correctamente al tipeo del usuario
-  it('permite escribir en el campo contraseña', async () => {
-    renderLogin()
-    const passInput = screen.getByLabelText(/contraseña/i)
-    await userEvent.type(passInput, 'mi_password')
-    // Aunque el input sea type="password" (muestra ●●●), el valor interno sigue siendo texto
-    expect(passInput).toHaveValue('mi_password')
+  it('muestra aviso de cuenta creada si viene desde registro', () => {
+    renderLogin({ registrado: true })
+    expect(screen.getByText(/cuenta creada/i)).toBeInTheDocument()
   })
-
 })
 
-// hola si ven esto :D
+describe('Login — tipeo en campos', () => {
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
+
+  it('permite escribir en el campo email', async () => {
+    renderLogin()
+    const input = screen.getByLabelText(/correo electrónico/i)
+    await userEvent.type(input, 'mati@sifire.cl')
+    expect(input).toHaveValue('mati@sifire.cl')
+  })
+
+  it('permite escribir en el campo contraseña', async () => {
+    renderLogin()
+    const input = screen.getByLabelText(/contraseña/i)
+    await userEvent.type(input, 'mi_password')
+    expect(input).toHaveValue('mi_password')
+  })
+})
+
+describe('Login — validaciones del formulario', () => {
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
+
+  it('muestra error si el email es invalido', async () => {
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'no-es-email')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    expect(screen.getByText(/ingresa un correo válido/i)).toBeInTheDocument()
+  })
+
+  it('muestra error si la contraseña esta vacia', async () => {
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'mati@sifire.cl')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    expect(screen.getByText(/la contraseña es requerida/i)).toBeInTheDocument()
+  })
+
+  it('no llama al servicio si hay errores de validacion', async () => {
+    renderLogin()
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    expect(loginMock).not.toHaveBeenCalled()
+  })
+})
+
+describe('Login — estado de carga', () => {
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
+
+  it('muestra texto de carga mientras espera respuesta', async () => {
+    loginMock.mockImplementation(() => new Promise(() => {}))
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'mati@sifire.cl')
+    await userEvent.type(screen.getByLabelText(/contraseña/i), 'pass1234')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    expect(screen.getByText(/ingresando/i)).toBeInTheDocument()
+  })
+
+  it('el boton queda deshabilitado durante el loading', async () => {
+    loginMock.mockImplementation(() => new Promise(() => {}))
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'mati@sifire.cl')
+    await userEvent.type(screen.getByLabelText(/contraseña/i), 'pass1234')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    expect(screen.getByRole('button', { name: /ingresando/i })).toBeDisabled()
+  })
+})
+
+describe('Login — resultado del servicio', () => {
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
+
+  it('llama al servicio con email y password correctos', async () => {
+    loginMock.mockResolvedValue({ tipo: 'FUNCIONARIO', nombre: 'Mati' })
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'mati@sifire.cl')
+    await userEvent.type(screen.getByLabelText(/contraseña/i), 'pass1234')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    await waitFor(() => expect(loginMock).toHaveBeenCalledWith({ email: 'mati@sifire.cl', password: 'pass1234' }))
+  })
+
+  it('guarda el usuario en localStorage tras login exitoso', async () => {
+    loginMock.mockResolvedValue({ tipo: 'FUNCIONARIO', nombre: 'Mati' })
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'mati@sifire.cl')
+    await userEvent.type(screen.getByLabelText(/contraseña/i), 'pass1234')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    await waitFor(() => {
+      const stored = JSON.parse(localStorage.getItem('sifire_user'))
+      expect(stored?.tipo).toBe('FUNCIONARIO')
+    })
+  })
+
+  it('muestra error cuando las credenciales son incorrectas', async () => {
+    loginMock.mockRejectedValue(new Error('Credenciales incorrectas.'))
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'malo@sifire.cl')
+    await userEvent.type(screen.getByLabelText(/contraseña/i), 'wrongpass')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    await waitFor(() => expect(screen.getByText(/credenciales incorrectas/i)).toBeInTheDocument())
+  })
+
+  it('muestra error generico si el error no tiene message', async () => {
+    loginMock.mockRejectedValue({})
+    renderLogin()
+    await userEvent.type(screen.getByLabelText(/correo electrónico/i), 'mati@sifire.cl')
+    await userEvent.type(screen.getByLabelText(/contraseña/i), 'pass1234')
+    await userEvent.click(screen.getByRole('button', { name: /ingresar/i }))
+    await waitFor(() => expect(screen.getByText(/error al iniciar sesión/i)).toBeInTheDocument())
+  })
+})
