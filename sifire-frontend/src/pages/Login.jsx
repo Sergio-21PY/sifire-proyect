@@ -121,6 +121,9 @@ export default function Login() {
           ¿No tienes cuenta?{' '}
           <Link to="/registro" style={s.link}>Regístrate</Link>
         </p>
+        <p style={s.footer}>
+          <Link to="/terminos" style={s.link}>Términos y Condiciones</Link>
+        </p>
 
       </div>
     </div>

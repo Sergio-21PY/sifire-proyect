@@ -11,5 +11,10 @@ export default defineConfig({
       '/api/monitoreo': { target: 'http://localhost:8083', changeOrigin: true },
       '/api/alertas':   { target: 'http://localhost:8084', changeOrigin: true },
     }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
   }
 })

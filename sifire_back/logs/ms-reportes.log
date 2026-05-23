@@ -1,0 +1,478 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for cl.sifire:reportes:jar:0.0.1-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.boot:spring-boot-starter-test:jar -> duplicate declaration of version (?) @ line 73, column 13
+[WARNING] 'parent.relativePath' of POM cl.sifire:reportes:0.0.1-SNAPSHOT (C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-reportes\pom.xml) points at cl.duoc.ser.sotoc:sifire-back-parent instead of org.springframework.boot:spring-boot-starter-parent, please verify your project structure @ line 5, column 13
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/jooq/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/io/github/git-commit-id/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/flywaydb/maven-metadata.xml
+Progress (1): 249 BProgress (2): 249 B | 398 BProgress (3): 249 B | 398 B | 234 BProgress (4): 249 B | 398 B | 234 B | 255 B                                           Downloaded from central: https://repo.maven.apache.org/maven2/org/jooq/maven-metadata.xml (398 B at 295 B/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/io/github/git-commit-id/maven-metadata.xml (255 B at 189 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/liquibase/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/maven-metadata.xml
+Downloaded from central: https://repo.maven.apache.org/maven2/org/flywaydb/maven-metadata.xml (234 B at 172 B/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/springframework/boot/maven-metadata.xml (249 B at 183 B/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+Downloading from central: https://repo.maven.apache.org/maven2/org/graalvm/buildtools/maven-metadata.xml
+Progress (1): 375 BProgress (2): 375 B | 4.6 kBProgress (2): 375 B | 9.7 kB                            Downloaded from central: https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/maven-metadata.xml (375 B at 4.3 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml
+Progress (1): 14 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml (14 kB at 149 kB/s)
+Progress (1): 3.1 kBProgress (1): 7.7 kBProgress (1): 12 kB Progress (1): 17 kBProgress (1): 20 kBProgress (1): 21 kBProgress (2): 21 kB | 242 BProgress (3): 21 kB | 242 B | 394 B                                   Downloaded from central: https://repo.maven.apache.org/maven2/org/graalvm/buildtools/maven-metadata.xml (242 B at 906 B/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/liquibase/maven-metadata.xml (394 B at 1.4 kB/s)
+Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 99 kB/s)
+[INFO] 
+[INFO] -------------------------< cl.sifire:reportes >-------------------------
+[INFO] Building ms-reportes 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ reportes >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ reportes ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ reportes ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ reportes ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ reportes ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ reportes <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ reportes ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-05-23T08:12:51.665-04:00  INFO 108876 --- [ms-reportes] [           main] cl.sifire.reportes.ReportesApplication   : Starting ReportesApplication using Java 21.0.10 with PID 108876 (C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-reportes\target\classes started by MatiDroid in C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-reportes)
+2026-05-23T08:12:51.670-04:00  INFO 108876 --- [ms-reportes] [           main] cl.sifire.reportes.ReportesApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-05-23T08:12:53.394-04:00  INFO 108876 --- [ms-reportes] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-23T08:12:53.737-04:00  INFO 108876 --- [ms-reportes] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 328 ms. Found 3 JPA repository interfaces.
+2026-05-23T08:12:54.358-04:00  INFO 108876 --- [ms-reportes] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=dca7f9e5-242e-3e14-88a4-e4248d148945
+2026-05-23T08:12:54.940-04:00  WARN 108876 --- [ms-reportes] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-05-23T08:12:54.944-04:00  WARN 108876 --- [ms-reportes] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-05-23T08:12:55.731-04:00  INFO 108876 --- [ms-reportes] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-05-23T08:12:55.759-04:00  INFO 108876 --- [ms-reportes] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-23T08:12:55.759-04:00  INFO 108876 --- [ms-reportes] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-23T08:12:56.029-04:00  INFO 108876 --- [ms-reportes] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-23T08:12:56.030-04:00  INFO 108876 --- [ms-reportes] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4263 ms
+2026-05-23T08:12:56.349-04:00  INFO 108876 --- [ms-reportes] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-23T08:12:56.688-04:00  INFO 108876 --- [ms-reportes] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@43a7203e
+2026-05-23T08:12:56.692-04:00  INFO 108876 --- [ms-reportes] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-23T08:12:56.852-04:00  INFO 108876 --- [ms-reportes] [           main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.22.3 by Redgate
+2026-05-23T08:12:56.852-04:00  INFO 108876 --- [ms-reportes] [           main] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2026-05-23T08:12:56.852-04:00  INFO 108876 --- [ms-reportes] [           main] o.f.c.internal.license.VersionPrinter    : 
+2026-05-23T08:12:56.975-04:00  INFO 108876 --- [ms-reportes] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/sifire_reportes (MySQL 5.5)
+2026-05-23T08:12:57.087-04:00  INFO 108876 --- [ms-reportes] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.058s)
+2026-05-23T08:12:57.110-04:00  INFO 108876 --- [ms-reportes] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `sifire_reportes`: 1
+2026-05-23T08:12:57.116-04:00  INFO 108876 --- [ms-reportes] [           main] o.f.core.internal.command.DbMigrate      : Schema `sifire_reportes` is up to date. No migration necessary.
+2026-05-23T08:12:57.325-04:00  INFO 108876 --- [ms-reportes] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-23T08:12:57.451-04:00  INFO 108876 --- [ms-reportes] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-23T08:12:57.519-04:00  INFO 108876 --- [ms-reportes] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-23T08:12:58.004-04:00  INFO 108876 --- [ms-reportes] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-23T08:12:58.100-04:00  WARN 108876 --- [ms-reportes] [           main] org.hibernate.dialect.Dialect            : HHH000511: The 5.5.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2026-05-23T08:12:58.109-04:00  WARN 108876 --- [ms-reportes] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-23T08:12:59.927-04:00  INFO 108876 --- [ms-reportes] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-23T08:13:00.071-04:00  INFO 108876 --- [ms-reportes] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-23T08:13:01.834-04:00  WARN 108876 --- [ms-reportes] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-23T08:13:03.861-04:00  INFO 108876 --- [ms-reportes] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2026-05-23T08:13:04.021-04:00  WARN 108876 --- [ms-reportes] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-05-23T08:13:04.090-04:00  INFO 108876 --- [ms-reportes] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path ''
+2026-05-23T08:13:04.117-04:00  INFO 108876 --- [ms-reportes] [           main] cl.sifire.reportes.ReportesApplication   : Started ReportesApplication in 13.304 seconds (process running for 14.057)
+2026-05-23T08:13:51.824-04:00  INFO 108876 --- [ms-reportes] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-23T08:13:51.825-04:00  INFO 108876 --- [ms-reportes] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-23T08:13:51.827-04:00  INFO 108876 --- [ms-reportes] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: insert into reporte_incendio (comuna,descripcion,estado,fecha_actualizacion,fecha_creacion,latitud,longitud,nivel_riesgo,tipo_reportante,titulo,usuario_id) values (?,?,?,?,?,?,?,?,?,?,?)
+2026-05-23T08:57:02.532-04:00  INFO 108876 --- [ms-reportes] [nio-8082-exec-9] c.s.reportes.service.ReporteService      : [ReporteService] Reporte ID=2 guardado correctamente.
+2026-05-23T08:57:02.561-04:00  INFO 108876 --- [ms-reportes] [nio-8082-exec-9] c.s.reportes.observer.MonitoreoObserver  : [MonitoreoObserver] Notificando foco ID=2 | Evento=CREADO | Estado=PENDIENTE
+2026-05-23T08:57:02.753-04:00  INFO 108876 --- [ms-reportes] [pool-2-thread-1] c.s.reportes.observer.MonitoreoObserver  : [MonitoreoObserver] Foco sincronizado con ms-monitoreo.
+2026-05-23T08:57:02.758-04:00  INFO 108876 --- [ms-reportes] [nio-8082-exec-9] c.s.reportes.service.ReporteService      : [ReporteService] Observers notificados para creación ID=2
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id,m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_incendio ri1_0 left join reporte_multimedia m1_0 on ri1_0.id=m1_0.reporte_id where ri1_0.id=?
+2026-05-23T08:57:02.861-04:00  INFO 108876 --- [ms-reportes] [io-8082-exec-10] c.s.reportes.service.ReporteService      : [ReporteService] Foto guardada en: C:\Users\MatiDroid\Desktop\sifire\sifire-proyect\sifire_back\ms-reportes\uploads\1779541022858_Frieren+by+the+Campfire+with+Fireflies.png
+Hibernate: insert into reporte_multimedia (fecha_subida,reporte_id,tipo_archivo,url_archivo) values (?,?,?,?)
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+2026-05-23T09:30:17.506-04:00  WARN 108876 --- [ms-reportes] [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m49s779ms284µs).
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select ri1_0.id,ri1_0.comuna,ri1_0.descripcion,ri1_0.estado,ri1_0.fecha_actualizacion,ri1_0.fecha_creacion,ri1_0.latitud,ri1_0.longitud,ri1_0.nivel_riesgo,ri1_0.tipo_reportante,ri1_0.titulo,ri1_0.usuario_id from reporte_incendio ri1_0
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
+Hibernate: select m1_0.reporte_id,m1_0.id,m1_0.fecha_subida,m1_0.tipo_archivo,m1_0.url_archivo from reporte_multimedia m1_0 where m1_0.reporte_id=?
