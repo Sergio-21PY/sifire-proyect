@@ -14,6 +14,7 @@ import Footer from './components/FooterComponent';
 import NavbarComponent from './components/NavbarComponent';
 import RutaProtegida from './components/RutaProtegida';
 import './components/FooterComponent.css';
+import Terminos from './pages/Terminos_Condiciones'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/no-autorizado" element={<NoAutorizado />} />
+          <Route path="/terminos" element={<Terminos />} />
 
           {/* Todos los roles autenticados */}
           <Route path="/reportes" element={

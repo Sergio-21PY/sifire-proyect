@@ -1,4 +1,6 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
+import * as s from '../styles/Login.styles';
+
 
 function Footer() {
   const { pathname } = useLocation()
@@ -16,8 +18,11 @@ function Footer() {
         </div>
 
         <p className="sifire-footer__copy">
-          © {year} SIFIRE · Chile. Todos los derechos reservados 🔥.
-        </p>
+          © {year} SIFIRE · Chile. Todos los derechos reservados 🔥. 
+        </p> 
+        <p style={s.footer}>
+                  <Link to="/terminos" style={s.link}>Términos y Condiciones</Link>
+                </p>
 
       </div>
     </footer>
