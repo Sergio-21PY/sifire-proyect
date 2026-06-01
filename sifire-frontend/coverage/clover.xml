@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1780262217374" clover="3.2.0">
+  <project timestamp="1780262217376" name="All files">
+    <metrics statements="276" coveredstatements="260" conditionals="209" coveredconditionals="155" methods="66" coveredmethods="54" elements="551" coveredelements="469" complexity="0" loc="276" ncloc="276" packages="6" files="12" classes="12"/>
+    <package name="components">
+      <metrics statements="6" coveredstatements="6" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+      <file name="RutaProtegida.jsx" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\components\RutaProtegida.jsx">
+        <metrics statements="6" coveredstatements="6" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="8" count="8" type="stmt"/>
+        <line num="10" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="context">
+      <metrics statements="18" coveredstatements="16" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="3"/>
+      <file name="AuthContext.jsx" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\context\AuthContext.jsx">
+        <metrics statements="18" coveredstatements="16" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="3"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="7" count="62" type="stmt"/>
+        <line num="11" count="62" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="31" count="62" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="36" count="62" type="stmt"/>
+        <line num="38" count="62" type="stmt"/>
+        <line num="46" count="283" type="stmt"/>
+        <line num="47" count="283" type="cond" truecount="1" falsecount="1"/>
+        <line num="48" count="283" type="stmt"/>
+      </file>
+    </package>
+    <package name="hooks">
+      <metrics statements="45" coveredstatements="45" conditionals="22" coveredconditionals="21" methods="15" coveredmethods="14"/>
+      <file name="useGestionBrigadistas.js" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\hooks\useGestionBrigadistas.js">
+        <metrics statements="45" coveredstatements="45" conditionals="22" coveredconditionals="21" methods="15" coveredmethods="14"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="70" type="stmt"/>
+        <line num="8" count="70" type="stmt"/>
+        <line num="9" count="70" type="stmt"/>
+        <line num="10" count="70" type="stmt"/>
+        <line num="11" count="70" type="stmt"/>
+        <line num="12" count="70" type="stmt"/>
+        <line num="13" count="70" type="stmt"/>
+        <line num="15" count="70" type="stmt"/>
+        <line num="16" count="20" type="stmt"/>
+        <line num="17" count="20" type="stmt"/>
+        <line num="18" count="20" type="stmt"/>
+        <line num="19" count="50" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="19" type="stmt"/>
+        <line num="26" count="20" type="stmt"/>
+        <line num="29" count="70" type="stmt"/>
+        <line num="30" count="12" type="stmt"/>
+        <line num="31" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="12" type="cond" truecount="4" falsecount="0"/>
+        <line num="34" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="12" type="stmt"/>
+        <line num="38" count="70" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="70" type="stmt"/>
+        <line num="45" count="12" type="stmt"/>
+        <line num="46" count="12" type="stmt"/>
+        <line num="47" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="7" type="stmt"/>
+        <line num="49" count="7" type="stmt"/>
+        <line num="50" count="7" type="stmt"/>
+        <line num="59" count="5" type="stmt"/>
+        <line num="63" count="5" type="stmt"/>
+        <line num="64" count="5" type="stmt"/>
+        <line num="65" count="5" type="stmt"/>
+        <line num="66" count="5" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="69" count="2" type="stmt"/>
+        <line num="71" count="7" type="stmt"/>
+        <line num="75" count="70" type="stmt"/>
+        <line num="76" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="78" count="70" type="stmt"/>
+      </file>
+    </package>
+    <package name="pages">
+      <metrics statements="115" coveredstatements="101" conditionals="129" coveredconditionals="94" methods="35" coveredmethods="26"/>
+      <file name="Login.jsx" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\pages\Login.jsx">
+        <metrics statements="33" coveredstatements="33" conditionals="30" coveredconditionals="27" methods="7" coveredmethods="6"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="14" count="216" type="stmt"/>
+        <line num="27" count="216" type="stmt"/>
+        <line num="28" count="216" type="stmt"/>
+        <line num="29" count="216" type="stmt"/>
+        <line num="31" count="216" type="stmt"/>
+        <line num="32" count="216" type="stmt"/>
+        <line num="33" count="216" type="stmt"/>
+        <line num="34" count="216" type="stmt"/>
+        <line num="36" count="216" type="stmt"/>
+        <line num="38" count="216" type="stmt"/>
+        <line num="39" count="9" type="stmt"/>
+        <line num="40" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="9" type="stmt"/>
+        <line num="45" count="216" type="stmt"/>
+        <line num="46" count="183" type="stmt"/>
+        <line num="47" count="183" type="stmt"/>
+        <line num="48" count="183" type="cond" truecount="1" falsecount="1"/>
+        <line num="49" count="183" type="cond" truecount="1" falsecount="1"/>
+        <line num="52" count="216" type="stmt"/>
+        <line num="53" count="9" type="stmt"/>
+        <line num="54" count="9" type="stmt"/>
+        <line num="55" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="6" type="stmt"/>
+        <line num="57" count="6" type="stmt"/>
+        <line num="58" count="6" type="stmt"/>
+        <line num="59" count="6" type="stmt"/>
+        <line num="60" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="61" count="9" type="stmt"/>
+        <line num="63" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="4" type="stmt"/>
+        <line num="69" count="216" type="stmt"/>
+      </file>
+      <file name="Monitoreo.jsx" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\pages\Monitoreo.jsx">
+        <metrics statements="48" coveredstatements="35" conditionals="59" coveredconditionals="32" methods="19" coveredmethods="13"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="29" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="34" count="59" type="stmt"/>
+        <line num="35" count="59" type="stmt"/>
+        <line num="36" count="59" type="stmt"/>
+        <line num="37" count="59" type="stmt"/>
+        <line num="38" count="59" type="stmt"/>
+        <line num="39" count="59" type="stmt"/>
+        <line num="40" count="59" type="stmt"/>
+        <line num="42" count="59" type="stmt"/>
+        <line num="43" count="59" type="stmt"/>
+        <line num="45" count="59" type="stmt"/>
+        <line num="46" count="18" type="stmt"/>
+        <line num="47" count="18" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="53" count="59" type="stmt"/>
+        <line num="54" count="18" type="stmt"/>
+        <line num="55" count="18" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="61" count="28" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="18" type="stmt"/>
+        <line num="63" count="18" type="stmt"/>
+        <line num="64" count="18" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="70" count="59" type="stmt"/>
+        <line num="71" count="18" type="stmt"/>
+        <line num="72" count="18" type="stmt"/>
+        <line num="73" count="18" type="stmt"/>
+        <line num="76" count="59" type="stmt"/>
+        <line num="83" count="59" type="stmt"/>
+        <line num="92" count="236" type="stmt"/>
+        <line num="122" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="123" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="124" count="0" type="stmt"/>
+        <line num="132" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="133" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="134" count="0" type="stmt"/>
+        <line num="142" count="42" type="stmt"/>
+        <line num="151" count="4" type="stmt"/>
+        <line num="157" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="171" count="0" type="stmt"/>
+        <line num="180" count="1" type="stmt"/>
+        <line num="191" count="1" type="stmt"/>
+      </file>
+      <file name="NoAutorizado.jsx" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\pages\NoAutorizado.jsx">
+        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+      </file>
+      <file name="Registro.jsx" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\pages\Registro.jsx">
+        <metrics statements="31" coveredstatements="31" conditionals="40" coveredconditionals="35" methods="7" coveredmethods="6"/>
+        <line num="7" count="261" type="stmt"/>
+        <line num="9" count="261" type="stmt"/>
+        <line num="12" count="261" type="stmt"/>
+        <line num="13" count="261" type="stmt"/>
+        <line num="14" count="261" type="stmt"/>
+        <line num="16" count="261" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+        <line num="18" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="8" type="cond" truecount="2" falsecount="2"/>
+        <line num="21" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="8" type="stmt"/>
+        <line num="26" count="261" type="stmt"/>
+        <line num="27" count="233" type="stmt"/>
+        <line num="28" count="233" type="stmt"/>
+        <line num="29" count="233" type="cond" truecount="1" falsecount="1"/>
+        <line num="30" count="233" type="cond" truecount="1" falsecount="1"/>
+        <line num="33" count="261" type="stmt"/>
+        <line num="34" count="8" type="stmt"/>
+        <line num="35" count="8" type="stmt"/>
+        <line num="36" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="56" count="1305" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="261" type="stmt"/>
+      </file>
+    </package>
+    <package name="services">
+      <metrics statements="21" coveredstatements="21" conditionals="14" coveredconditionals="13" methods="5" coveredmethods="5"/>
+      <file name="usuario.service.js" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\services\usuario.service.js">
+        <metrics statements="21" coveredstatements="21" conditionals="14" coveredconditionals="13" methods="5" coveredmethods="5"/>
+        <line num="2" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="16" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="26" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="33" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+      </file>
+    </package>
+    <package name="styles">
+      <metrics statements="71" coveredstatements="71" conditionals="34" coveredconditionals="18" methods="6" coveredmethods="5"/>
+      <file name="Login.styles.js" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\styles\Login.styles.js">
+        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+      </file>
+      <file name="Monitoreo.styles.js" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\styles\Monitoreo.styles.js">
+        <metrics statements="33" coveredstatements="33" conditionals="34" coveredconditionals="18" methods="6" coveredmethods="5"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="42" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="16" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="19" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="42" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="236" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="80" count="42" type="cond" truecount="2" falsecount="0"/>
+        <line num="81" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="82" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="85" count="42" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="93" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="94" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="95" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="98" count="4" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="106" count="4" type="stmt"/>
+        <line num="112" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="113" count="4" type="stmt"/>
+      </file>
+      <file name="Registro.styles.js" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\styles\Registro.styles.js">
+        <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+      </file>
+      <file name="theme.js" path="C:\Users\IK\Desktop\sifire-proyect\sifire-frontend\src\styles\theme.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

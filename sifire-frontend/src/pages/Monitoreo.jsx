@@ -11,6 +11,16 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import * as styles from '../styles/Monitoreo.styles';
 
+const PULSE_CSS = `
+@keyframes foco-pulso {
+  0%   { stroke-opacity: 0.85; stroke-width: 2; }
+  50%  { stroke-opacity: 0.25; stroke-width: 6; }
+  100% { stroke-opacity: 0.85; stroke-width: 2; }
+}
+.foco-activo { animation: foco-pulso 2.2s ease-in-out infinite; }
+.foco-resuelto { opacity: 0.7; }
+`;
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({ iconRetinaUrl, iconUrl, shadowUrl });
 
@@ -22,11 +32,11 @@ const parseCoords = (valor) => {
 
 export default function MapaIncendios() {
     const { usuario } = useAuth();
-    const [centro, setCentro]                           = useState([-33.4944, -70.6170]);
-    const [reportes, setReportes]                       = useState([]);
-    const [brigadas, setBrigadas]                       = useState([]);
-    const [zonas, setZonas]                             = useState([]);
-    const [rutas, setRutas]                             = useState([]);
+    const [centro, setCentro] = useState([-33.4944, -70.6170]);
+    const [reportes, setReportes] = useState([]);
+    const [brigadas, setBrigadas] = useState([]);
+    const [zonas, setZonas] = useState([]);
+    const [rutas, setRutas] = useState([]);
     const [reporteSeleccionado, setReporteSeleccionado] = useState(null);
 
     const esFuncionario = usuario?.tipo === 'FUNCIONARIO';
@@ -72,6 +82,7 @@ export default function MapaIncendios() {
 
     return (
         <div style={styles.mainContainer}>
+            <style>{PULSE_CSS}</style>
 
             <div style={styles.leyendaContainer}>
                 <p style={styles.leyendaTitle}>
@@ -85,6 +96,7 @@ export default function MapaIncendios() {
                 ))}
                 {(esFuncionario || esBrigadista) && (
                     <div style={styles.leyendaItem}>
+                        <span style={{ fontSize: '16px' }}>🚒</span>
                         <span style={styles.leyendaLabel}>Brigada activa</span>
                     </div>
                 )}
@@ -132,10 +144,10 @@ export default function MapaIncendios() {
                             center={[reporte.latitud, reporte.longitud]}
                             radius={300}
                             pathOptions={styles.focoCirclePathOptions(reporte.nivelRiesgo || reporte.nivel, reporte.estado)}
-
                         />
                         <Marker
                             position={[reporte.latitud, reporte.longitud]}
+                            icon={styles.iconoFoco(reporte.nivelRiesgo || reporte.nivel, reporte.estado)}
                             eventHandlers={{ click: () => setReporteSeleccionado(reporte) }}
                         />
                     </React.Fragment>
@@ -155,32 +167,79 @@ export default function MapaIncendios() {
             </MapContainer>
 
             {reporteSeleccionado && (
-                <div style={{
-                    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-                    backgroundColor: 'rgba(0,0,0,0.65)', zIndex: 9999,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center'
-                }}>
-                    <div style={{
-                        background: '#1e1e2e', color: '#fff', borderRadius: '14px',
-                        padding: '32px', minWidth: '340px', maxWidth: '480px',
-                        position: 'relative', boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
-                    }}>
-                        <button onClick={() => setReporteSeleccionado(null)} style={{
-                            position: 'absolute', top: '12px', right: '16px',
-                            background: 'none', border: 'none', color: '#fff',
-                            fontSize: '20px', cursor: 'pointer'
-                        }}>✕</button>
-                        <h2 style={{ marginBottom: '16px', fontSize: '1.2rem' }}>
-                             {reporteSeleccionado.titulo}
-                        </h2>
-                        <p><strong>Descripción:</strong> {reporteSeleccionado.descripcion}</p>
-                        <p><strong>Nivel de riesgo:</strong> {reporteSeleccionado.nivelRiesgo}</p>
-                        <p><strong>Estado:</strong> {reporteSeleccionado.estado}</p>
-                        <p><strong>Coordenadas:</strong> {reporteSeleccionado.latitud}, {reporteSeleccionado.longitud}</p>
-                        <p><strong>Fecha:</strong> {reporteSeleccionado.fechaCreacion
-                            ? new Date(reporteSeleccionado.fechaCreacion).toLocaleString('es-CL')
-                            : 'Sin fecha'}
-                        </p>
+                <div
+                    onClick={() => setReporteSeleccionado(null)}
+                    style={{
+                        position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                        backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)',
+                        WebkitBackdropFilter: 'blur(4px)', zIndex: 9999,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}
+                >
+                    <div
+                        onClick={e => e.stopPropagation()}
+                        style={{
+                            background: 'linear-gradient(145deg,#0f172a,#1e293b)',
+                            color: '#f1f5f9', borderRadius: '18px',
+                            padding: '28px 32px', minWidth: '340px', maxWidth: '480px', width: '90%',
+                            position: 'relative',
+                            boxShadow: '0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07)',
+                            border: '1px solid rgba(255,255,255,0.08)',
+                        }}
+                    >
+                        <button
+                            onClick={() => setReporteSeleccionado(null)}
+                            style={{
+                                position: 'absolute', top: '14px', right: '16px',
+                                background: 'rgba(255,255,255,0.07)', border: 'none',
+                                color: '#94a3b8', fontSize: '16px', cursor: 'pointer',
+                                width: '28px', height: '28px', borderRadius: '50%',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            }}
+                        >✕</button>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                            <span style={{ fontSize: '26px' }}>
+                                {(reporteSeleccionado.estado === 'RESUELTO' || reporteSeleccionado.estado === 'DESCARTADO') ? '✅' : '🔥'}
+                            </span>
+                            <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#f8fafc', lineHeight: 1.3 }}>
+                                {reporteSeleccionado.titulo}
+                            </h2>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+                            <span style={styles.badgeNivel(reporteSeleccionado.nivelRiesgo || reporteSeleccionado.nivel, reporteSeleccionado.estado)}>
+                                {reporteSeleccionado.nivelRiesgo || reporteSeleccionado.nivel || 'Sin nivel'}
+                            </span>
+                            <span style={styles.badgeEstado(reporteSeleccionado.estado)}>
+                                {reporteSeleccionado.estado || 'Desconocido'}
+                            </span>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.88rem' }}>
+                            {reporteSeleccionado.descripcion && (
+                                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px 14px' }}>
+                                    <span style={{ color: '#64748b', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Descripción</span>
+                                    <p style={{ margin: '4px 0 0', color: '#cbd5e1' }}>{reporteSeleccionado.descripcion}</p>
+                                </div>
+                            )}
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px 14px' }}>
+                                    <span style={{ color: '#64748b', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Coordenadas</span>
+                                    <p style={{ margin: '4px 0 0', color: '#cbd5e1', fontSize: '0.82rem' }}>
+                                        {Number(reporteSeleccionado.latitud).toFixed(5)}, {Number(reporteSeleccionado.longitud).toFixed(5)}
+                                    </p>
+                                </div>
+                                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '10px 14px' }}>
+                                    <span style={{ color: '#64748b', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Fecha</span>
+                                    <p style={{ margin: '4px 0 0', color: '#cbd5e1', fontSize: '0.82rem' }}>
+                                        {reporteSeleccionado.fechaCreacion
+                                            ? new Date(reporteSeleccionado.fechaCreacion).toLocaleString('es-CL')
+                                            : 'Sin fecha'}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}

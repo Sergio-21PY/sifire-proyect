@@ -1,0 +1,1 @@
+ALTER TABLE alerta ADD COLUMN brigadista_id BIGINT NULL;

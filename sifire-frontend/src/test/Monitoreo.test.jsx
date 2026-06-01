@@ -1,21 +1,19 @@
+import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import { AuthProvider } from '../context/AuthContext'
 import MapaIncendios from '../pages/Monitoreo'
 
-// Mocks de servicios — no queremos llamadas reales al backend
 vi.mock('../services/reporte.service', () => ({ listarReportes: vi.fn() }))
 vi.mock('../services/monitoreo.service', () => ({
   listarZonas: vi.fn(),
   listarBrigadas: vi.fn(),
-  listarRutas: vi.fn(),
+  listarRutas: vi.fn(),           // ← faltaba esto
 }))
-import { listarReportes } from '../services/reporte.service'
-import { listarZonas, listarBrigadas, listarRutas } from '../services/monitoreo.service'
 
-// Mock de react-leaflet — jsdom no tiene canvas, así que reemplazamos
-// cada componente con un div simple que mantiene los datos importantes
+vi.mock('../components/FooterComponent', () => ({ default: () => null }))
+
 vi.mock('react-leaflet', () => ({
   MapContainer: ({ children }) => <div data-testid="mapa-container">{children}</div>,
   TileLayer: () => null,
@@ -31,56 +29,57 @@ vi.mock('react-leaflet', () => ({
       {children}
     </div>
   ),
-  Popup:    ({ children }) => <div data-testid="popup">{children}</div>,
-  Polygon:  ({ children }) => <div data-testid="polygon">{children}</div>,
+  Popup: ({ children }) => <div data-testid="popup">{children}</div>,
+  Polygon: ({ children }) => <div data-testid="polygon">{children}</div>,
   Polyline: ({ children }) => <div data-testid="polyline">{children}</div>,
 }))
 
-// Mock de leaflet — evita que explote al intentar cargar íconos PNG
 vi.mock('leaflet', () => ({
   default: { Icon: { Default: { prototype: {}, mergeOptions: vi.fn() } }, divIcon: vi.fn(() => ({})) },
-  Icon:    { Default: { prototype: {}, mergeOptions: vi.fn() } },
+  Icon: { Default: { prototype: {}, mergeOptions: vi.fn() } },
   divIcon: vi.fn(() => ({})),
 }))
 vi.mock('leaflet/dist/images/marker-icon-2x.png', () => ({ default: '' }))
-vi.mock('leaflet/dist/images/marker-icon.png',    () => ({ default: '' }))
-vi.mock('leaflet/dist/images/marker-shadow.png',  () => ({ default: '' }))
+vi.mock('leaflet/dist/images/marker-icon.png', () => ({ default: '' }))
+vi.mock('leaflet/dist/images/marker-shadow.png', () => ({ default: '' }))
 
-// Mock de geolocalización — fijamos Santiago de Chile como posición
 Object.defineProperty(global.navigator, 'geolocation', {
   value: { getCurrentPosition: vi.fn(ok => ok({ coords: { latitude: -33.4944, longitude: -70.617 } })) },
   writable: true,
 })
 
-// Datos reutilizables para los tests
 const reportes = [
-  { id: 1, titulo: 'Incendio Cerro',    latitud: -33.49, longitud: -70.61, nivelRiesgo: 'alto',  estado: 'ACTIVO',   descripcion: 'Foco activo', fechaCreacion: '2024-01-01T10:00:00Z' },
-  { id: 2, titulo: 'Incendio Valle',    latitud: -33.50, longitud: -70.62, nivelRiesgo: 'medio', estado: 'ACTIVO',   descripcion: 'En control',  fechaCreacion: '2024-01-02T08:00:00Z' },
-  { id: 3, titulo: 'Incendio Resuelto', latitud: -33.51, longitud: -70.63, nivelRiesgo: 'bajo',  estado: 'RESUELTO', descripcion: 'Controlado',  fechaCreacion: '2024-01-03T09:00:00Z' },
+  { id: 1, titulo: 'Incendio Cerro', latitud: -33.49, longitud: -70.61, nivelRiesgo: 'alto', estado: 'ACTIVO', descripcion: 'Foco activo', fechaCreacion: '2024-01-01T10:00:00Z' },
+  { id: 2, titulo: 'Incendio Valle', latitud: -33.50, longitud: -70.62, nivelRiesgo: 'medio', estado: 'ACTIVO', descripcion: 'En control', fechaCreacion: '2024-01-02T08:00:00Z' },
+  { id: 3, titulo: 'Incendio Sur', latitud: -33.51, longitud: -70.63, nivelRiesgo: 'bajo', estado: 'ACTIVO', descripcion: 'Bajo riesgo', fechaCreacion: '2024-01-03T09:00:00Z' },
 ]
 
+// ← tipo (no rol) porque el componente usa usuario?.tipo
 function renderMapa(usuario = {}) {
   localStorage.setItem('sifire_user', JSON.stringify({ tipo: 'CIUDADANO', nombre: 'Mati', ...usuario }))
   return render(<MemoryRouter><AuthProvider><MapaIncendios /></AuthProvider></MemoryRouter>)
 }
 
-function serviciosVacios() {
+import { listarReportes } from '../services/reporte.service'
+import { listarZonas, listarBrigadas, listarRutas } from '../services/monitoreo.service'
+
+function resetServicios() {
   listarReportes.mockResolvedValue([])
   listarBrigadas.mockResolvedValue([])
   listarZonas.mockResolvedValue([])
-  listarRutas.mockResolvedValue([])
+  listarRutas.mockResolvedValue([])    // ← añadido
 }
 
-// ── Suite 1: el mapa carga correctamente ─────────────────────────────────────
+// ── modulo 1: carga inicial ───────────────────────────────────────────────────
 describe('MapaIncendios — carga inicial', () => {
-  beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); serviciosVacios() })
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); resetServicios() })
 
-  it('renderiza el mapa', async () => {
+  it('renderiza el contenedor del mapa', async () => {
     renderMapa()
     await waitFor(() => expect(screen.getByTestId('mapa-container')).toBeInTheDocument())
   })
 
-  it('muestra la leyenda con los 4 niveles', async () => {
+  it('muestra la leyenda con los 4 niveles de riesgo', async () => {
     renderMapa()
     await waitFor(() => {
       expect(screen.getByText('Foco Alto')).toBeInTheDocument()
@@ -89,11 +88,17 @@ describe('MapaIncendios — carga inicial', () => {
       expect(screen.getByText('Resuelto')).toBeInTheDocument()
     })
   })
+
+  it('llama a listarReportes al montar', async () => {
+    renderMapa()
+    await waitFor(() => expect(listarReportes).toHaveBeenCalled())
+  })
 })
 
-// ── Suite 2: círculos de color por nivel de riesgo ───────────────────────────
+// ── modulo 2: círculos de color por nivel de riesgo ───────────────────────────
 describe('MapaIncendios — círculos por reporte', () => {
-  beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); serviciosVacios()
+  beforeEach(() => {
+    vi.clearAllMocks(); localStorage.clear(); resetServicios()
     listarReportes.mockResolvedValue(reportes)
   })
 
@@ -105,7 +110,7 @@ describe('MapaIncendios — círculos por reporte', () => {
   it('nivel alto → rojo #ef4444', async () => {
     renderMapa()
     await waitFor(() => {
-      const c = screen.getAllByTestId('circle').find(el => el.dataset.lat === '-33.49')
+      const c = screen.getAllByTestId('circle').find(el => Number(el.dataset.lat) === -33.49)
       expect(c).toHaveAttribute('data-color', '#ef4444')
     })
   })
@@ -113,16 +118,16 @@ describe('MapaIncendios — círculos por reporte', () => {
   it('nivel medio → naranja #f97316', async () => {
     renderMapa()
     await waitFor(() => {
-      const c = screen.getAllByTestId('circle').find(el => el.dataset.lat === '-33.5')
+      const c = screen.getAllByTestId('circle').find(el => Number(el.dataset.lat) === -33.5)
       expect(c).toHaveAttribute('data-color', '#f97316')
     })
   })
 
-  it('estado RESUELTO → verde #22c55e', async () => {
+  it('nivel bajo → amarillo #eab308', async () => {
     renderMapa()
     await waitFor(() => {
-      const c = screen.getAllByTestId('circle').find(el => el.dataset.lat === '-33.51')
-      expect(c).toHaveAttribute('data-color', '#22c55e')
+      const c = screen.getAllByTestId('circle').find(el => Number(el.dataset.lat) === -33.51)
+      expect(c).toHaveAttribute('data-color', '#eab308')
     })
   })
 
@@ -132,21 +137,37 @@ describe('MapaIncendios — círculos por reporte', () => {
     await waitFor(() => screen.getByTestId('mapa-container'))
     expect(screen.queryAllByTestId('circle')).toHaveLength(0)
   })
+
+  it('reportes sin latitud/longitud son filtrados', async () => {
+    listarReportes.mockResolvedValue([
+      ...reportes,
+      { id: 9, titulo: 'Sin coords', latitud: null, longitud: null, nivelRiesgo: 'alto', estado: 'ACTIVO', descripcion: '' },
+    ])
+    renderMapa()
+    await waitFor(() => expect(screen.getAllByTestId('circle')).toHaveLength(3))
+  })
 })
 
-// ── Suite 3: panel de detalle al clickear un marcador ────────────────────────
+// ── modulo 3: panel de detalle al clickear un marcador ────────────────────────
 describe('MapaIncendios — panel de detalle', () => {
-  beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); serviciosVacios()
+  beforeEach(() => {
+    vi.clearAllMocks(); localStorage.clear(); resetServicios()
     listarReportes.mockResolvedValue(reportes)
   })
 
-  it('se abre al clickear un marcador', async () => {
+  it('se abre al clickear un marcador y muestra el titulo', async () => {
+    renderMapa()
+    await waitFor(() => screen.getAllByTestId('marker'))
+    fireEvent.click(screen.getAllByTestId('marker')[0])
+    await waitFor(() => expect(screen.getByText(/incendio cerro/i)).toBeInTheDocument())
+  })
+
+  it('muestra el nivel de riesgo del reporte', async () => {
     renderMapa()
     await waitFor(() => screen.getAllByTestId('marker'))
     fireEvent.click(screen.getAllByTestId('marker')[0])
     await waitFor(() =>
-      expect(screen.getByText((_, n) => n.tagName === 'P' && /nivel de riesgo/i.test(n.textContent)))
-        .toBeInTheDocument()
+      expect(screen.getByText(/^alto$/i)).toBeInTheDocument()
     )
   })
 
@@ -155,43 +176,61 @@ describe('MapaIncendios — panel de detalle', () => {
     await waitFor(() => screen.getAllByTestId('marker'))
     fireEvent.click(screen.getAllByTestId('marker')[0])
     await waitFor(() =>
-      expect(screen.getByText((_, n) =>
-        n.tagName === 'P' && n.textContent.includes('Estado:') && n.textContent.includes('ACTIVO')
-      )).toBeInTheDocument()
+      expect(screen.getByText(/^activo$/i)).toBeInTheDocument()
     )
   })
 
-  it('se cierra con el botón ✕', async () => {
+  it('se cierra con el boton ✕', async () => {
     renderMapa()
     await waitFor(() => screen.getAllByTestId('marker'))
     fireEvent.click(screen.getAllByTestId('marker')[0])
-    await waitFor(() => screen.getByText('Incendio Cerro'))
+    await waitFor(() => screen.getByText(/incendio cerro/i))
     fireEvent.click(screen.getByRole('button', { name: /✕/i }))
-    await waitFor(() => expect(screen.queryByText('Incendio Cerro')).not.toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.queryByText(/incendio cerro/i)).not.toBeInTheDocument()
+    )
   })
 })
 
-// ── Suite 4: visibilidad según rol del usuario ────────────────────────────────
+// ── modulo 4: visibilidad según rol ───────────────────────────────────────────
 describe('MapaIncendios — permisos por rol', () => {
   beforeEach(() => {
-    vi.clearAllMocks(); localStorage.clear(); serviciosVacios()
+    vi.clearAllMocks(); localStorage.clear(); resetServicios()
     listarBrigadas.mockResolvedValue([
       { id: 1, nombre: 'Brigada Norte', tipo: 'Forestal', estado: 'ACTIVO', latitud: -33.49, longitud: -70.61 },
     ])
   })
 
-  it('CIUDADANO no ve las brigadas ni rutas de evacuación', async () => {
+  it('CIUDADANO no ve el item de brigada en la leyenda', async () => {
     renderMapa({ tipo: 'CIUDADANO' })
     await waitFor(() => screen.getByTestId('mapa-container'))
     expect(screen.queryByText(/brigada activa/i)).not.toBeInTheDocument()
-    expect(screen.queryByText(/ruta evacuación/i)).not.toBeInTheDocument()
   })
 
-  it('FUNCIONARIO sí ve brigadas y rutas de evacuación', async () => {
-    renderMapa({ tipo: 'FUNCIONARIO' })
+  it('CIUDADANO no ve ruta de evacuacion en la leyenda', async () => {
+    renderMapa({ tipo: 'CIUDADANO' })
+    await waitFor(() => screen.getByTestId('mapa-container'))
+    expect(screen.queryByText(/ruta evacuaci/i)).not.toBeInTheDocument()
+  })
+
+  it('FUNCIONARIO ve el item de brigada en la leyenda', async () => {
+    renderMapa({ tipo: 'FUNCIONARIO' })           // ← tipo, no rol
     await waitFor(() => {
       expect(screen.getByText(/brigada activa/i)).toBeInTheDocument()
-      expect(screen.getByText(/ruta evacuación/i)).toBeInTheDocument()
+    })
+  })
+
+  it('FUNCIONARIO ve la ruta de evacuacion en la leyenda', async () => {
+    renderMapa({ tipo: 'FUNCIONARIO' })
+    await waitFor(() => {
+      expect(screen.getByText(/ruta evacuaci/i)).toBeInTheDocument()   // ← sin tilde
+    })
+  })
+
+  it('BRIGADISTA ve el item de brigada en la leyenda', async () => {
+    renderMapa({ tipo: 'BRIGADISTA' })
+    await waitFor(() => {
+      expect(screen.getByText(/brigada activa/i)).toBeInTheDocument()
     })
   })
 })

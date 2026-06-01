@@ -1,0 +1,2 @@
+ALTER TABLE alerta
+ADD COLUMN resolved_at DATETIME NULL;
