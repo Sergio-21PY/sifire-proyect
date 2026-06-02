@@ -2,17 +2,17 @@ import React from 'react'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
-import { AuthProvider } from '../context/AuthContext'
-import MapaIncendios from '../pages/Monitoreo'
+import { AuthProvider } from '../../context/AuthContext'
+import MapaIncendios from '../../pages/Monitoreo'
 
-vi.mock('../services/reporte.service', () => ({ listarReportes: vi.fn() }))
-vi.mock('../services/monitoreo.service', () => ({
+vi.mock('../../services/reporte.service', () => ({ listarReportes: vi.fn() }))
+vi.mock('../../services/monitoreo.service', () => ({
   listarZonas: vi.fn(),
   listarBrigadas: vi.fn(),
   listarRutas: vi.fn(),           // ← faltaba esto
 }))
 
-vi.mock('../components/FooterComponent', () => ({ default: () => null }))
+vi.mock('../../components/FooterComponent', () => ({ default: () => null }))
 
 vi.mock('react-leaflet', () => ({
   MapContainer: ({ children }) => <div data-testid="mapa-container">{children}</div>,
@@ -60,8 +60,8 @@ function renderMapa(usuario = {}) {
   return render(<MemoryRouter><AuthProvider><MapaIncendios /></AuthProvider></MemoryRouter>)
 }
 
-import { listarReportes } from '../services/reporte.service'
-import { listarZonas, listarBrigadas, listarRutas } from '../services/monitoreo.service'
+import { listarReportes } from '../../services/reporte.service'
+import { listarZonas, listarBrigadas, listarRutas } from '../../services/monitoreo.service'
 
 function resetServicios() {
   listarReportes.mockResolvedValue([])

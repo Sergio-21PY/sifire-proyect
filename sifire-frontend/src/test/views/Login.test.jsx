@@ -2,15 +2,15 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
-import { AuthProvider } from '../context/AuthContext'
-import Login from '../pages/Login'
+import { AuthProvider } from '../../context/AuthContext'
+import Login from '../../pages/Login'
 
-vi.mock('../services/usuario.service', () => ({
+vi.mock('../../services/usuario.service', () => ({
   login: vi.fn(),
   registrarUsuario: vi.fn(),
   listarUsuarios: vi.fn(),
 }))
-import { login as loginMock } from '../services/usuario.service'
+import { login as loginMock } from '../../services/usuario.service'
 
 // MemoryRouter SIEMPRE afuera — Login usa useNavigate() y useLocation()
 function renderLogin(state = {}) {

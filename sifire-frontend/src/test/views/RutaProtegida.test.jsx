@@ -2,8 +2,8 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
-import { AuthProvider } from '../context/AuthContext'
-import RutaProtegida from '../components/RutaProtegida'
+import { AuthProvider } from '../../context/AuthContext'
+import RutaProtegida from '../../components/RutaProtegida'
 
 const Contenido      = () => <div data-testid="contenido-protegido">Acceso concedido</div>
 const PaginaLogin    = () => <div data-testid="pagina-login">Login</div>
