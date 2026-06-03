@@ -7,14 +7,18 @@ import {
   crearAsignacion,
 } from '../../services/monitoreo.service'
 
+// aqui van los test del monitoreo
 global.fetch = vi.fn()
-
+// datos de ejemplo para las pruebas
 const zonasMock     = [{ id: 1, nombre: 'Zona Norte', nivelRiesgo: 'ALTO' }]
 const brigadasMock  = [{ id: 1, nombre: 'Brigada Alpha', estado: 'DISPONIBLE' }]
 const rutasMock     = [{ id: 1, nombre: 'Ruta 1', coordenadas: '[]' }]
 const asignMock     = [{ id: 1, reporteId: 10, brigadaId: 1 }]
 
-// ── listarZonas ───────────────────────────────────────────────────────────────
+// ── listarZonas
+// aqui se prueba la función listarZonas, que es responsable de obtener la lista de zonas de riesgo desde el servidor.
+// se verifica que retorna las zonas correctamente cuando la respuesta es exitosa, que llama a fetch con la URL correcta,
+// y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
 describe('monitoreo.service — listarZonas', () => {
   beforeEach(() => vi.clearAllMocks())
 
@@ -41,7 +45,10 @@ describe('monitoreo.service — listarZonas', () => {
   })
 })
 
-// ── listarBrigadas ────────────────────────────────────────────────────────────
+// ── listarBrigadas
+// aqui se prueba la función listarBrigadas, que es responsable de obtener la lista de brigadas desde el servidor.
+// se verifica que retorna las brigadas correctamente cuando la respuesta es exitosa, que llama a fetch con la URL correcta,
+// y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
 describe('monitoreo.service — listarBrigadas', () => {
   beforeEach(() => vi.clearAllMocks())
 
@@ -63,7 +70,11 @@ describe('monitoreo.service — listarBrigadas', () => {
   })
 })
 
-// ── listarRutas ───────────────────────────────────────────────────────────────
+// ── listarRutas
+// aqui se prueba la función listarRutas, que es responsable de obtener la lista de rutas desde el servidor.
+// se verifica que retorna las rutas correctamente cuando la respuesta es exitosa, que llama a fetch con la URL correcta,
+// y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
+// en este caso, se espera que si la respuesta no es ok o si hay un error de red, la función retorne un array vacío en lugar de lanzar un error.
 describe('monitoreo.service — listarRutas', () => {
   beforeEach(() => vi.clearAllMocks())
 
@@ -92,7 +103,11 @@ describe('monitoreo.service — listarRutas', () => {
   })
 })
 
-// ── listarAsignaciones ────────────────────────────────────────────────────────
+// ── listarAsignaciones
+// aqui se prueba la función listarAsignaciones, que es responsable de obtener la lista de asignaciones de brigadas a reportes desde el servidor.
+// se verifica que retorna las asignaciones correctamente cuando la respuesta es exitosa, que llama a fetch con la URL correcta,
+// y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
+
 describe('monitoreo.service — listarAsignaciones', () => {
   beforeEach(() => vi.clearAllMocks())
 

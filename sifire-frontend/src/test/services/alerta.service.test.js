@@ -8,6 +8,12 @@ const alertasMock = [
   { id: 2, titulo: 'Alerta Sur',       estado: 'PENDIENTE', canal: 'SMS' },
 ]
 
+// esta suite de pruebas se centra en el servicio de alertas, específicamente en las funciones listarAlertas y crearAlerta.
+// se verifica que listarAlertas retorna la lista de alertas correctamente cuando la respuesta es exitosa,
+// que llama a fetch con la URL correcta, y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
+// para crearAlerta, se verifica que retorna la alerta creada correctamente, que llama a fetch con método POST y los headers adecuados,
+// que envía el body serializado como JSON, y que lanza errores apropiados cuando la respuesta no es exitosa.
+
 describe('alerta.service — listarAlertas', () => {
   beforeEach(() => vi.clearAllMocks())
 
@@ -37,6 +43,9 @@ describe('alerta.service — listarAlertas', () => {
   })
 })
 
+// esta suite de pruebas se centra en la función crearAlerta, que es responsable de enviar una nueva alerta al servidor para su creación.
+// se verifica que retorna la alerta creada correctamente cuando la respuesta es exitosa, que llama a fetch con método POST y los headers adecuados,
+// que envía el body serializado como JSON, y que lanza errores apropiados cuando la respuesta no es exitosa.
 describe('alerta.service — crearAlerta', () => {
   beforeEach(() => vi.clearAllMocks())
 

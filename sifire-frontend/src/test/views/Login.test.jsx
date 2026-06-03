@@ -23,6 +23,9 @@ function renderLogin(state = {}) {
   )
 }
 
+// aqui probamos el componente Login, que es responsable de mostrar el formulario de inicio de sesión, validar los campos, llamar al servicio de login, y manejar los estados de carga y error.
+// se verifica que el componente renderiza los elementos básicos del formulario, que permite escribir en los campos, que muestra errores de validación, que muestra un estado de carga al enviar, y que maneja correctamente la respuesta del servicio de login tanto en casos exitosos como fallidos.
+
 describe('Login — renderizado inicial', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 
@@ -62,6 +65,8 @@ describe('Login — renderizado inicial', () => {
   })
 })
 
+// esta suite de pruebas se centra en verificar que los campos del formulario permiten la entrada de texto correctamente.
+
 describe('Login — tipeo en campos', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 
@@ -80,6 +85,7 @@ describe('Login — tipeo en campos', () => {
   })
 })
 
+// aca se prueba la validación del formulario, verificando que se muestran errores de validación para un email inválido y para una contraseña vacía, y que el servicio de login no se llama si hay errores de validación.
 describe('Login — validaciones del formulario', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 
@@ -104,6 +110,7 @@ describe('Login — validaciones del formulario', () => {
   })
 })
 
+// esta suite de pruebas se centra en el estado de carga del componente, verificando que al enviar el formulario se muestra un texto de "Ingresando..." y que el botón queda deshabilitado mientras se espera la respuesta del servicio de login.
 describe('Login — estado de carga', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 
@@ -126,6 +133,7 @@ describe('Login — estado de carga', () => {
   })
 })
 
+// este resultado de servicio corresponde al proceso de login, verificando que el componente maneja correctamente la respuesta del servicio de login tanto en casos exitosos como fallidos.
 describe('Login — resultado del servicio', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 

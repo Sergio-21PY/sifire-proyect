@@ -19,6 +19,10 @@ beforeEach(() => {
   listarUsuarios.mockResolvedValue(usuariosMock)
 })
 
+// aqui se prueba el hook useGestionBrigadistas, que es responsable de manejar la lógica de gestión de brigadistas en la aplicación.
+// se prueba la carga inicial de brigadistas, la validación del formulario, el manejo de cambios en los campos del formulario, 
+// el envío del formulario para registrar un nuevo brigadista, y el manejo de errores durante el registro. 
+// También se verifica que el estado del formulario y la lista de brigadistas se actualizan correctamente según las acciones realizadas.
 describe('useGestionBrigadistas — carga inicial', () => {
   it('loadingData es true antes de resolver', () => {
     listarUsuarios.mockReturnValue(new Promise(() => {}))
@@ -46,6 +50,11 @@ describe('useGestionBrigadistas — carga inicial', () => {
   })
 })
 
+// acá se prueba la función validate, que es responsable de validar los datos del formulario antes de enviarlos.
+// se verifica que si el nombre está vacío, se muestre un error. 
+// También se prueba que si el email no tiene un formato válido, se muestre un error. 
+// Además, se verifica que si el teléfono tiene un formato incorrecto, se muestre un error. 
+// Por último, se prueba que si la contraseña es menor a 8 caracteres, se muestre un error.
 describe('useGestionBrigadistas — validate()', () => {
   it('rechaza nombre vacio', async () => {
     const { result } = renderHook(() => useGestionBrigadistas())
@@ -97,6 +106,11 @@ describe('useGestionBrigadistas — validate()', () => {
   })
 })
 
+// en esta parte se prueba la función handleChange, que es responsable de actualizar el estado del formulario cuando el usuario escribe en los campos.
+// se verifica que al cambiar el valor de un campo, el estado form se actualiza correctamente. 
+// También se prueba que si hay un error asociado a ese campo, este se limpia al escribir en él. 
+// Por ejemplo, si el campo nombre tiene un error y el usuario comienza a escribir en ese campo, el error debe desaparecer. 
+// Además, se verifica que otros campos del formulario también se actualizan correctamente al usar handleChange.
 describe('useGestionBrigadistas — handleChange()', () => {
   it('actualiza el campo del formulario', async () => {
     const { result } = renderHook(() => useGestionBrigadistas())
@@ -114,6 +128,11 @@ describe('useGestionBrigadistas — handleChange()', () => {
   })
 })
 
+// en esta parte se centra en probar la función handleSubmit, que es responsable de validar el formulario y enviar los datos al servidor.
+// se verifica que si el campo nombre está vacío, se muestre un error y no se intente enviar el formulario.
+// También se prueba que si los datos son válidos, se realiza una llamada fetch con método POST a la URL correcta.
+// Además, se verifica que si el POST es exitoso, la nueva brigada se agrega al estado de brigadas y se muestra un mensaje de éxito.
+// Por último, se prueba que si el POST falla, se muestra un error general en el formulario.
 describe('useGestionBrigadistas — handleSubmit() exitoso', () => {
   it('agrega el nuevo brigadista a la lista', async () => {
     const nuevo = { id: 10, nombre: 'Nuevo', email: 'nuevo@sifire.cl', tipo: 'BRIGADISTA' }
@@ -155,6 +174,11 @@ describe('useGestionBrigadistas — handleSubmit() exitoso', () => {
   })
 })
 
+// en esta parte se prueba la función handleSubmit, que es responsable de validar el formulario y enviar los datos al servidor.
+// se verifica que si el campo nombre está vacío, se muestre un error y no se intente enviar el formulario.
+// También se prueba que si los datos son válidos, se realiza una llamada fetch con método POST a la URL correcta.
+// Además, se verifica que si el POST es exitoso, la nueva brigada se agrega al estado de brigadas y se muestra un mensaje de éxito.
+// Por último, se prueba que si el POST falla, se muestra un error general en el formulario.
 describe('useGestionBrigadistas — handleSubmit() fallido', () => {
   it('muestra error en errors.form si el servicio falla', async () => {
     registrarUsuario.mockRejectedValue(new Error('Email ya existe'))
@@ -174,6 +198,10 @@ describe('useGestionBrigadistas — handleSubmit() fallido', () => {
     expect(result.current.loading).toBe(false)
   })
 })
+
+// en esta parte se centra en probar la función toggleEstado, que es responsable de cambiar el estado de un brigadista entre ACTIVO e INACTIVO.
+// se verifica que al llamar toggleEstado con el id de un brigadista, su estado cambia de ACTIVO a INACTIVO.
+// También se prueba que si se llama toggleEstado nuevamente con el mismo id, el estado vuelve a cambiar de INACTIVO a ACTIVO.
 
 describe('useGestionBrigadistas — toggleEstado()', () => {
   it('cambia ACTIVO a INACTIVO', async () => {

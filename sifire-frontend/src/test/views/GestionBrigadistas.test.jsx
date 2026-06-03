@@ -15,6 +15,7 @@ vi.mock('../../components/reportes/MapaSelector', () => ({ default: () => <div d
 
 import { listarUsuarios, registrarUsuario } from '../../services/usuario.service'
 
+// datos de prueba para brigadistas y brigadas
 const brigadistasMock = [
   { id: 1, nombre: 'Carlos Rojas', email: 'carlos@sifire.cl', telefono: '+56912345678', tipo: 'BRIGADISTA', activo: true },
   { id: 2, nombre: 'Ana López',    email: 'ana@sifire.cl',    telefono: '+56987654321', tipo: 'BRIGADISTA', activo: true },
@@ -28,6 +29,9 @@ function renderGestion() {
   return render(<MemoryRouter><AuthProvider><GestionBrigadistas /></AuthProvider></MemoryRouter>)
 }
 
+// aqui probamos el componente GestionBrigadistas, que es responsable de gestionar los brigadistas y brigadas del sistema, permitiendo crear nuevos brigadistas y visualizar la información de ambos.
+// se verifica que el componente carga los brigadistas y brigadas desde el backend al montar, que muestra la información de cada uno correctamente, y que maneja los errores de carga.
+// también se prueba el formulario de creación de brigadistas, verificando que se muestra al hacer clic en el botón correspondiente, que valida los campos correctamente, y que llama a registrarUsuario con los datos correctos al enviar.
 describe('GestionBrigadistas — renderizado inicial', () => {
   beforeEach(() => {
     vi.clearAllMocks(); localStorage.clear()
@@ -62,6 +66,9 @@ describe('GestionBrigadistas — renderizado inicial', () => {
   })
 })
 
+// esta suite de pruebas se centra en el formulario de creación de brigadistas dentro del componente GestionBrigadistas.
+// se verifica que el formulario está oculto inicialmente, que se muestra al hacer clic en el botón "+ Nuevo Brigadista", que valida los campos de nombre, email y contraseña correctamente,
+// que llama a registrarUsuario con tipo BRIGADISTA y los datos correctos al enviar un formulario válido, y que se cierra al hacer clic en Cancelar.
 describe('GestionBrigadistas — formulario brigadista', () => {
   beforeEach(() => {
     vi.clearAllMocks(); localStorage.clear()
@@ -151,7 +158,9 @@ describe('GestionBrigadistas — formulario brigadista', () => {
     )
   })
 })
-
+// esta suite de pruebas se centra en la función listarBrigadas, que es responsable de obtener la lista de brigadas desde el servidor.
+// se verifica que retorna las brigadas correctamente cuando la respuesta es exitosa, que llama a fetch con la URL correcta,
+// y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
 describe('GestionBrigadistas — tab Brigadas', () => {
   beforeEach(() => {
     vi.clearAllMocks(); localStorage.clear()

@@ -13,7 +13,10 @@ const reportesMock = [
   { id: 2, titulo: 'Incendio Sur',   estado: 'EN_PROCESO', nivelRiesgo: 'MEDIO' },
 ]
 
-// ── listarReportes ────────────────────────────────────────────────────────────
+// ── listarReportes 
+// aqui se prueba la función listarReportes, que es responsable de obtener la lista de reportes desde el servidor.
+// se verifica que retorna los reportes correctamente cuando la respuesta es exitosa, que llama a fetch con la URL correcta,
+// y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
 describe('reporte.service — listarReportes', () => {
   beforeEach(() => vi.clearAllMocks())
 
@@ -41,7 +44,11 @@ describe('reporte.service — listarReportes', () => {
   })
 })
 
-// ── crearReporte ──────────────────────────────────────────────────────────────
+// ── crearReporte 
+// aqui se prueba la función crearReporte, que es responsable de enviar un nuevo reporte al servidor para su creación.
+// se verifica que retorna el reporte creado correctamente cuando la respuesta es exitosa, que llama a fetch con método POST y los headers adecuados,
+// que envía el body serializado como JSON, y que lanza errores apropiados cuando la respuesta no es exitosa.
+
 describe('reporte.service — crearReporte', () => {
   beforeEach(() => vi.clearAllMocks())
 
@@ -89,7 +96,10 @@ describe('reporte.service — crearReporte', () => {
   })
 })
 
-// ── subirFotoReporte ──────────────────────────────────────────────────────────
+// ── subirFotoReporte 
+// para este apartado lo que se prueba es la función subirFotoReporte, que es responsable de subir una foto asociada a un reporte específico.
+// se verifica que retorna la respuesta del servidor correctamente cuando la foto se sube exitosamente, que llama a fetch con método POST y la URL correcta,
+// que envía un FormData como body (sin Content-Type manual, ya que el browser lo setea), y que lanza errores apropiados cuando la respuesta no es exitosa.
 describe('reporte.service — subirFotoReporte', () => {
   beforeEach(() => vi.clearAllMocks())
 
@@ -127,7 +137,11 @@ describe('reporte.service — subirFotoReporte', () => {
   })
 })
 
-// ── cambiarEstadoReporte ──────────────────────────────────────────────────────
+// ── cambiarEstadoReporte
+// aqui se prueba la función cambiarEstadoReporte, que es responsable de cambiar el estado de un reporte específico.
+// se verifica que retorna el reporte actualizado correctamente cuando la respuesta es exitosa, que llama a fetch con método PUT y la URL correcta,
+// que envía el nuevo estado en el body como JSON, y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
+
 describe('reporte.service — cambiarEstadoReporte', () => {
   beforeEach(() => vi.clearAllMocks())
 

@@ -9,7 +9,10 @@ const brigadasMock = [
   { id: 2, nombre: 'Brigada Sur',   tipo: 'URBANA',   estado: 'EN_CAMINO',  latitud: -33.50, longitud: -70.60 },
 ]
 
-// ── Suite 1: carga inicial ────────────────────────────────────────────────────
+// parte 1: carga inicial
+// esta parte consiste en verificar que el hook carga las brigadas correctamente al montarse, maneja los estados de carga y error, 
+// y establece el estado inicial del formulario. Se prueba que fetch se llama con la URL correcta y que el estado de brigadas se actualiza 
+// según la respuesta del servidor. También se verifica que el estado de loadingData se maneja adecuadamente durante la carga inicial.
 describe('useBrigadas — carga inicial', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -56,7 +59,12 @@ describe('useBrigadas — carga inicial', () => {
   })
 })
 
-// ── Suite 2: handleChange ─────────────────────────────────────────────────────
+// parte 2: handleChange
+// esta parte se enfoca en probar la función handleChange, que es responsable de actualizar el estado del formulario 
+// cuando el usuario escribe en los campos. Se verifica que al cambiar el valor de un campo, el estado form se actualiza correctamente. 
+// También se prueba que si hay un error asociado a ese campo, este se limpia al escribir en él.
+//  Por ejemplo, si el campo nombre tiene un error y el usuario comienza a escribir en ese campo, el error debe desaparecer.
+//  Además, se verifica que otros campos del formulario también se actualizan correctamente al usar handleChange.
 describe('useBrigadas — handleChange', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -92,7 +100,12 @@ describe('useBrigadas — handleChange', () => {
   })
 })
 
-// ── Suite 3: validate / handleSubmit ──────────────────────────────────────────
+// Parte 3: validate / handleSubmit
+// esta parte se centra en probar la función handleSubmit, que es responsable de validar el formulario y enviar los datos al servidor.
+// Se verifica que si el campo nombre está vacío, se muestre un error y no se intente enviar el formulario. 
+// También se prueba que si los datos son válidos, se realiza una llamada fetch con método POST a la URL correcta. 
+// Además, se verifica que si el POST es exitoso, la nueva brigada se agrega al estado de brigadas y se muestra un mensaje de éxito. 
+// Por último, se prueba que si el POST falla, se muestra un error general en el formulario.
 describe('useBrigadas — handleSubmit', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -187,7 +200,10 @@ describe('useBrigadas — handleSubmit', () => {
   })
 })
 
-// ── Suite 4: setShowForm / setForm ────────────────────────────────────────────
+// Parte 4: setShowForm / setForm
+// esta parte se centra en probar las funciones setShowForm y setForm, que son responsables de controlar la visibilidad del formulario y el estado del mismo.
+// Se verifica que showForm inicia en false y que al llamar setShowForm(true) cambia a true. 
+// También se prueba que al llamar setForm con el estado inicial del formulario, los campos del form se resetean a sus valores iniciales.
 describe('useBrigadas — estado del form', () => {
   beforeEach(() => {
     vi.clearAllMocks()

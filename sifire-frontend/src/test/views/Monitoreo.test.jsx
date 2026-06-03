@@ -9,7 +9,7 @@ vi.mock('../../services/reporte.service', () => ({ listarReportes: vi.fn() }))
 vi.mock('../../services/monitoreo.service', () => ({
   listarZonas: vi.fn(),
   listarBrigadas: vi.fn(),
-  listarRutas: vi.fn(),           // ← faltaba esto
+  listarRutas: vi.fn(),           //  faltaba esto, por eso antes no funcionaba XDXDXDXDDDDDDDDDDDDDDDDD
 }))
 
 vi.mock('../../components/FooterComponent', () => ({ default: () => null }))
@@ -70,7 +70,8 @@ function resetServicios() {
   listarRutas.mockResolvedValue([])    // ← añadido
 }
 
-// ── modulo 1: carga inicial ───────────────────────────────────────────────────
+// ── modulo 1: carga inicial 
+// aqui se prueba la carga inicial del componente MapaIncendios, verificando que renderiza el contenedor del mapa, que muestra la leyenda con los niveles de riesgo, que llama a listarReportes al montar, y que maneja correctamente la respuesta del servicio de listarReportes.
 describe('MapaIncendios — carga inicial', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); resetServicios() })
 
@@ -95,7 +96,8 @@ describe('MapaIncendios — carga inicial', () => {
   })
 })
 
-// ── modulo 2: círculos de color por nivel de riesgo ───────────────────────────
+// ── modulo 2: círculos de color por nivel de riesgo 
+// aqui se prueba la función listarReportes, que es responsable de obtener la lista de reportes desde el servidor, y que el componente MapaIncendios pinta un círculo con el color correspondiente al nivel de riesgo de cada reporte.
 describe('MapaIncendios — círculos por reporte', () => {
   beforeEach(() => {
     vi.clearAllMocks(); localStorage.clear(); resetServicios()
@@ -148,7 +150,9 @@ describe('MapaIncendios — círculos por reporte', () => {
   })
 })
 
-// ── modulo 3: panel de detalle al clickear un marcador ────────────────────────
+// ── modulo 3: panel de detalle al clickear un marcador 
+// aqui se prueba que al clickear un marcador en el mapa, se abre un panel de detalle que muestra la información del reporte correspondiente, incluyendo el título, nivel de riesgo, estado, y descripción, y que el panel se cierra al hacer clic en el botón de cerrar.
+
 describe('MapaIncendios — panel de detalle', () => {
   beforeEach(() => {
     vi.clearAllMocks(); localStorage.clear(); resetServicios()

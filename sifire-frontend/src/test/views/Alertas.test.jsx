@@ -26,6 +26,10 @@ function renderAlertas(tipoUsuario = 'CIUDADANO') {
   return render(<MemoryRouter><AuthProvider><Alertas /></AuthProvider></MemoryRouter>)
 }
 
+// aqui probamos el componente Alertas, que es responsable de mostrar la lista de alertas a la comunidad, y permitir a los funcionarios emitir nuevas alertas.
+// se verifica que el componente carga las alertas desde el backend al montar, que muestra la información de cada alerta correctamente, y que maneja los errores de carga.
+// también se prueba que el formulario de emisión de alertas solo es visible para usuarios con rol FUNCIONARIO, y que permite emitir una nueva alerta con datos válidos, mostrando mensajes de éxito o error según corresponda.
+// finalmente, se prueban los filtros de estado para mostrar solo las alertas correspondientes a cada estado (PENDIENTE, ENVIADA, CANCELADA).
 describe('Alertas — renderizado inicial', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); axios.get.mockResolvedValue({ data: alertasMock }) })
 
@@ -60,6 +64,8 @@ describe('Alertas — renderizado inicial', () => {
   })
 })
 
+// esta suite de pruebas se centra en verificar los permisos de visualización del formulario de emisión de alertas según el rol del usuario.
+// se verifica que los usuarios con rol CIUDADANO y BRIGADISTA no ven el formulario, que los FUNCIONARIOS sí lo ven, y que los ADMINISTRADORES no lo ven pero sí pueden ver el botón de asignar brigada en alertas procesables.
 describe('Alertas — permisos por rol', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); axios.get.mockResolvedValue({ data: alertasMock }) })
 
@@ -94,6 +100,9 @@ describe('Alertas — permisos por rol', () => {
   })
 })
 
+// esta suite de pruebas se centra en el formulario de emisión de alertas para usuarios con rol FUNCIONARIO.
+// se verifica que el formulario tiene los campos necesarios, que muestra el mapa selector para elegir la ubicación de la alerta, que rellena los campos de latitud y longitud al seleccionar en el mapa,
+// que llama a axios.post al enviar el formulario con datos válidos, y que muestra mensajes de éxito o error según corresponda.
 describe('Alertas — formulario de emisión (FUNCIONARIO)', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); axios.get.mockResolvedValue({ data: [] }); axios.post.mockResolvedValue({ data: { id: 10 } }) })
 
@@ -146,6 +155,12 @@ describe('Alertas — formulario de emisión (FUNCIONARIO)', () => {
   })
 })
 
+
+// esta suite de pruebas se centra en la función listarAlertas, que es responsable de obtener la lista de alertas desde el servidor.
+// se verifica que retorna las alertas correctamente cuando la respuesta es exitosa, que llama a fetch con la URL correcta,
+// y que lanza errores apropiados cuando la respuesta no es exitosa o cuando hay un error de red.
+// para crearAlerta, se verifica que retorna la alerta creada correctamente, que llama a fetch con método POST y los headers adecuados,
+// que envía el body serializado como JSON, y que lanza errores apropiados cuando la respuesta no es exitosa.
 describe('Alertas — filtros de estado', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); axios.get.mockResolvedValue({ data: alertasMock }) })
 

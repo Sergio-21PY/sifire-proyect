@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { AuthProvider, useAuth } from '../../context/AuthContext'
 
-// Mock del servicio de login
+// Mock del servicio de login para controlar su comportamiento en las pruebas
 vi.mock('../../services/usuario.service', () => ({
   login: vi.fn(),
   registrarUsuario: vi.fn(),
@@ -12,6 +12,7 @@ vi.mock('../../services/usuario.service', () => ({
 import { login as loginService } from '../../services/usuario.service'
 
 // Componente auxiliar que expone el contexto en el DOM para poder interrogarlo
+
 function TestConsumer() {
   const { usuario, estaAutenticado, login, logout } = useAuth()
   return (
@@ -32,7 +33,9 @@ function renderAuth() {
   )
 }
 
-// ── Suite 1: estado inicial ───────────────────────────────────────────────────
+// ── Parte1: estado inicial ───────────────────────────────────────────────────────────
+// aqui se prueba el estado inicial del AuthContext, verificando que sin un usuario en localStorage, el estado inicia con usuario null y estaAutenticado false.
+// también se prueba que si hay un usuario válido en localStorage, el contexto lo carga correctamente y estaAutenticado es true.
 describe('AuthContext — estado inicial', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 
@@ -57,7 +60,11 @@ describe('AuthContext — estado inicial', () => {
   })
 })
 
-// ── Suite 2: login ────────────────────────────────────────────────────────────
+// ── Parte 2: login ───────────────────────────────────────────────────────────
+// aquí se prueba la función login del contexto, verificando que llama al servicio de login con las credenciales correctas,
+// que actualiza el estado del contexto con el usuario retornado por el servicio, y que persiste el usuario en localStorage.
+// también se prueba que si el servicio de login falla, el error se relanza para que pueda ser manejado por el componente que llama a login.
+
 describe('AuthContext — login()', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear() })
 
@@ -104,7 +111,9 @@ describe('AuthContext — login()', () => {
   })
 })
 
-// ── Suite 3: logout ───────────────────────────────────────────────────────────
+// ── Parte 3: logout 
+// aquí se prueba la función logout del contexto, verificando que limpia el estado de usuario y estaAutenticado,
+// y que elimina el usuario de localStorage. Se simula un estado autenticado antes de llamar a logout para verificar que el cambio de estado ocurre correctamente.
 describe('AuthContext — logout()', () => {
   beforeEach(() => { vi.clearAllMocks() })
 
@@ -125,7 +134,8 @@ describe('AuthContext — logout()', () => {
   })
 })
 
-// ── Suite 4: useAuth fuera del provider ───────────────────────────────────────
+// ── Parte 4: useAuth fuera del provider
+// aquí se prueba que si se intenta usar el hook useAuth fuera del AuthProvider, se lanza un error con el mensaje esperado.
 describe('AuthContext — useAuth()', () => {
   it('lanza error si se usa fuera de AuthProvider', () => {
     // Silenciar el error de consola esperado
