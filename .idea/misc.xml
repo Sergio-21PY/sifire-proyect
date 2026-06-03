@@ -7,6 +7,9 @@
         <option value="$PROJECT_DIR$/sifire-backend/pom.xml" />
         <option value="$PROJECT_DIR$/sifire_back/ms-alertas/pom.xml" />
         <option value="$PROJECT_DIR$/sifire_back/ms-usuarios/pom.xml" />
+        <option value="$PROJECT_DIR$/sifire_back/ms-monitoreo/pom.xml" />
+        <option value="$PROJECT_DIR$/sifire_back/ms-reportes/pom.xml" />
+        <option value="$PROJECT_DIR$/sifire_back/pom.xml" />
       </list>
     </option>
   </component>
