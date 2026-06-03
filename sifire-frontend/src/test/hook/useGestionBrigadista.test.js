@@ -1,12 +1,12 @@
 import { renderHook, act, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { useGestionBrigadistas } from '../hooks/useGestionBrigadistas'
+import { useGestionBrigadistas } from '../../hooks/useGestionBrigadistas'
 
-vi.mock('../services/usuario.service', () => ({
+vi.mock('../../services/usuario.service', () => ({
   listarUsuarios: vi.fn(),
   registrarUsuario: vi.fn(),
 }))
-import { listarUsuarios, registrarUsuario } from '../services/usuario.service'
+import { listarUsuarios, registrarUsuario } from '../../services/usuario.service'
 
 const usuariosMock = [
   { id: 1, nombre: 'Ana',   email: 'ana@sifire.cl',   tipo: 'BRIGADISTA' },

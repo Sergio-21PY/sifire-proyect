@@ -1,15 +1,15 @@
 import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { AuthProvider, useAuth } from '../context/AuthContext'
+import { AuthProvider, useAuth } from '../../context/AuthContext'
 
 // Mock del servicio de login
-vi.mock('../services/usuario.service', () => ({
+vi.mock('../../services/usuario.service', () => ({
   login: vi.fn(),
   registrarUsuario: vi.fn(),
   listarUsuarios: vi.fn(),
 }))
-import { login as loginService } from '../services/usuario.service'
+import { login as loginService } from '../../services/usuario.service'
 
 // Componente auxiliar que expone el contexto en el DOM para poder interrogarlo
 function TestConsumer() {

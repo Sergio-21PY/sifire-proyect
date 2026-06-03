@@ -5,7 +5,7 @@ import {
   listarUsuarios,
   obtenerUsuarioPorId,
   eliminarUsuario,
-} from '../services/usuario.service'
+} from '../../services/usuario.service'
 
 function mockOk(data, status = 200) {
   return Promise.resolve({ ok: true, status, json: () => Promise.resolve(data) })

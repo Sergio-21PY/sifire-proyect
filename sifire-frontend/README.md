@@ -1,89 +1,232 @@
-# sifire-frontend — Interfaz de Usuario
+# 🔥 SIFIRE — Frontend
 
-## ¿Qué es?
+> **Asignatura:** DSY1106 — Desarrollo Fullstack III  
+> **Institución:** Duoc UC  
+> **Equipo:** Keiton Chaves · Sergio Soto · Matías Chávez
 
-Aplicación web construida con **React 19 + Vite** que permite a los distintos usuarios de la municipalidad interactuar con el sistema SIFIRE. Se comunica **exclusivamente** con el `ms-bff` en `http://localhost:8080` — nunca habla directamente con los microservicios individuales.
+Aplicación web React para el Sistema Inteligente de Fiscalización y Respuesta ante Emergencias de la Municipalidad Valle del Sol. Permite reportar incendios, coordinar brigadas, monitorear focos en tiempo real y emitir alertas a la comunidad.
 
 ---
 
-## Stack Tecnológico
+## 🛠️ Tecnologías
 
-| Tecnología | Versión | ¿Para qué se usa? |
+| Tecnología | Versión | Propósito |
 |---|---|---|
-| React | 19.x | Framework principal de la UI |
-| Vite | 8.x | Servidor de desarrollo y build |
-| React Router | 7.x | Navegación y rutas protegidas por rol |
-| Axios | 1.x | Llamadas HTTP al BFF |
-| Bootstrap | 5.3 | Estilos y componentes visuales |
-| Leaflet + React-Leaflet | 1.9 / 5.0 | Mapa interactivo de focos y zonas |
-| Leaflet Cluster | 4.x | Agrupación de marcadores en el mapa |
-| Lucide React | 1.8 | Íconos SVG |
+| React | 19 | Framework de UI |
+| Vite | 8 | Bundler y servidor de desarrollo |
+| React Router DOM | 7 | Enrutamiento SPA |
+| Axios | 1.15 | Llamadas HTTP a la API |
+| Leaflet + React Leaflet | 1.9 / 5 | Mapa interactivo de monitoreo |
+| Bootstrap | 5.3 | Estilos base |
+| Vitest | 4 | Framework de testing |
+| Testing Library | 16 | Utilidades de testing para React |
+| V8 Coverage | 4 | Reporte de cobertura de código |
 
 ---
 
-## Estructura de Carpetas
+## 📁 Estructura del proyecto
 
 ```
 sifire-frontend/
-└── src/
-    ├── pages/                   # Pantallas principales
-    │   ├── Login.jsx            # Inicio de sesión
-    │   ├── Registro.jsx         # Registro de nuevo usuario
-    │   ├── Dashboard.jsx        # Panel de control (solo FUNCIONARIO/ADMIN)
-    │   ├── Reportes.jsx         # Crear y listar reportes (todos los roles)
-    │   ├── Monitoreo.jsx        # Mapa interactivo (todos los roles)
-    │   ├── Alertas.jsx          # Gestión de alertas (solo FUNCIONARIO/ADMIN)
-    │   ├── GestionBrigadistas.jsx  # Asignar brigadas (solo FUNCIONARIO/ADMIN)
-    │   ├── MisAsignaciones.jsx  # Ver mis asignaciones (solo BRIGADISTA)
-    │   ├── NoAutorizado.jsx     # Página de acceso denegado
-    │   └── 404.jsx              # Página no encontrada
-    ├── services/                # Funciones de llamadas al BFF
-    │   ├── usuario.service.js
-    │   ├── reporte.service.js
-    │   ├── alerta.service.js
-    │   └── monitoreo.service.js
-    └── components/              # Componentes reutilizables
-        ├── NavbarComponent.jsx
-        ├── FooterComponent.jsx
-        └── RutaProtegida.jsx    # Valida el rol del usuario antes de mostrar la página
+├── public/                  # Archivos estáticos
+├── src/
+│   ├── components/          # Componentes reutilizables
+│   │   ├── brigadistas/     # BrigadistaForm, BrigadistasTabla
+│   │   ├── reportes/        # ReporteForm, MapaSelector, Modales
+│   │   ├── FooterComponent.jsx
+│   │   └── RutaProtegida.jsx
+│   ├── context/
+│   │   └── AuthContext.jsx  # Contexto global de autenticación
+│   ├── hooks/
+│   │   ├── useBrigadas.js
+│   │   ├── useGestionBrigadistas.js
+│   │   └── useReportes.js
+│   ├── pages/               # Vistas principales
+│   │   ├── Login.jsx
+│   │   ├── Registro.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── Alertas.jsx
+│   │   ├── GestionBrigadistas.jsx
+│   │   ├── GestionUsuarios.jsx
+│   │   ├── MisAsignaciones.jsx
+│   │   ├── Monitoreo.jsx
+│   │   └── NoAutorizado.jsx
+│   ├── services/            # Comunicación con los microservicios
+│   │   ├── alerta.service.js
+│   │   ├── monitoreo.service.js
+│   │   ├── reporte.service.js
+│   │   └── usuario.service.js
+│   ├── styles/              # Estilos por componente
+│   └── test/                # Pruebas unitarias
+│       ├── views/           # Tests de páginas
+│       ├── setup.js
+│       └── utils.jsx
+├── package.json
+└── vite.config.js
 ```
 
 ---
 
-## Rutas y Control de Acceso
+## ✅ Pre-requisitos
 
-El componente `RutaProtegida` lee el rol del usuario desde `localStorage` y redirige a `/no-autorizado` si el rol no tiene permiso para esa ruta.
+Antes de instalar, asegúrate de tener:
 
-| Ruta | Acceso | Descripción |
-|---|---|---|
-| `/` y `/login` | Público | Pantalla de inicio de sesión |
-| `/registro` | Público | Formulario de registro |
-| `/reportes` | Todos los roles | Crear y ver reportes de incendio |
-| `/monitoreo` | Todos los roles | Mapa con focos, zonas y brigadas |
-| `/dashboard` | FUNCIONARIO, ADMINISTRADOR | Panel de gestión y estadísticas |
-| `/alertas` | FUNCIONARIO, ADMINISTRADOR | Emitir y gestionar alertas |
-| `/brigadistas` | FUNCIONARIO, ADMINISTRADOR | Asignar brigadas a reportes |
-| `/mis-asignaciones` | BRIGADISTA | Ver los reportes asignados |
+- **Node.js 20+** — [Descargar](https://nodejs.org/)
+- **npm 10+** — incluido con Node.js
+- Los **4 microservicios del backend corriendo** (ver sección de microservicios)
 
 ---
 
-## Levantar en desarrollo
+## 🚀 Instalación y ejecución
+
+### 1. Clonar el repositorio
 
 ```bash
-# Instalar dependencias (solo la primera vez)
-npm install
+git clone https://github.com/Sergio-21PY/sifire-proyect.git
+cd sifire-proyect/sifire-frontend
+```
 
-# Iniciar servidor de desarrollo
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Levantar en modo desarrollo
+
+```bash
 npm run dev
 ```
 
-Accede en: **http://localhost:5173**
+La aplicación estará disponible en **http://localhost:5173**
 
-> ⚠️ Asegúrate de que el `ms-bff` esté corriendo en `http://localhost:8080` antes de usar la aplicación.
+> El servidor de desarrollo incluye un proxy que redirige las llamadas `/api/*` a los microservicios correspondientes. No se necesita configuración adicional para desarrollo local.
 
-## Generar build de producción
+---
+
+## 🔌 Proxy de desarrollo
+
+El `vite.config.js` redirige automáticamente las rutas de API:
+
+| Ruta frontend | Microservicio destino |
+|---|---|
+| `/api/usuarios/*` | `http://localhost:8081` |
+| `/api/reportes/*` | `http://localhost:8082` |
+| `/api/monitoreo/*` | `http://localhost:8083` |
+| `/api/alertas/*` | `http://localhost:8084` |
+
+---
+
+## 🌐 Variables de entorno (opcional)
+
+Para apuntar a un backend en otra URL (por ejemplo, en producción), crea un archivo `.env` en la raíz del frontend:
+
+```env
+VITE_MS_USUARIOS_URL=http://localhost:8081
+VITE_MS_REPORTES_URL=http://localhost:8082
+VITE_MS_MONITOREO_URL=http://localhost:8083
+VITE_MS_ALERTAS_URL=http://localhost:8084
+```
+
+Si no se definen, el sistema usa `localhost` con los puertos por defecto.
+
+---
+
+## 👥 Roles y accesos
+
+| Rol | Acceso a páginas |
+|---|---|
+| **CIUDADANO** | Login, Registro, Reportes (crear y ver propios) |
+| **BRIGADISTA** | Mis Asignaciones, Monitoreo, Reportes |
+| **FUNCIONARIO** | Dashboard, Reportes (gestión), Alertas (emitir), Gestión de Brigadistas, Monitoreo |
+| **ADMINISTRADOR** | Gestión de Usuarios, Alertas (asignar brigadas), Dashboard |
+
+---
+
+## 🧪 Pruebas unitarias
+
+### Correr todos los tests
+
+```bash
+npm test
+```
+
+### Correr tests con reporte de cobertura
+
+```bash
+npm run test:coverage
+```
+
+Genera la tabla de cobertura en la terminal y un reporte HTML en `coverage/index.html`.
+
+### Ver reporte visual interactivo
+
+```bash
+npm run test:ui
+```
+
+Abre una interfaz web en `http://localhost:51204/__vitest__/` con el resultado de cada test.
+
+### Abrir el reporte HTML de cobertura
+
+```bash
+# Mac / Linux
+open coverage/index.html
+
+# Windows
+start coverage/index.html
+```
+
+> **Nota:** Para que los tests de Alertas y Registro corran sin timeouts, los microservicios del backend deben estar levantados.
+
+---
+
+## 📊 Cobertura actual de tests
+
+| Métrica | Resultado |
+|---|---|
+| Archivos de test | 11 |
+| Total de casos | 160 |
+| Statements | 91.1% |
+| Branches | 73.62% |
+| Functions | 84.74% |
+| Lines | 93.45% |
+
+### Distribución de tests por módulo
+
+| Módulo | Archivo de test | Casos |
+|---|---|---|
+| Login | `views/Login.test.jsx` | 18 |
+| Registro | `views/Registro.test.jsx` | 16 |
+| Monitoreo | `views/Monitoreo.test.jsx` | 18 |
+| Dashboard | `views/Dashboard.test.jsx` | 17 |
+| Alertas | `views/Alertas.test.jsx` | 18 |
+| GestionBrigadistas | `views/GestionBrigadistas.test.jsx` | 14 |
+| RutaProtegida | `views/RutaProtegida.test.jsx` | 8 |
+| AuthContext | `AuthContext.test.jsx` | 10 |
+| NoAutorizado | `views/NoAutorizado.test.jsx` | 5 |
+| useBrigadas | `useBrigadas.test.js` | 17 |
+| usuario.service | `usuario.service.test.jsx` | 16 |
+| useGestionBrigadistas | `useGestionBrigadista.test.js` | 20 |
+| **Total** | | **160** |
+
+---
+
+## 📦 Build para producción
 
 ```bash
 npm run build
-npm run preview   # Para revisar el build localmente
 ```
+
+Genera la carpeta `dist/` con los archivos estáticos listos para desplegar.
+
+```bash
+# Vista previa del build
+npm run preview
+```
+
+---
+
+## 🔗 Repositorio
+
+[https://github.com/Sergio-21PY/sifire-proyect](https://github.com/Sergio-21PY/sifire-proyect)
