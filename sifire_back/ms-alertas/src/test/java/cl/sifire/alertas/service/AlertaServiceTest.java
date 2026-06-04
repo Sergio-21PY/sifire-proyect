@@ -1,5 +1,6 @@
 package cl.sifire.alertas.service;
 
+import cl.sifire.alertas.client.UsuarioClient;
 import cl.sifire.alertas.model.Alerta;
 import cl.sifire.alertas.repository.AlertaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,9 @@ class AlertaServiceTest {
 
     @Mock
     private AlertaRepository alertaRepository;
+
+    @Mock
+    private UsuarioClient usuarioClient;
 
     @InjectMocks
     private AlertaService alertaService;
