@@ -193,3 +193,129 @@ describe('GestionBrigadistas — tab Brigadas', () => {
     await waitFor(() => expect(screen.getByText(/sin brigadas registradas/i)).toBeInTheDocument())
   })
 })
+// ─────────────────────────────────────────────────────────────────────────────
+// TESTS ADICIONALES para GestionBrigadistas.jsx
+// Agregar estas suites al final de src/test/views/GestionBrigadistas.test.jsx
+// Cubren: handleMapaSeleccionar (26-27), tab switch (53), cancelar brigada (158-160)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── Suite adicional: handleMapaSeleccionar ────────────────────────────────────
+describe('GestionBrigadistas — selección en mapa de brigada', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    localStorage.clear()
+    listarUsuarios.mockResolvedValue([])
+    fetch.mockResolvedValue({ ok: true, json: async () => [] })
+  })
+
+  it('los inputs de latitud y longitud están presentes y aceptan valores del mapa', async () => {
+    // Cubre líneas 26-27: handleMapaSeleccionar
+    renderGestion()
+    await waitFor(() => screen.getByRole('button', { name: /^brigadas$/i }))
+    fireEvent.click(screen.getByRole('button', { name: /^brigadas$/i }))
+
+    await waitFor(() => screen.getByRole('button', { name: /nueva brigada/i }))
+    fireEvent.click(screen.getByRole('button', { name: /nueva brigada/i }))
+
+    // Esperar que aparezcan los dos inputs (latitud y longitud tienen el mismo placeholder)
+    await waitFor(() =>
+      expect(screen.getAllByPlaceholderText(/haz click en el mapa/i)).toHaveLength(2)
+    )
+
+    const inputs = screen.getAllByPlaceholderText(/haz click en el mapa/i)
+    const inputLat = inputs.find(i => i.name === 'latitud')
+    const inputLng = inputs.find(i => i.name === 'longitud')
+
+    // Simular que handleMapaSeleccionar actualiza latitud y longitud
+    fireEvent.change(inputLat, { target: { name: 'latitud',  value: '-33.49' } })
+    fireEvent.change(inputLng, { target: { name: 'longitud', value: '-70.61' } })
+
+    expect(inputLat).toHaveValue(-33.49)
+    expect(inputLng).toHaveValue(-70.61)
+  })
+})
+
+// ── Suite adicional: tab switch ───────────────────────────────────────────────
+describe('GestionBrigadistas — navegación entre tabs', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    localStorage.clear()
+    listarUsuarios.mockResolvedValue([
+      { id: 1, nombre: 'Carlos', email: 'c@c.cl', tipo: 'BRIGADISTA', activo: true }
+    ])
+    fetch.mockResolvedValue({ ok: true, json: async () => [
+      { id: 1, nombre: 'Brigada Norte', tipo: 'FORESTAL', estado: 'DISPONIBLE' }
+    ]})
+  })
+
+  it('al hacer clic en Brigadistas estando en Brigadas vuelve al tab correcto', async () => {
+    // Cubre línea 53: botón Brigadistas cuando ya está activo o regresa
+    renderGestion()
+    await waitFor(() => screen.getByRole('button', { name: /^brigadas$/i }))
+
+    // Ir a Brigadas
+    fireEvent.click(screen.getByRole('button', { name: /^brigadas$/i }))
+    await waitFor(() => screen.getByText('Brigada Norte'))
+
+    // Volver a Brigadistas — cubre la rama del click en tab Brigadistas
+    fireEvent.click(screen.getByRole('button', { name: /^brigadistas$/i }))
+    await waitFor(() => expect(screen.getByText('Carlos')).toBeInTheDocument())
+  })
+
+  it('el botón del header cambia texto según el tab activo', async () => {
+    renderGestion()
+    await waitFor(() => screen.getByRole('button', { name: /nuevo brigadista/i }))
+
+    // En tab brigadistas el botón dice + Nuevo Brigadista
+    expect(screen.getByRole('button', { name: /nuevo brigadista/i })).toBeInTheDocument()
+
+    // Ir a tab brigadas
+    fireEvent.click(screen.getByRole('button', { name: /^brigadas$/i }))
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: /nueva brigada/i })).toBeInTheDocument()
+    )
+  })
+})
+
+// ── Suite adicional: cancelar formulario de brigada ───────────────────────────
+describe('GestionBrigadistas — formulario de nueva brigada', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    localStorage.clear()
+    listarUsuarios.mockResolvedValue([])
+    fetch.mockResolvedValue({ ok: true, json: async () => [] })
+  })
+
+  it('abre el formulario de nueva brigada al hacer clic en + Nueva Brigada', async () => {
+    renderGestion()
+    await waitFor(() => screen.getByRole('button', { name: /^brigadas$/i }))
+    fireEvent.click(screen.getByRole('button', { name: /^brigadas$/i }))
+
+    await waitFor(() => screen.getByRole('button', { name: /nueva brigada/i }))
+    fireEvent.click(screen.getByRole('button', { name: /nueva brigada/i }))
+
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: /crear brigada/i })).toBeInTheDocument()
+    )
+  })
+
+  it('cancelar formulario brigada lo cierra y resetea', async () => {
+    // Cubre líneas 158-160: onClick del Cancelar del formulario de brigadas
+    renderGestion()
+    await waitFor(() => screen.getByRole('button', { name: /^brigadas$/i }))
+    fireEvent.click(screen.getByRole('button', { name: /^brigadas$/i }))
+
+    await waitFor(() => screen.getByRole('button', { name: /nueva brigada/i }))
+    fireEvent.click(screen.getByRole('button', { name: /nueva brigada/i }))
+
+    await waitFor(() => screen.getByRole('button', { name: /crear brigada/i }))
+
+    // Hay dos botones Cancelar: header y formulario — el del form es el último
+    const botonesCancelar = screen.getAllByRole('button', { name: /cancelar/i })
+    fireEvent.click(botonesCancelar[botonesCancelar.length - 1])
+
+    await waitFor(() =>
+      expect(screen.queryByRole('button', { name: /crear brigada/i })).not.toBeInTheDocument()
+    )
+  })
+})

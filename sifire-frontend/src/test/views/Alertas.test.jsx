@@ -182,3 +182,59 @@ describe('Alertas — filtros de estado', () => {
     })
   })
 })
+
+// ── Suite nueva: handleAsignarBrigadistas ─────────────────────────────────────
+describe('Alertas — asignación de brigadistas (ADMINISTRADOR)', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    localStorage.clear()
+    // Una alerta en estado PENDIENTE para que aparezca el botón Asignar Brigada
+    axios.get.mockResolvedValue({
+      data: [{ id: 5, titulo: 'Alerta Pendiente', mensaje: 'Msg', estado: 'PENDIENTE', canal: 'EMAIL', createdAt: '2024-01-01T10:00:00Z' }]
+    })
+  })
+ 
+  it('llama a axios.post al hacer clic en Asignar Brigada', async () => {
+    // Cubre línea 223: onClick → handleAsignarBrigadistas
+    // Cubre línea 68: axios.post dentro de handleAsignarBrigadistas
+    axios.post.mockResolvedValue({ data: {} })
+    renderAlertas('ADMINISTRADOR')
+ 
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: /asignar brigada/i })).toBeInTheDocument()
+    )
+    fireEvent.click(screen.getByRole('button', { name: /asignar brigada/i }))
+ 
+    await waitFor(() =>
+      expect(axios.post).toHaveBeenCalledWith(
+        expect.stringContaining('/5/asignar-brigadistas')
+      )
+    )
+  })
+ 
+  it('muestra mensaje de éxito tras asignar brigadistas correctamente', async () => {
+    // Cubre líneas 69-70: setExito + setTimeout
+    axios.post.mockResolvedValue({ data: {} })
+    renderAlertas('ADMINISTRADOR')
+ 
+    await waitFor(() => screen.getByRole('button', { name: /asignar brigada/i }))
+    fireEvent.click(screen.getByRole('button', { name: /asignar brigada/i }))
+ 
+    await waitFor(() =>
+      expect(screen.getByText(/brigadistas asignados correctamente/i)).toBeInTheDocument()
+    )
+  })
+ 
+  it('muestra mensaje de error si la asignación falla', async () => {
+    // Cubre línea 73: catch → setError
+    axios.post.mockRejectedValue(new Error('Error al asignar'))
+    renderAlertas('ADMINISTRADOR')
+ 
+    await waitFor(() => screen.getByRole('button', { name: /asignar brigada/i }))
+    fireEvent.click(screen.getByRole('button', { name: /asignar brigada/i }))
+ 
+    await waitFor(() =>
+      expect(screen.getByText(/no se pudo asignar brigadistas/i)).toBeInTheDocument()
+    )
+  })
+})

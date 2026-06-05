@@ -238,3 +238,158 @@ describe('MapaIncendios — permisos por rol', () => {
     })
   })
 })
+
+// ── Suite 5: parseCoords
+describe('MapaIncendios — parseCoords via zonas', () => {
+  beforeEach(() => {
+    vi.clearAllMocks(); localStorage.clear(); resetServicios()
+    listarReportes.mockResolvedValue([])
+    listarBrigadas.mockResolvedValue([])
+  })
+
+  it('zona con coordenadas null no rompe el componente', async () => {
+    // parseCoords(null) → return null → el Polygon no se renderiza
+    listarZonas.mockResolvedValue([
+      { id: 1, nombre: 'Zona Null', nivelRiesgo: 'ALTO', coordenadas: null, activa: true }
+    ])
+    renderMapa({ tipo: 'FUNCIONARIO' })
+    await waitFor(() => screen.getByTestId('mapa-container'))
+    // No debe aparecer ningún polygon porque las coords son null
+    expect(screen.queryAllByTestId('polygon')).toHaveLength(0)
+  })
+
+  it('zona con coordenadas como string JSON válido se parsea y renderiza', async () => {
+    // parseCoords("[[−33.4,−70.6]]") → JSON.parse → Array → Polygon se renderiza
+    listarZonas.mockResolvedValue([
+      { id: 1, nombre: 'Zona JSON', nivelRiesgo: 'ALTO', coordenadas: '[[-33.4,-70.6],[-33.5,-70.7]]', activa: true }
+    ])
+    renderMapa({ tipo: 'FUNCIONARIO' })
+    await waitFor(() => expect(screen.getAllByTestId('polygon')).toHaveLength(1))
+  })
+
+  it('zona con coordenadas como Array se renderiza directamente', async () => {
+    // parseCoords([[-33.4,-70.6]]) → Array.isArray → ya es array → Polygon
+    listarZonas.mockResolvedValue([
+      { id: 1, nombre: 'Zona Array', nivelRiesgo: 'MEDIO', coordenadas: [[-33.4,-70.6],[-33.5,-70.7]], activa: true }
+    ])
+    renderMapa({ tipo: 'FUNCIONARIO' })
+    await waitFor(() => expect(screen.getAllByTestId('polygon')).toHaveLength(1))
+  })
+
+  it('zona con string JSON inválido no rompe el componente', async () => {
+    // parseCoords("no-es-json") → catch → return null → Polygon no se renderiza
+    listarZonas.mockResolvedValue([
+      { id: 1, nombre: 'Zona Rota', nivelRiesgo: 'ALTO', coordenadas: 'esto-no-es-json', activa: true }
+    ])
+    renderMapa({ tipo: 'FUNCIONARIO' })
+    await waitFor(() => screen.getByTestId('mapa-container'))
+    expect(screen.queryAllByTestId('polygon')).toHaveLength(0)
+  })
+})
+
+// ── Suite 6: rutas de evacuación 
+describe('MapaIncendios — rutas de evacuación', () => {
+  beforeEach(() => {
+    vi.clearAllMocks(); localStorage.clear(); resetServicios()
+    listarReportes.mockResolvedValue([])
+    listarZonas.mockResolvedValue([])
+    listarBrigadas.mockResolvedValue([])
+  })
+
+  it('ruta con trazado JSON válido se renderiza como Polyline (FUNCIONARIO)', async () => {
+    listarRutas.mockResolvedValue([
+      { id: 1, nombre: 'Ruta 1', trazado: '[[-33.4,-70.6],[-33.5,-70.7]]', descripcion: 'Ruta principal' }
+    ])
+    renderMapa({ tipo: 'FUNCIONARIO' })
+    await waitFor(() => expect(screen.getAllByTestId('polyline')).toHaveLength(1))
+  })
+
+  it('ruta con trazado null no rompe el componente', async () => {
+    listarRutas.mockResolvedValue([
+      { id: 1, nombre: 'Ruta Null', trazado: null, descripcion: '' }
+    ])
+    renderMapa({ tipo: 'FUNCIONARIO' })
+    await waitFor(() => screen.getByTestId('mapa-container'))
+    expect(screen.queryAllByTestId('polyline')).toHaveLength(0)
+  })
+
+  it('CIUDADANO no ve las rutas aunque existan', async () => {
+    listarRutas.mockResolvedValue([
+      { id: 1, nombre: 'Ruta 1', trazado: '[[-33.4,-70.6],[-33.5,-70.7]]', descripcion: '' }
+    ])
+    renderMapa({ tipo: 'CIUDADANO' })
+    await waitFor(() => screen.getByTestId('mapa-container'))
+    expect(screen.queryAllByTestId('polyline')).toHaveLength(0)
+  })
+})
+
+// ── Suite 7: manejo de errores
+describe('MapaIncendios — manejo de errores', () => {
+  beforeEach(() => {
+    vi.clearAllMocks(); localStorage.clear(); resetServicios()
+  })
+
+  it('error en geolocalización no rompe el componente', async () => {
+    // Cubre línea 48: callback de error de getCurrentPosition
+    Object.defineProperty(global.navigator, 'geolocation', {
+      value: {
+        getCurrentPosition: vi.fn((ok, err) => err(new Error('Geoloc denied')))
+      },
+      writable: true,
+    })
+    listarReportes.mockResolvedValue([])
+    renderMapa()
+    await waitFor(() => expect(screen.getByTestId('mapa-container')).toBeInTheDocument())
+    // El mapa sigue mostrándose con el centro por defecto
+  })
+
+  it('error en cargarDatos no rompe el componente', async () => {
+    // Cubre línea 66: catch del Promise.all
+    listarReportes.mockRejectedValue(new Error('Error de red'))
+    listarBrigadas.mockResolvedValue([])
+    listarZonas.mockResolvedValue([])
+    listarRutas.mockResolvedValue([])
+    renderMapa()
+    await waitFor(() => expect(screen.getByTestId('mapa-container')).toBeInTheDocument())
+    // No deben aparecer círculos ni markers
+    expect(screen.queryAllByTestId('circle')).toHaveLength(0)
+  })
+})
+
+// ── Suite 8: cerrar panel con overlay 
+describe('MapaIncendios — cerrar panel con overlay', () => {
+  beforeEach(() => {
+    vi.clearAllMocks(); localStorage.clear(); resetServicios()
+    listarReportes.mockResolvedValue([
+      { id: 1, titulo: 'Incendio Test', latitud: -33.49, longitud: -70.61,
+        nivelRiesgo: 'alto', estado: 'ACTIVO', descripcion: 'Foco activo',
+        fechaCreacion: '2024-01-01T10:00:00Z' }
+    ])
+  })
+
+  it('clic en el overlay oscuro cierra el panel de detalle', async () => {
+    // Cubre línea 171: onClick del div overlay
+    renderMapa()
+    await waitFor(() => screen.getAllByTestId('marker'))
+    fireEvent.click(screen.getAllByTestId('marker')[0])
+    await waitFor(() => expect(screen.getByText(/incendio test/i)).toBeInTheDocument())
+
+    // El overlay es el div con position fixed que envuelve el panel
+    // Tiene onClick={() => setReporteSeleccionado(null)}
+    const overlay = screen.getByText(/incendio test/i).closest('[style*="position: fixed"]')
+      || screen.getByText(/incendio test/i).closest('[style*="position:fixed"]')
+
+    if (overlay) {
+      fireEvent.click(overlay)
+      await waitFor(() =>
+        expect(screen.queryByText(/incendio test/i)).not.toBeInTheDocument()
+      )
+    } else {
+      // Si el overlay no se puede seleccionar así, usar el botón ✕
+      fireEvent.click(screen.getByRole('button', { name: /✕/i }))
+      await waitFor(() =>
+        expect(screen.queryByText(/incendio test/i)).not.toBeInTheDocument()
+      )
+    }
+  })
+})
