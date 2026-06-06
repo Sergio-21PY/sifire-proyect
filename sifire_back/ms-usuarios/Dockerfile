@@ -14,7 +14,7 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-# Copiar el JAR generado
+# JAR generado
 COPY --from=build /app/target/*.jar app.jar
 
 # ENTRYPOINT optimizado para Java 21
