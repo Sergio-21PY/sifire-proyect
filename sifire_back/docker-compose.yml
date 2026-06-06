@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # --- Contenedor de la Base de Datos MySQL ---
+  db-alertas:
+    image: mysql:8.0
+    container_name: db-alertas
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123  # Docker exige una clave obligatoria para root
+      MYSQL_DATABASE: sifire_alertas       # Nombre exacto de tu base de datos
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_alertas_data:/var/lib/mysql
+    networks:
+      - sifire-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  # --- Tu Microservicio de Alertas ---
+  ms-alertas:
+    image: ms-alertas:latest
+    container_name: ms-alertas
+    ports:
+      - "8084:8084" # Expone el puerto 8084 de tu server.port
+    environment:
+      # Sobrescribimos las propiedades de Spring usando variables de entorno de Docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-alertas:3306/sifire_alertas?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+
+      # URL para el Feign Client (por ahora apunta a localhost, luego cambiará al contenedor de usuarios)
+      - MS-USUARIOS_RIBBON_LISTOFSERVERS=http://localhost:8081
+    depends_on:
+      - db-alertas
+    networks:
+      - sifire-network
+
+# Red interna para intercomunicación entre contenedores
+networks:
+  sifire-network:
+    driver: bridge
+
+# Volumen para que no se borren tus tablas de Flyway/Hibernate al apagar Docker
+volumes:
+  mysql_alertas_data:
