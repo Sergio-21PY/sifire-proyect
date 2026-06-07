@@ -1,54 +1,24 @@
-version: '3.8'
-
 services:
-  # --- Contenedor de la Base de Datos MySQL (Compartido) ---
-  db-alertas:
+  db-mysql:
     image: mysql:8.0
-    container_name: db-alertas
+    container_name: db-mysql
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword123
       MYSQL_DATABASE: sifire_alertas
     ports:
       - "3307:3306"
     volumes:
-      - mysql_alertas_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - sifire-network
     command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpassword123"]
+      interval: 10s
+      timeout: 5s
+      retries: 8
 
-  # --- Microservicio de Alertas ---
-  ms-alertas:
-    image: ms-alertas:latest
-    container_name: ms-alertas
-    ports:
-      - "8084:8084"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db-alertas:3306/sifire_alertas?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=rootpassword123
-      - MS-USUARIOS_RIBBON_LISTOFSERVERS=http://ms-usuarios:8081
-    depends_on:
-      - db-alertas
-    networks:
-      - sifire-network
-
-  # --- Microservicio de Monitoreo ---
-  ms-monitoreo:
-    build:
-      context: ./ms-monitoreo
-    container_name: ms-monitoreo
-    ports:
-      - "8082:8083"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db-alertas:3306/sifire_monitoreo?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=rootpassword123
-    depends_on:
-      - db-alertas
-    networks:
-      - sifire-network
-
-  # --- Microservicio de Usuarios ---
   ms-usuarios:
     build:
       context: ./ms-usuarios
@@ -56,27 +26,80 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db-alertas:3306/sifire_usuarios?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/sifire_usuarios?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=rootpassword123
     depends_on:
-      - db-alertas
+      db-mysql:
+        condition: service_healthy
     networks:
       - sifire-network
 
-  # --- Nuevo Microservicio: Reportes ---
-  ms-reportes:
+  ms-monitoreo:
     build:
-      context: ./ms-reportes  # Docker buscará el Dockerfile en la carpeta ms-reportes
-    container_name: ms-reportes
+      context: ./ms-monitoreo
+    container_name: ms-monitoreo
     ports:
-      - "8083:8082" # Expone el puerto 8083 para Reportes
+      - "8083:8083"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db-alertas:3306/sifire_reportes?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/sifire_monitoreo?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=rootpassword123
+      - MS_ALERTAS_URL=http://ms-alertas:8084
+      - MS_REPORTES_URL=http://ms-reportes:8082
+      - MS_USUARIOS_URL=http://ms-usuarios:8081
     depends_on:
-      - db-alertas
+      db-mysql:
+        condition: service_healthy
+    networks:
+      - sifire-network
+
+  ms-reportes:
+    build:
+      context: ./ms-reportes
+    container_name: ms-reportes
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/sifire_reportes?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+      - MS_ALERTAS_URL=http://ms-alertas:8084
+      - MS_MONITOREO_URL=http://ms-monitoreo:8083
+    depends_on:
+      db-mysql:
+        condition: service_healthy
+    networks:
+      - sifire-network
+
+  ms-alertas:
+    build:
+      context: ./ms-alertas
+    container_name: ms-alertas
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/sifire_alertas?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+      - MS-USUARIOS_RIBBON_LISTOFSERVERS=http://ms-usuarios:8081
+    depends_on:
+      db-mysql:
+        condition: service_healthy
+    networks:
+      - sifire-network
+
+  sifire-frontend:
+    build:
+      context: ../sifire-frontend
+    container_name: sifire-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - ms-usuarios
+      - ms-monitoreo
+      - ms-reportes
+      - ms-alertas
     networks:
       - sifire-network
 
@@ -85,4 +108,4 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_alertas_data:
+  mysql_data:

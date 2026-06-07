@@ -1,0 +1,174 @@
+services:
+  db-usuarios:
+    image: mysql:8.0
+    container_name: db-usuarios
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: sifire_usuarios
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_usuarios_data:/var/lib/mysql
+    networks:
+      - sifire-network
+    command: --default-authentication-plugin=mysql_native_password --lower_case_table_names=1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpassword123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  db-reportes:
+    image: mysql:8.0
+    container_name: db-reportes
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: sifire_reportes
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_reportes_data:/var/lib/mysql
+    networks:
+      - sifire-network
+    command: --default-authentication-plugin=mysql_native_password --lower_case_table_names=1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpassword123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  db-monitoreo:
+    image: mysql:8.0
+    container_name: db-monitoreo
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: sifire_monitoreo
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql_monitoreo_data:/var/lib/mysql
+    networks:
+      - sifire-network
+    command: --default-authentication-plugin=mysql_native_password --lower_case_table_names=1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpassword123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  db-alertas:
+    image: mysql:8.0
+    container_name: db-alertas
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: sifire_alertas
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_alertas_data:/var/lib/mysql
+    networks:
+      - sifire-network
+    command: --default-authentication-plugin=mysql_native_password --lower_case_table_names=1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpassword123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  ms-usuarios:
+    build:
+      context: ./sifire_back/ms-usuarios
+    container_name: ms-usuarios
+    restart: on-failure
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-usuarios:3306/sifire_usuarios?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+    depends_on:
+      db-usuarios:
+        condition: service_healthy
+    networks:
+      - sifire-network
+
+  ms-reportes:
+    build:
+      context: ./sifire_back/ms-reportes
+    container_name: ms-reportes
+    restart: on-failure
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-reportes:3306/sifire_reportes?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+      - MS_ALERTAS_URL=http://ms-alertas:8084
+      - MS_MONITOREO_URL=http://ms-monitoreo:8083
+    depends_on:
+      db-reportes:
+        condition: service_healthy
+    networks:
+      - sifire-network
+
+  ms-monitoreo:
+    build:
+      context: ./sifire_back/ms-monitoreo
+    container_name: ms-monitoreo
+    restart: on-failure
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-monitoreo:3306/sifire_monitoreo?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+      - MS_ALERTAS_URL=http://ms-alertas:8084
+      - MS_REPORTES_URL=http://ms-reportes:8082
+      - MS_USUARIOS_URL=http://ms-usuarios:8081
+    depends_on:
+      db-monitoreo:
+        condition: service_healthy
+    networks:
+      - sifire-network
+
+  ms-alertas:
+    build:
+      context: ./sifire_back/ms-alertas
+    container_name: ms-alertas
+    restart: on-failure
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-alertas:3306/sifire_alertas?useSSL=false&serverTimezone=America/Santiago&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+      - MS_USUARIOS_RIBBON_LISTOFSERVERS=http://ms-usuarios:8081
+    depends_on:
+      db-alertas:
+        condition: service_healthy
+    networks:
+      - sifire-network
+
+  sifire-frontend:
+    build:
+      context: ./sifire-frontend
+    container_name: sifire-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - ms-usuarios
+      - ms-reportes
+      - ms-monitoreo
+      - ms-alertas
+    networks:
+      - sifire-network
+
+networks:
+  sifire-network:
+    driver: bridge
+
+volumes:
+  mysql_usuarios_data:
+  mysql_reportes_data:
+  mysql_monitoreo_data:
+  mysql_alertas_data:

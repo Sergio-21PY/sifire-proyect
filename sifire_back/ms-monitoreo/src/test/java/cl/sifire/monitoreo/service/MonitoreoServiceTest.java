@@ -178,29 +178,38 @@ class MonitoreoServiceTest {
 
     // ── Liberar brigada ───────────────────────────────────────────────────────
 
-    @Test
-    void liberarBrigadaPorReporte_ConAsignaciones_DebePonerDisponible() {
-        AsignacionBrigada asignacion = new AsignacionBrigada();
-        asignacion.setBrigada(brigada);
-        brigada.setEstado(Brigada.EstadoBrigada.EN_CAMINO);
+@Test
+void liberarBrigadaPorReporte_ConAsignaciones_DebePonerDisponible() {
+    AsignacionBrigada asignacion = new AsignacionBrigada();
+    asignacion.setBrigada(brigada);
+    brigada.setEstado(Brigada.EstadoBrigada.EN_CAMINO);
 
-        when(asignacionRepository.findByReporteId(10L)).thenReturn(Arrays.asList(asignacion));
-        when(brigadaRepository.save(any(Brigada.class))).thenReturn(brigada);
+    // ✅ método exacto que usa el service
+    when(asignacionRepository.findByReporteIdAndFechaFinIsNull(10L))
+        .thenReturn(List.of(asignacion));
+    when(asignacionRepository.save(any(AsignacionBrigada.class)))
+        .thenReturn(asignacion);
+    when(brigadaRepository.save(any(Brigada.class)))
+        .thenReturn(brigada);
 
-        monitoreoService.liberarBrigadaPorReporte(10L);
+    monitoreoService.liberarBrigadaPorReporte(10L);
 
-        assertEquals(Brigada.EstadoBrigada.DISPONIBLE, brigada.getEstado());
-        verify(brigadaRepository).save(brigada);
-    }
+    assertEquals(Brigada.EstadoBrigada.DISPONIBLE, brigada.getEstado());
+    assertNotNull(asignacion.getFechaFin()); 
+    verify(asignacionRepository).save(asignacion);
+    verify(brigadaRepository).save(brigada);
+}
 
-    @Test
-    void liberarBrigadaPorReporte_SinAsignaciones_NoDebeGuardar() {
-        when(asignacionRepository.findByReporteId(99L)).thenReturn(Collections.emptyList());
+@Test
+void liberarBrigadaPorReporte_SinAsignaciones_NoDebeGuardar() {
+    when(asignacionRepository.findByReporteIdAndFechaFinIsNull(99L))
+        .thenReturn(Collections.emptyList());
 
-        monitoreoService.liberarBrigadaPorReporte(99L);
+    monitoreoService.liberarBrigadaPorReporte(99L);
 
-        verify(brigadaRepository, never()).save(any());
-    }
+    verify(brigadaRepository, never()).save(any());
+    verify(asignacionRepository, never()).save(any());
+}
 
     // ── Asignaciones por reporte ──────────────────────────────────────────────
 

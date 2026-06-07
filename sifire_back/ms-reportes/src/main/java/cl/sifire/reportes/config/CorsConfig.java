@@ -1,4 +1,5 @@
-package cl.sifire.monitoreo.config; // cambia el package según el microservicio
+package cl.sifire.reportes.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

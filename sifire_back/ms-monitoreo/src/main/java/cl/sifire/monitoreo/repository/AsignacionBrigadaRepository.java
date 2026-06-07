@@ -10,4 +10,5 @@ public interface AsignacionBrigadaRepository extends JpaRepository<AsignacionBri
     List<AsignacionBrigada> findByReporteId(Long reporteId);
     
     List<AsignacionBrigada> findByBrigadaIdAndFechaFinIsNull(Long brigadaId);
+    List<AsignacionBrigada> findByReporteIdAndFechaFinIsNull(Long reporteId);
 }

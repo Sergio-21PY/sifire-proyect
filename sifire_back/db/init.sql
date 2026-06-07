@@ -1,0 +1,4 @@
+CREATE DATABASE IF NOT EXISTS sifire_usuarios;
+CREATE DATABASE IF NOT EXISTS sifire_monitoreo;
+CREATE DATABASE IF NOT EXISTS sifire_reportes;
+CREATE DATABASE IF NOT EXISTS sifire_alertas;

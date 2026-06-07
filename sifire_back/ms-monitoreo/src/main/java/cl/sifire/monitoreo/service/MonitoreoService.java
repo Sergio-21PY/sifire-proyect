@@ -1,5 +1,6 @@
 package cl.sifire.monitoreo.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import cl.sifire.monitoreo.repository.AsignacionBrigadaRepository;
 import cl.sifire.monitoreo.repository.BrigadaRepository;
 import cl.sifire.monitoreo.repository.RutaEvacuacionRepository;
 import cl.sifire.monitoreo.repository.ZonaRiesgoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class MonitoreoService {
@@ -98,17 +100,51 @@ public class MonitoreoService {
      * Libera todas las brigadas asignadas a un reporte cuando este se marca
      * RESUELTO o DESCARTADO. Llamado desde MonitoreoObserver en ms-reportes.
      */
+    // public void liberarBrigadaPorReporte(Long reporteId) {
+    // List<AsignacionBrigada> asignaciones =
+    // asignacionRepository.findByReporteId(reporteId);
+    // if (asignaciones.isEmpty()) {
+    // System.out.println("[MonitoreoService] No hay brigada asignada al reporte: "
+    // + reporteId);
+    // return;
+    // }
+    // for (AsignacionBrigada asignacion : asignaciones) {
+    // Brigada brigada = asignacion.getBrigada();
+    // brigada.setEstado(Brigada.EstadoBrigada.DISPONIBLE);
+    // brigadaRepository.save(brigada);
+    // System.out.println("[MonitoreoService] Brigada ID=" + brigada.getId() + "
+    // liberada (reporte " + reporteId + " cerrado).");
+    // }
+    // }
+    @Transactional
     public void liberarBrigadaPorReporte(Long reporteId) {
-        List<AsignacionBrigada> asignaciones = asignacionRepository.findByReporteId(reporteId);
+        System.out.println(">>> liberarBrigadaPorReporte INICIO reporteId=" + reporteId);
+
+        List<AsignacionBrigada> asignaciones = asignacionRepository.findByReporteIdAndFechaFinIsNull(reporteId);
+
+        System.out.println(">>> asignaciones encontradas=" + asignaciones.size());
+
         if (asignaciones.isEmpty()) {
-            System.out.println("[MonitoreoService] No hay brigada asignada al reporte: " + reporteId);
+            System.out.println(">>> No hay brigada activa para reporteId=" + reporteId);
             return;
         }
+
         for (AsignacionBrigada asignacion : asignaciones) {
+            System.out.println(">>> Asignacion ID=" + asignacion.getId());
+
+            asignacion.setFechaFin(LocalDateTime.now());
+
             Brigada brigada = asignacion.getBrigada();
+            System.out.println(">>> Brigada antes estado=" + brigada.getEstado());
+
             brigada.setEstado(Brigada.EstadoBrigada.DISPONIBLE);
+
+            System.out.println(">>> Brigada despues estado=" + brigada.getEstado());
+
+            asignacionRepository.save(asignacion);
             brigadaRepository.save(brigada);
-            System.out.println("[MonitoreoService] Brigada ID=" + brigada.getId() + " liberada (reporte " + reporteId + " cerrado).");
         }
+
+        System.out.println(">>> liberarBrigadaPorReporte FIN reporteId=" + reporteId);
     }
 }
